@@ -13,6 +13,7 @@ The application provides Addis Ababa University students with easy access to pas
 ## Features
 
 - View past exit exam multiple-choice questions
+- Browse exams by department
 - Browse exams by year
 - Select answers and check correctness
 - Simple and user-friendly interface
