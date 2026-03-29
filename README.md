@@ -17,3 +17,6 @@ The application provides Addis Ababa University students with easy access to pas
 - Browse exams by year
 - Select answers and check correctness
 - Simple and user-friendly interface
+- Timer when doing the exams
+- Choice to do the exams with or without the timer
+- Frequently asked questions about exit exam
