@@ -9,7 +9,6 @@ Startup–Investor Connection Platform is a mobile-based application designed to
 
 ## Group Members
 
-### Section - 2
 
 | Name                     | ID NO.      |
 |--------------------------|-------------|
