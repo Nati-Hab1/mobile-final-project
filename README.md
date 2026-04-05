@@ -57,5 +57,3 @@ Startup–Investor Connection Platform is a mobile-based application designed to
 - **Read:** Users can view their account information.
 - **Update:** Users can update their profile details.
 - **Delete:** Users can delete their accounts permanently.
-
----
