@@ -9,7 +9,6 @@ Startup–Investor Connection Platform is a mobile-based application designed to
 
 ## Group Members
 
-
 | Name                     | ID NO.      |
 |--------------------------|-------------|
 | Wengelle Yohannes        | UGR/2568/16 |
