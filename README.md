@@ -1,5 +1,4 @@
-# Project Title – Menesha (መነሻ)
-# Startup–Investor Connection Platform
+# Project Title – Menesha (መነሻ), Startup–Investor Connection Platform
 
 ## Description
 
