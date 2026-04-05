@@ -1,22 +1,61 @@
-# An app to access past exit exam questions
+# Project Title – Menesha (መነሻ)
+Startup–Investor Connection Platform
 
-The application provides Addis Ababa University students with easy access to past exit exam questions. It allows users to browse, search, and review previous exams by department and year, which makes the preparation for exit exam easier.
+## Description
 
-| Members Full Name     |  ID         |
-|-----------------------|-------------|
-| Wengelle Yohannes     | UGR/2568/16 |
-| Hemen Mengistu        | UGR/2373/16 |
-| Samuel Abraham        | UGR/0041/16 |
-| Ezana Mulatu          | UGR/5768/16 |
-| Natnael Habteselassie | UGR/5666/16 |
+Startup–Investor Connection Platform is a mobile-based application designed to facilitate interaction between startup founders and potential investors. The system allows startup users to present their ideas and funding needs, while investors can explore available opportunities and express their interest. The main goal of the application is to simplify the connection process between startups and investors in a structured and user-friendly environment.
+
+---
+
+## Group Members
+
+### Section - 2
+
+| Name                     | ID NO.      |
+|--------------------------|-------------|
+| Wengelle Yohannes        | UGR/2568/16 |
+| Hemen Mengistu           | UGR/2373/16 |
+| Samuel Abraham           | UGR/0041/16 |
+| Ezana Mulatu             | UGR/5768/16 |
+| Natnael Habteselassie    | UGR/5666/16 |
+
+---
 
 ## Features
 
-- View past exit exam multiple-choice questions
-- Browse exams by department
-- Browse exams by year
-- Select answers and check correctness
-- Simple and user-friendly interface
-- Timer when doing the exams
-- Choice to do the exams with or without the timer
-- Frequently asked questions about exit exam
+### 1. Authentication and Authorization
+
+- **User Registration and Login:** Users can securely sign up and log in using authentication mechanisms handled by the backend.
+- **Logout:** Users can log out of their accounts securely.
+- **Authorization:** The system ensures role-based access control, where startup users and investor users have different permissions within the system.
+
+---
+
+### 2. Business Features and CRUD Operations
+
+#### Startup Post Management
+
+- **Create:** Startup users can create posts describing their startup ideas, goals, and funding needs.
+- **Read:** Users can browse and view all available startup posts.
+- **Update:** Startup users can edit their existing posts to update information.
+- **Delete:** Startup users can remove their posts when they are no longer needed.
+
+---
+
+#### Investor Interest Management
+
+- **Create:** Investors can express interest in a startup post.
+- **Read:** Startup users can view which investors have shown interest.
+- **Update:** Investors can modify their interest or response.
+- **Delete:** Investors can withdraw or remove their interest from a startup.
+
+---
+
+#### User Account Management
+
+- **Create:** Users can register and create an account.
+- **Read:** Users can view their account information.
+- **Update:** Users can update their profile details.
+- **Delete:** Users can delete their accounts permanently.
+
+---
