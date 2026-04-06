@@ -54,3 +54,12 @@ Startup–Investor Connection Platform is a mobile-based application designed to
 - **Read:** Users can view their account information.
 - **Update:** Users can update their profile details.
 - **Delete:** Users can delete their accounts permanently.
+
+---
+
+#### Bookmarking Startups
+
+- **Create:** Investors can bookmark startup posts they are interested in.
+- **Read:** Investors can view all their bookmarked startup posts.
+- **Update:** Investors can add or modify notes/tags on their bookmarked startups.
+- **Delete:** Investors can remove startup posts from their bookmarks.
