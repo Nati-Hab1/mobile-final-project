@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/home/feature_card.dart';
 import 'package:menesha/core/widgets/common/app_footer.dart';
-import 'package:menesha/core/widgets/home/header.dart';
+import 'package:menesha/core/widgets/common/app_header.dart';
 
 /// Guest / unauthenticated home screen — route: /guest
 class GuestDashboard extends StatelessWidget {
