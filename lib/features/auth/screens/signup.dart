@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/theme/app_theme.dart';
-import 'package:menesha/features/common/screens/app_logo.dart';
-import 'package:menesha/features/common/screens/auth_text_field.dart';
-import 'package:menesha/features/common/screens/primary_button.dart';
-import 'package:menesha/features/common/screens/wavy_background.dart';
+import 'package:menesha/core/widgets/common/app_logo.dart';
+import 'package:menesha/core/widgets/auth/auth_text_field.dart';
+import 'package:menesha/core/widgets/common/primary_button.dart';
+import 'package:menesha/core/widgets/common/wavy_background.dart';
 
 /// Register / Sign Up screen — route: /register
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
   @override
-  State<SignupScreen> createState() =>
-      _SignupScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState
-    extends State<SignupScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _fullNameController =
-      TextEditingController();
-  final _emailController =
-      TextEditingController();
-  final _phoneController =
-      TextEditingController();
-  final _passwordController =
-      TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -37,8 +31,7 @@ class _SignupScreenState
   }
 
   void _handleRegister() {
-    if (_formKey.currentState?.validate() ??
-        false) {
+    if (_formKey.currentState?.validate() ?? false) {
       // Navigate to role selection (no state management — UI only)
       context.go('/role-selection');
     }
@@ -68,8 +61,7 @@ class _SignupScreenState
                   const Text(
                     'Create Account',
                     style: TextStyle(
-                      color:
-                          AppColors.textPrimary,
+                      color: AppColors.textPrimary,
                       fontSize: 26,
                       fontWeight: FontWeight.w800,
                     ),
@@ -78,8 +70,7 @@ class _SignupScreenState
                   const Text(
                     'warm Introduction Assistant',
                     style: TextStyle(
-                      color:
-                          AppColors.textSecondary,
+                      color: AppColors.textSecondary,
                       fontSize: 13,
                     ),
                   ),
@@ -88,13 +79,11 @@ class _SignupScreenState
                   // Full Name
                   AuthTextField(
                     label: 'FullName',
-                    controller:
-                        _fullNameController,
-                    validator: (v) => (v ==
-                                null ||
-                            v.trim().isEmpty)
-                        ? 'Full name is required'
-                        : null,
+                    controller: _fullNameController,
+                    validator: (v) =>
+                        (v == null || v.trim().isEmpty)
+                            ? 'Full name is required'
+                            : null,
                   ),
                   const SizedBox(height: 16),
 
@@ -102,11 +91,10 @@ class _SignupScreenState
                   AuthTextField(
                     label: 'Email',
                     controller: _emailController,
-                    keyboardType: TextInputType
-                        .emailAddress,
+                    keyboardType:
+                        TextInputType.emailAddress,
                     validator: (v) {
-                      if (v == null ||
-                          v.trim().isEmpty)
+                      if (v == null || v.trim().isEmpty)
                         return 'Email is required';
                       if (!v.contains('@'))
                         return 'Enter a valid email';
@@ -119,21 +107,18 @@ class _SignupScreenState
                   AuthTextField(
                     label: 'Phone Number',
                     controller: _phoneController,
-                    keyboardType:
-                        TextInputType.phone,
-                    validator: (v) => (v ==
-                                null ||
-                            v.trim().isEmpty)
-                        ? 'Phone number is required'
-                        : null,
+                    keyboardType: TextInputType.phone,
+                    validator: (v) =>
+                        (v == null || v.trim().isEmpty)
+                            ? 'Phone number is required'
+                            : null,
                   ),
                   const SizedBox(height: 16),
 
                   // Password
                   AuthTextField(
                     label: 'Create Password',
-                    controller:
-                        _passwordController,
+                    controller: _passwordController,
                     isPassword: true,
                     validator: (v) {
                       if (v == null || v.isEmpty)
@@ -163,15 +148,13 @@ class _SignupScreenState
                         ),
                       ),
                       const Padding(
-                        padding:
-                            EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 12,
                         ),
                         child: Text(
                           'or sign up with email',
                           style: TextStyle(
-                            color: AppColors
-                                .textMuted,
+                            color: AppColors.textMuted,
                             fontSize: 12,
                           ),
                         ),
@@ -195,22 +178,19 @@ class _SignupScreenState
                       const Text(
                         'Already have an account? ',
                         style: TextStyle(
-                          color: AppColors
-                              .textSecondary,
+                          color: AppColors.textSecondary,
                           fontSize: 13,
                         ),
                       ),
                       GestureDetector(
-                        onTap: () =>
-                            context.go('/login'),
+                        onTap: () => context.go('/login'),
                         child: const Text(
                           'Log in',
                           style: TextStyle(
-                            color: AppColors
-                                .accentBlueBright,
+                            color:
+                                AppColors.accentBlueBright,
                             fontSize: 13,
-                            fontWeight:
-                                FontWeight.w700,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),

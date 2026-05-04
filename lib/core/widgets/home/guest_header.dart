@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:menesha/features/common/screens/app_logo.dart';
+import 'package:menesha/core/widgets/common/app_logo.dart';
 
 /// Fixed top header for the Guest (unauthenticated) screens.
 /// WHITE background, logo + optional action widgets on the right.
@@ -14,8 +14,7 @@ class GuestHeader extends StatelessWidget
   final List<Widget>? actions;
 
   @override
-  Size get preferredSize =>
-      const Size.fromHeight(52);
+  Size get preferredSize => const Size.fromHeight(52);
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +25,8 @@ class GuestHeader extends StatelessWidget
         child: SizedBox(
           height: 52,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 16),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
                 const AppLogo(

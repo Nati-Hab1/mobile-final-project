@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/theme/app_theme.dart';
-import 'package:menesha/features/common/screens/primary_button.dart';
-import 'package:menesha/features/common/screens/wavy_background.dart';
+import 'package:menesha/core/widgets/common/primary_button.dart';
+import 'package:menesha/core/widgets/common/wavy_background.dart';
 
 /// Role Selection screen shown after successful login/register.
 /// Lets the user pick Investor or Startup. — route: /role-selection
-class RoleSelectionScreen
-    extends StatelessWidget {
+class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
 
   @override

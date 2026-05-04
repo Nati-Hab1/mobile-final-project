@@ -8,6 +8,7 @@ import 'package:menesha/features/auth/screens/splash_screen.dart';
 import 'package:menesha/features/auth/screens/role_selection.dart';
 import 'package:menesha/features/common/screens/about_us.dart';
 import 'package:menesha/features/common/screens/terms.dart';
+import 'package:menesha/features/common/screens/contact_us.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -52,6 +53,11 @@ final GoRouter appRouter = GoRouter(
       path: '/terms',
       name: 'terms',
       builder: (context, state) => const Terms(),
+    ),
+    GoRoute(
+      path: '/contact_us',
+      name: 'contactUs',
+      builder: (context, state) => const ContactUs(),
     ),
   ],
   errorBuilder: (context, state) => Scaffold(

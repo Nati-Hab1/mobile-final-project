@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/theme/app_theme.dart';
-import 'package:menesha/features/common/screens/app_logo.dart';
-import 'package:menesha/features/common/screens/auth_text_field.dart';
-import 'package:menesha/features/common/screens/primary_button.dart';
-import 'package:menesha/features/common/screens/wavy_background.dart';
+import 'package:menesha/core/widgets/common/app_logo.dart';
+import 'package:menesha/core/widgets/auth/auth_text_field.dart';
+import 'package:menesha/core/widgets/common/primary_button.dart';
+import 'package:menesha/core/widgets/common/wavy_background.dart';
 
 /// Login screen — route: /login
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() =>
-      _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState
-    extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _usernameController =
-      TextEditingController();
-  final _passwordController =
-      TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -31,8 +27,7 @@ class _LoginScreenState
   }
 
   void _handleLogin() {
-    if (_formKey.currentState?.validate() ??
-        false) {
+    if (_formKey.currentState?.validate() ?? false) {
       // Navigate to role selection (no state management — UI only)
       context.go('/role-selection');
     }
@@ -62,8 +57,7 @@ class _LoginScreenState
                   const Text(
                     'Welcome back',
                     style: TextStyle(
-                      color:
-                          AppColors.textPrimary,
+                      color: AppColors.textPrimary,
                       fontSize: 26,
                       fontWeight: FontWeight.w800,
                     ),
@@ -72,8 +66,7 @@ class _LoginScreenState
                   const Text(
                     'warm Introduction Assistant',
                     style: TextStyle(
-                      color:
-                          AppColors.textSecondary,
+                      color: AppColors.textSecondary,
                       fontSize: 13,
                     ),
                   ),
@@ -82,36 +75,30 @@ class _LoginScreenState
                   // Username field
                   AuthTextField(
                     label: 'Username',
-                    controller:
-                        _usernameController,
-                    keyboardType:
-                        TextInputType.text,
-                    validator: (v) => (v ==
-                                null ||
-                            v.trim().isEmpty)
-                        ? 'Username is required'
-                        : null,
+                    controller: _usernameController,
+                    keyboardType: TextInputType.text,
+                    validator: (v) =>
+                        (v == null || v.trim().isEmpty)
+                            ? 'Username is required'
+                            : null,
                   ),
                   const SizedBox(height: 18),
 
                   // Password field
                   AuthTextField(
                     label: 'Password',
-                    controller:
-                        _passwordController,
+                    controller: _passwordController,
                     isPassword: true,
-                    validator: (v) => (v ==
-                                null ||
-                            v.isEmpty)
-                        ? 'Password is required'
-                        : null,
+                    validator: (v) =>
+                        (v == null || v.isEmpty)
+                            ? 'Password is required'
+                            : null,
                   ),
                   const SizedBox(height: 10),
 
                   // Forget password
                   Align(
-                    alignment:
-                        Alignment.centerLeft,
+                    alignment: Alignment.centerLeft,
                     child: GestureDetector(
                       onTap: () {
                         // Placeholder — no backend
@@ -119,11 +106,9 @@ class _LoginScreenState
                       child: const Text(
                         'Forget password?',
                         style: TextStyle(
-                          color: AppColors
-                              .accentBlueBright,
+                          color: AppColors.accentBlueBright,
                           fontSize: 13,
-                          fontWeight:
-                              FontWeight.w600,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -148,15 +133,13 @@ class _LoginScreenState
                         ),
                       ),
                       const Padding(
-                        padding:
-                            EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 12,
                         ),
                         child: Text(
                           'or sign in with email',
                           style: TextStyle(
-                            color: AppColors
-                                .textMuted,
+                            color: AppColors.textMuted,
                             fontSize: 12,
                           ),
                         ),
@@ -180,8 +163,7 @@ class _LoginScreenState
                       const Text(
                         "Don't have an account? ",
                         style: TextStyle(
-                          color: AppColors
-                              .textSecondary,
+                          color: AppColors.textSecondary,
                           fontSize: 13,
                         ),
                       ),
@@ -192,11 +174,10 @@ class _LoginScreenState
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(
-                            color: AppColors
-                                .accentBlueBright,
+                            color:
+                                AppColors.accentBlueBright,
                             fontSize: 13,
-                            fontWeight:
-                                FontWeight.w700,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),

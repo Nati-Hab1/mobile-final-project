@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/theme/app_theme.dart';
-import 'package:menesha/features/common/screens/app_logo.dart';
-import 'package:menesha/features/common/screens/feature_card.dart';
-import 'package:menesha/features/common/screens/app_footer.dart';
-import 'package:menesha/features/common/screens/guest_header.dart';
-import 'package:menesha/features/common/screens/wavy_background.dart';
+import 'package:menesha/core/widgets/common/app_logo.dart';
+import 'package:menesha/core/widgets/home/feature_card.dart';
+import 'package:menesha/core/widgets/common/app_footer.dart';
+import 'package:menesha/core/widgets/home/guest_header.dart';
+import 'package:menesha/core/widgets/common/wavy_background.dart';
 
 /// Authenticated user home — route: /home
 class UserHome extends StatelessWidget {
@@ -18,15 +18,13 @@ class UserHome extends StatelessWidget {
       appBar: GuestHeader(
         actions: [
           GestureDetector(
-            onTap: () =>
-                context.go('/role-selection'),
+            onTap: () => context.go('/role-selection'),
             child: Container(
               padding: const EdgeInsets.symmetric(
                   horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
                 color: AppColors.accentBlueBright,
-                borderRadius:
-                    BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: const Text(
                 'Dashboard',
@@ -46,16 +44,13 @@ class UserHome extends StatelessWidget {
                   horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: AppColors
-                        .accentBlueBright),
-                borderRadius:
-                    BorderRadius.circular(16),
+                    color: AppColors.accentBlueBright),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Text(
                 'Log out',
                 style: TextStyle(
-                  color:
-                      AppColors.accentBlueBright,
+                  color: AppColors.accentBlueBright,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
@@ -66,8 +61,7 @@ class UserHome extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
             _HeroBody(),
             SizedBox(height: 24),
@@ -90,13 +84,10 @@ class _HeroBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return WavyBackground(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-            24, 40, 24, 52),
+        padding: const EdgeInsets.fromLTRB(24, 40, 24, 52),
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center,
-          crossAxisAlignment:
-              CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
             AppLogo(size: 52),
             SizedBox(height: 20),
@@ -134,8 +125,7 @@ class _FeatureSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: const [
           FeatureCard(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/theme/app_theme.dart';
-import 'package:menesha/features/common/screens/app_logo.dart';
+import 'package:menesha/core/widgets/common/app_logo.dart';
 
 /// Fixed top header for the authenticated User Home screen.
 /// Shows logo on the left, Dashboard pill + Log out button on the right.
@@ -12,18 +12,14 @@ class UserHeader extends StatelessWidget
   const UserHeader({super.key});
 
   @override
-  Size get preferredSize =>
-      const Size.fromHeight(68);
+  Size get preferredSize => const Size.fromHeight(68);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Color(0xFF3D4F8A),
-            Color(0xFF2E3A6E)
-          ],
+          colors: [Color(0xFF3D4F8A), Color(0xFF2E3A6E)],
         ),
         boxShadow: [
           BoxShadow(
@@ -41,24 +37,18 @@ class UserHeader extends StatelessWidget
           child: Row(
             children: [
               // Brand logo
-              const AppLogo(
-                  size: 40, showLabel: false),
+              const AppLogo(size: 40, showLabel: false),
               const Spacer(),
 
               // Dashboard pill
               GestureDetector(
-                onTap: () =>
-                    context.go('/role-selection'),
+                onTap: () => context.go('/role-selection'),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    color: AppColors
-                        .accentBlueBright,
-                    borderRadius:
-                        BorderRadius.circular(20),
+                    color: AppColors.accentBlueBright,
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Text(
                     'Dashboard',
@@ -76,15 +66,12 @@ class UserHeader extends StatelessWidget
               GestureDetector(
                 onTap: () => context.go('/guest'),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Colors.white60),
-                    borderRadius:
-                        BorderRadius.circular(20),
+                    border:
+                        Border.all(color: Colors.white60),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: const Text(
                     'Log out',

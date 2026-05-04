@@ -60,8 +60,7 @@ class AppTheme {
         seedColor: AppColors.accentBlue,
         brightness: Brightness.dark,
       ),
-      scaffoldBackgroundColor:
-          AppColors.backgroundDark,
+      scaffoldBackgroundColor: AppColors.backgroundDark,
       fontFamily: 'Roboto',
     );
   }
