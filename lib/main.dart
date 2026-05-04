@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import './core/routing/app_router.dart';
+import 'package:menesha/core/routing/app_router.dart';
+import 'package:menesha/core/theme/app_theme.dart';
 
 void main() {
-  runApp(const Menesha());
+  runApp(const MeneshaApp());
 }
 
-class Menesha extends StatelessWidget {
-  const Menesha({super.key});
+class MeneshaApp extends StatelessWidget {
+  const MeneshaApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Menesha',
-      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.theme,
+      routerConfig: appRouter,
     );
   }
 }
