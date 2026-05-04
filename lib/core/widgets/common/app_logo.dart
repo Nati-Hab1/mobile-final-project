@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:menesha/core/theme/app_theme.dart';
 
 /// Menesha brand logo widget.
 /// Shows the stylized "M" icon with optional label underneath.
@@ -27,7 +26,9 @@ class AppLogo extends StatelessWidget {
             shape: BoxShape.circle,
             color: darkBackground
                 ? Colors.white
-                : AppColors.backgroundDark,
+                : Color(
+                    0xFF2E3A6E,
+                  ),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(
@@ -51,8 +52,12 @@ class AppLogo extends StatelessWidget {
             'Menesha',
             style: TextStyle(
               color: darkBackground
-                  ? AppColors.textPrimary
-                  : AppColors.backgroundDark,
+                  ? Color(
+                      0xFFFFFFFF,
+                    )
+                  : Color(
+                      0xFF2E3A6E,
+                    ),
               fontSize: size * 0.22,
               fontWeight: FontWeight.w600,
               letterSpacing: 0.5,
@@ -93,10 +98,13 @@ class _MLogoPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final bodyColor = darkBackground
-        ? AppColors.backgroundDark
+        ? Color(
+            0xFF2E3A6E,
+          )
         : Colors.white;
-    final accentColor =
-        AppColors.accentBlueBright;
+    final accentColor = Color(
+      0xFF2952FF,
+    );
     final starColor = const Color(
       0xFFFFD700,
     ); // Gold for star accent
@@ -156,5 +164,6 @@ class _MLogoPainter extends CustomPainter {
   @override
   bool shouldRepaint(
     covariant CustomPainter oldDelegate,
-  ) => false;
+  ) =>
+      false;
 }

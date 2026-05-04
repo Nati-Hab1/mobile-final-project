@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:menesha/core/theme/app_theme.dart';
 
 /// Card widget displaying a platform feature (Investor Queue, Startup Showcase, etc.)
 class FeatureCard extends StatelessWidget {
@@ -27,11 +26,15 @@ class FeatureCard extends StatelessWidget {
           vertical: 18,
         ),
         decoration: BoxDecoration(
-          color: AppColors.cardBackground,
+          color: Color(
+            0xFFFFFFFF,
+          ),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: AppColors.cardShadow,
+              color: Color(
+                0x1A000000,
+              ),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -45,14 +48,17 @@ class FeatureCard extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: AppColors.backgroundLight
-                    .withOpacity(0.12),
+                color: Color(
+                  0xFF4A5FA8,
+                ).withOpacity(0.12),
                 borderRadius:
                     BorderRadius.circular(8),
               ),
               child: Icon(
                 icon,
-                color: AppColors.backgroundDark,
+                color: Color(
+                  0xFF2E3A6E,
+                ),
                 size: 22,
               ),
             ),
@@ -65,8 +71,9 @@ class FeatureCard extends StatelessWidget {
                   Text(
                     title,
                     style: const TextStyle(
-                      color: AppColors
-                          .backgroundDark,
+                      color: Color(
+                        0xFF2E3A6E,
+                      ),
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                     ),

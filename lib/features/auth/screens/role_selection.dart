@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/theme/app_theme.dart';
 import 'package:menesha/core/widgets/common/primary_button.dart';
-import 'package:menesha/core/widgets/common/wavy_background.dart';
 
 /// Role Selection screen shown after successful login/register.
 /// Lets the user pick Investor or Startup. — route: /role-selection
-class RoleSelectionScreen extends StatelessWidget {
+class RoleSelectionScreen
+    extends StatelessWidget {
   const RoleSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WavyBackground(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 32,
-            ),
-            child: _RoleCard(),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            'assets/images/background.png',
+            fit: BoxFit.cover,
           ),
-        ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 32,
+              ),
+              child: _RoleCard(),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -53,7 +59,7 @@ class _RoleCard extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: AppColors.backgroundLight
+              color: Color(0xFF4A5FA8)
                   .withOpacity(0.12),
               borderRadius: BorderRadius.circular(
                 30,
@@ -62,7 +68,7 @@ class _RoleCard extends StatelessWidget {
             child: const Icon(
               Icons.people_outline,
               size: 32,
-              color: AppColors.backgroundDark,
+              color: Color(0xFF2E3A6E),
             ),
           ),
           const SizedBox(height: 20),
@@ -71,7 +77,7 @@ class _RoleCard extends StatelessWidget {
           const Text(
             'Choose Role',
             style: TextStyle(
-              color: AppColors.backgroundDark,
+              color: Color(0xFF2E3A6E),
               fontSize: 20,
               fontWeight: FontWeight.w800,
             ),
@@ -95,7 +101,6 @@ class _RoleCard extends StatelessWidget {
             label: 'Investor',
             isOutlined: true,
             onPressed: () {
-              // Navigate to investor dashboard (handled by teammate)
               context.go('/home');
             },
           ),
@@ -105,7 +110,6 @@ class _RoleCard extends StatelessWidget {
           PrimaryButton(
             label: 'Startup',
             onPressed: () {
-              // Navigate to startup dashboard (handled by teammate)
               context.go('/home');
             },
           ),

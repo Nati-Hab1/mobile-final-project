@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:menesha/core/theme/app_theme.dart';
 
 /// Reusable text field styled for the auth screens (Login / Sign Up).
 class AuthTextField extends StatefulWidget {
@@ -40,7 +39,7 @@ class _AuthTextFieldState
         Text(
           widget.label,
           style: const TextStyle(
-            color: AppColors.textPrimary,
+            color: Colors.white,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
@@ -60,17 +59,17 @@ class _AuthTextFieldState
           decoration: InputDecoration(
             hintText: widget.hint,
             hintStyle: TextStyle(
-              color: AppColors.textMuted
+              color: Color(0xFF8B9BC8)
                   .withOpacity(0.6),
               fontSize: 13,
             ),
             filled: true,
-            fillColor: AppColors.inputBackground,
+            fillColor: Color(0xFFDDE3F5),
             contentPadding:
                 const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 14,
-                ),
+              horizontal: 16,
+              vertical: 14,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
                 8,
@@ -88,7 +87,7 @@ class _AuthTextFieldState
                 8,
               ),
               borderSide: const BorderSide(
-                color: AppColors.accentBlueBright,
+                color: Color(0xFF2952FF),
                 width: 1.5,
               ),
             ),
@@ -107,7 +106,7 @@ class _AuthTextFieldState
                       _obscureText
                           ? Icons.visibility_off
                           : Icons.visibility,
-                      color: AppColors.textMuted,
+                      color: Color(0xFF8B9BC8),
                       size: 20,
                     ),
                     onPressed: () {

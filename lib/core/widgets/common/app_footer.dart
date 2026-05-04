@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/theme/app_theme.dart';
-import 'package:menesha/core/widgets/common/app_logo.dart';
 
-/// Fixed footer — white background, compact height.
+/// Footer — scrolls with page content (placed inside SingleChildScrollView).
 class AppFooter extends StatelessWidget {
   const AppFooter({super.key});
 
@@ -15,15 +13,21 @@ class AppFooter extends StatelessWidget {
           horizontal: 20, vertical: 14),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
             children: [
-              const AppLogo(
-                  size: 28,
-                  showLabel: false,
-                  darkBackground: false),
+              ClipOval(
+                child: Image.asset(
+                  'assets/images/Menesha.jpg',
+                  width: 28,
+                  height: 28,
+                  fit: BoxFit.cover,
+                ),
+              ),
               const SizedBox(width: 8),
               const Expanded(
                 child: Column(
@@ -34,8 +38,9 @@ class AppFooter extends StatelessWidget {
                     Text(
                       'Menesha',
                       style: TextStyle(
-                        color: AppColors.backgroundDark,
-                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF2E3A6E),
+                        fontWeight:
+                            FontWeight.w700,
                         fontSize: 12,
                       ),
                     ),
@@ -60,7 +65,7 @@ class AppFooter extends StatelessWidget {
                   const Text(
                     'Nav Links',
                     style: TextStyle(
-                      color: AppColors.backgroundDark,
+                      color: Color(0xFF2E3A6E),
                       fontWeight: FontWeight.w700,
                       fontSize: 11,
                     ),
@@ -68,22 +73,21 @@ class AppFooter extends StatelessWidget {
                   const SizedBox(height: 4),
                   _FooterLink(
                       label: 'Home',
-                      onTap: () => context.go('/guest')),
+                      onTap: () =>
+                          context.go('/guest')),
                   _FooterLink(
                       label: 'About Us',
-                      onTap: () {
-                        context.pushNamed("aboutUs");
-                      }),
+                      onTap: () => context
+                          .pushNamed('aboutUs')),
                   _FooterLink(
                       label: 'Contact Us',
-                      onTap: () {
-                        context.pushNamed("contactUs");
-                      }),
+                      onTap: () =>
+                          context.pushNamed(
+                              'contactUs')),
                   _FooterLink(
                       label: 'Terms of Service',
-                      onTap: () {
-                        context.pushNamed("terms");
-                      }),
+                      onTap: () => context
+                          .pushNamed('terms')),
                 ],
               ),
             ],
@@ -119,11 +123,13 @@ class _FooterLink extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2),
+        padding: const EdgeInsets.symmetric(
+            vertical: 2),
         child: Text(
           label,
           style: const TextStyle(
-              color: Color(0xFF5A6A9A), fontSize: 10),
+              color: Color(0xFF5A6A9A),
+              fontSize: 10),
         ),
       ),
     );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:menesha/core/theme/app_theme.dart';
 
 /// Primary full-width action button used across the app.
 class PrimaryButton extends StatelessWidget {
@@ -30,7 +29,7 @@ class PrimaryButton extends StatelessWidget {
           onPressed: onPressed,
           style: OutlinedButton.styleFrom(
             side: const BorderSide(
-              color: AppColors.accentBlueBright,
+              color: Color(0xFF2952FF),
               width: 1.5,
             ),
             shape: RoundedRectangleBorder(
@@ -43,8 +42,7 @@ class PrimaryButton extends StatelessWidget {
             label,
             style: TextStyle(
               color:
-                  textColor ??
-                  AppColors.accentBlueBright,
+                  textColor ?? Color(0xFF2952FF),
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
@@ -59,9 +57,8 @@ class PrimaryButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor:
-              backgroundColor ??
-              AppColors.accentBlue,
+          backgroundColor: backgroundColor ??
+              Color(0xFF1A3CC8),
           foregroundColor:
               textColor ?? Colors.white,
           elevation: 2,
