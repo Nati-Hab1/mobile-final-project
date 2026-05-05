@@ -8,17 +8,13 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() =>
-      _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState
-    extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _usernameController =
-      TextEditingController();
-  final _passwordController =
-      TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -28,9 +24,8 @@ class _LoginScreenState
   }
 
   void _handleLogin() {
-    if (_formKey.currentState?.validate() ??
-        false) {
-      context.go('/role-selection');
+    if (_formKey.currentState?.validate() ?? false) {
+      context.goNamed('home');
     }
   }
 
@@ -73,8 +68,7 @@ class _LoginScreenState
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 26,
-                        fontWeight:
-                            FontWeight.w800,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -90,46 +84,38 @@ class _LoginScreenState
                     // Username field
                     AuthTextField(
                       label: 'Username',
-                      controller:
-                          _usernameController,
-                      keyboardType:
-                          TextInputType.text,
-                      validator: (v) => (v ==
-                                  null ||
-                              v.trim().isEmpty)
-                          ? 'Username is required'
-                          : null,
+                      controller: _usernameController,
+                      keyboardType: TextInputType.text,
+                      validator: (v) =>
+                          (v == null || v.trim().isEmpty)
+                              ? 'Username is required'
+                              : null,
                     ),
                     const SizedBox(height: 18),
 
                     // Password field
                     AuthTextField(
                       label: 'Password',
-                      controller:
-                          _passwordController,
+                      controller: _passwordController,
                       isPassword: true,
-                      validator: (v) => (v ==
-                                  null ||
-                              v.isEmpty)
-                          ? 'Password is required'
-                          : null,
+                      validator: (v) =>
+                          (v == null || v.isEmpty)
+                              ? 'Password is required'
+                              : null,
                     ),
                     const SizedBox(height: 10),
 
                     // Forget password
                     Align(
-                      alignment:
-                          Alignment.centerLeft,
+                      alignment: Alignment.centerLeft,
                       child: GestureDetector(
                         onTap: () {},
                         child: const Text(
                           'Forget password?',
                           style: TextStyle(
-                            color:
-                                Color(0xFF2952FF),
+                            color: Color(0xFF2952FF),
                             fontSize: 13,
-                            fontWeight:
-                                FontWeight.w600,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
@@ -144,32 +130,28 @@ class _LoginScreenState
                     const SizedBox(height: 24),
 
                     // Divider with label
-                    Row(
-                      children: const [
+                    const Row(
+                      children: [
                         Expanded(
                           child: Divider(
-                            color:
-                                Color(0xFF5A6A9A),
+                            color: Color(0xFF5A6A9A),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets
-                              .symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 12,
                           ),
                           child: Text(
                             'or sign in with email',
                             style: TextStyle(
-                              color: Color(
-                                  0xFF8B9BC8),
+                              color: Color(0xFF8B9BC8),
                               fontSize: 12,
                             ),
                           ),
                         ),
                         Expanded(
                           child: Divider(
-                            color:
-                                Color(0xFF5A6A9A),
+                            color: Color(0xFF5A6A9A),
                           ),
                         ),
                       ],
@@ -179,28 +161,24 @@ class _LoginScreenState
                     // Sign up link
                     Row(
                       mainAxisAlignment:
-                          MainAxisAlignment
-                              .center,
+                          MainAxisAlignment.center,
                       children: [
                         const Text(
                           "Don't have an account? ",
                           style: TextStyle(
-                            color:
-                                Color(0xFFCDD5F3),
+                            color: Color(0xFFCDD5F3),
                             fontSize: 13,
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => context
-                              .go('/register'),
+                          onTap: () =>
+                              context.goNamed('register'),
                           child: const Text(
                             'Sign Up',
                             style: TextStyle(
-                              color: Color(
-                                  0xFF2952FF),
+                              color: Color(0xFF2952FF),
                               fontSize: 13,
-                              fontWeight:
-                                  FontWeight.w700,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),

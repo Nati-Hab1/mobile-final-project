@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/common/app_footer.dart';
 
 class AboutUs extends StatelessWidget {
   const AboutUs({super.key});
@@ -24,7 +25,7 @@ class AboutUs extends StatelessWidget {
                 style: const TextStyle(color: Colors.white),
                 child: Column(
                   children: [
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     const Text(
                       "About Us",
                       style: TextStyle(fontSize: 25),
@@ -182,7 +183,7 @@ class AboutUs extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 60),
-                    const Text("data"),
+                    const AppFooter(),
                   ],
                 ),
               ),

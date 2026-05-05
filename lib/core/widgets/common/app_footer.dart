@@ -13,12 +13,10 @@ class AppFooter extends StatelessWidget {
           horizontal: 20, vertical: 14),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipOval(
                 child: Image.asset(
@@ -39,8 +37,7 @@ class AppFooter extends StatelessWidget {
                       'Menesha',
                       style: TextStyle(
                         color: Color(0xFF2E3A6E),
-                        fontWeight:
-                            FontWeight.w700,
+                        fontWeight: FontWeight.w700,
                         fontSize: 12,
                       ),
                     ),
@@ -74,20 +71,19 @@ class AppFooter extends StatelessWidget {
                   _FooterLink(
                       label: 'Home',
                       onTap: () =>
-                          context.go('/guest')),
+                          context.goNamed('guest')),
                   _FooterLink(
                       label: 'About Us',
-                      onTap: () => context
-                          .pushNamed('aboutUs')),
+                      onTap: () =>
+                          context.pushNamed('aboutUs')),
                   _FooterLink(
                       label: 'Contact Us',
                       onTap: () =>
-                          context.pushNamed(
-                              'contactUs')),
+                          context.pushNamed('contactUs')),
                   _FooterLink(
                       label: 'Terms of Service',
-                      onTap: () => context
-                          .pushNamed('terms')),
+                      onTap: () =>
+                          context.pushNamed('terms')),
                 ],
               ),
             ],
@@ -123,13 +119,11 @@ class _FooterLink extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: 2),
+        padding: const EdgeInsets.symmetric(vertical: 2),
         child: Text(
           label,
           style: const TextStyle(
-              color: Color(0xFF5A6A9A),
-              fontSize: 10),
+              color: Color(0xFF5A6A9A), fontSize: 10),
         ),
       ),
     );

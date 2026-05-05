@@ -11,19 +11,17 @@ class UserHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF2E3A6E),
+      backgroundColor: const Color(0xFF2E3A6E),
       appBar: GuestHeader(
         actions: [
           GestureDetector(
-            onTap: () =>
-                context.go('/role-selection'),
+            onTap: () => context.go('/role-selection'),
             child: Container(
               padding: const EdgeInsets.symmetric(
                   horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
-                color: Color(0xFF2952FF),
-                borderRadius:
-                    BorderRadius.circular(16),
+                color: const Color(0xFF2952FF),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: const Text(
                 'Dashboard',
@@ -43,11 +41,10 @@ class UserHome extends StatelessWidget {
                   horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: Color(0xFF2952FF)),
-                borderRadius:
-                    BorderRadius.circular(16),
+                    color: const Color(0xFF2952FF)),
+                borderRadius: BorderRadius.circular(16),
               ),
-              child: Text(
+              child: const Text(
                 'Log out',
                 style: TextStyle(
                   color: Color(0xFF2952FF),
@@ -62,15 +59,13 @@ class UserHome extends StatelessWidget {
       body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context)
-                .size
-                .height,
+            minHeight: MediaQuery.of(context).size.height,
           ),
-          child: IntrinsicHeight(
+          child: const IntrinsicHeight(
             child: Column(
               crossAxisAlignment:
                   CrossAxisAlignment.stretch,
-              children: const [
+              children: [
                 _HeroBody(),
                 SizedBox(height: 24),
                 _FeatureSection(),
@@ -102,13 +97,11 @@ class _HeroBody extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(
-              24, 40, 24, 52),
+          padding:
+              const EdgeInsets.fromLTRB(24, 40, 24, 52),
           child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
-            crossAxisAlignment:
-                CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Center(
                 child: ClipOval(
@@ -155,11 +148,10 @@ class _FeatureSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 20),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
-        children: const [
+        children: [
           FeatureCard(
             icon: Icons.people_outline,
             title: 'Investor Queue',

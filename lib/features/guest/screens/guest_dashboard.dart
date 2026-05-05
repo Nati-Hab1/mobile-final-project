@@ -10,14 +10,13 @@ class GuestDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Color(0xFF2E3A6E),
-      appBar: const GuestHeader(),
+      appBar: GuestHeader(),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.stretch,
-          children: const [
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
             _HeroBody(),
             SizedBox(height: 24),
             _FeatureSection(),
@@ -46,13 +45,11 @@ class _HeroBody extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(
-              24, 40, 24, 52),
+          padding:
+              const EdgeInsets.fromLTRB(24, 40, 24, 52),
           child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
-            crossAxisAlignment:
-                CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ClipOval(
                 child: Image.asset(
@@ -86,8 +83,7 @@ class _HeroBody extends StatelessWidget {
 
               // Sign Up + Log In buttons
               Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
                     width: 110,
@@ -95,24 +91,20 @@ class _HeroBody extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () =>
                           context.go('/register'),
-                      style: ElevatedButton
-                          .styleFrom(
+                      style: ElevatedButton.styleFrom(
                         backgroundColor:
-                            Color(0xFF2952FF),
+                            const Color(0xFF2952FF),
                         elevation: 0,
-                        shape:
-                            RoundedRectangleBorder(
+                        shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius
-                                  .circular(8),
+                              BorderRadius.circular(8),
                         ),
                       ),
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight:
-                              FontWeight.w700,
+                          fontWeight: FontWeight.w700,
                           fontSize: 14,
                         ),
                       ),
@@ -123,26 +115,21 @@ class _HeroBody extends StatelessWidget {
                     width: 110,
                     height: 40,
                     child: OutlinedButton(
-                      onPressed: () =>
-                          context.go('/login'),
-                      style: OutlinedButton
-                          .styleFrom(
+                      onPressed: () => context.go('/login'),
+                      style: OutlinedButton.styleFrom(
                         side: const BorderSide(
                             color: Colors.white70,
                             width: 1.5),
-                        shape:
-                            RoundedRectangleBorder(
+                        shape: RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius
-                                  .circular(8),
+                              BorderRadius.circular(8),
                         ),
                       ),
                       child: const Text(
                         'Log In',
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight:
-                              FontWeight.w600,
+                          fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
                       ),
@@ -165,11 +152,10 @@ class _FeatureSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 20),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: Column(
-        children: const [
+        children: [
           FeatureCard(
             icon: Icons.people_outline,
             title: 'Investor Queue',

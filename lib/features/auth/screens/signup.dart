@@ -8,21 +8,15 @@ class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
   @override
-  State<SignupScreen> createState() =>
-      _SignupScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState
-    extends State<SignupScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _fullNameController =
-      TextEditingController();
-  final _emailController =
-      TextEditingController();
-  final _phoneController =
-      TextEditingController();
-  final _passwordController =
-      TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -34,9 +28,8 @@ class _SignupScreenState
   }
 
   void _handleRegister() {
-    if (_formKey.currentState?.validate() ??
-        false) {
-      context.go('/role-selection');
+    if (_formKey.currentState?.validate() ?? false) {
+      context.goNamed('home');
     }
   }
 
@@ -79,8 +72,7 @@ class _SignupScreenState
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 26,
-                        fontWeight:
-                            FontWeight.w800,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -96,26 +88,22 @@ class _SignupScreenState
                     // Full Name
                     AuthTextField(
                       label: 'FullName',
-                      controller:
-                          _fullNameController,
-                      validator: (v) => (v ==
-                                  null ||
-                              v.trim().isEmpty)
-                          ? 'Full name is required'
-                          : null,
+                      controller: _fullNameController,
+                      validator: (v) =>
+                          (v == null || v.trim().isEmpty)
+                              ? 'Full name is required'
+                              : null,
                     ),
                     const SizedBox(height: 16),
 
                     // Email
                     AuthTextField(
                       label: 'Email',
-                      controller:
-                          _emailController,
-                      keyboardType: TextInputType
-                          .emailAddress,
+                      controller: _emailController,
+                      keyboardType:
+                          TextInputType.emailAddress,
                       validator: (v) {
-                        if (v == null ||
-                            v.trim().isEmpty)
+                        if (v == null || v.trim().isEmpty)
                           return 'Email is required';
                         if (!v.contains('@'))
                           return 'Enter a valid email';
@@ -127,27 +115,22 @@ class _SignupScreenState
                     // Phone Number
                     AuthTextField(
                       label: 'Phone Number',
-                      controller:
-                          _phoneController,
-                      keyboardType:
-                          TextInputType.phone,
-                      validator: (v) => (v ==
-                                  null ||
-                              v.trim().isEmpty)
-                          ? 'Phone number is required'
-                          : null,
+                      controller: _phoneController,
+                      keyboardType: TextInputType.phone,
+                      validator: (v) =>
+                          (v == null || v.trim().isEmpty)
+                              ? 'Phone number is required'
+                              : null,
                     ),
                     const SizedBox(height: 16),
 
                     // Password
                     AuthTextField(
                       label: 'Create Password',
-                      controller:
-                          _passwordController,
+                      controller: _passwordController,
                       isPassword: true,
                       validator: (v) {
-                        if (v == null ||
-                            v.isEmpty)
+                        if (v == null || v.isEmpty)
                           return 'Password is required';
                         if (v.length < 6)
                           return 'Password must be at least 6 characters';
@@ -168,28 +151,24 @@ class _SignupScreenState
                       children: const [
                         Expanded(
                           child: Divider(
-                            color:
-                                Color(0xFF5A6A9A),
+                            color: Color(0xFF5A6A9A),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets
-                              .symmetric(
+                          padding: EdgeInsets.symmetric(
                             horizontal: 12,
                           ),
                           child: Text(
                             'or sign up with email',
                             style: TextStyle(
-                              color: Color(
-                                  0xFF8B9BC8),
+                              color: Color(0xFF8B9BC8),
                               fontSize: 12,
                             ),
                           ),
                         ),
                         Expanded(
                           child: Divider(
-                            color:
-                                Color(0xFF5A6A9A),
+                            color: Color(0xFF5A6A9A),
                           ),
                         ),
                       ],
@@ -199,28 +178,24 @@ class _SignupScreenState
                     // Login link
                     Row(
                       mainAxisAlignment:
-                          MainAxisAlignment
-                              .center,
+                          MainAxisAlignment.center,
                       children: [
                         const Text(
                           'Already have an account? ',
                           style: TextStyle(
-                            color:
-                                Color(0xFFCDD5F3),
+                            color: Color(0xFFCDD5F3),
                             fontSize: 13,
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => context
-                              .go('/login'),
+                          onTap: () =>
+                              context.goNamed('login'),
                           child: const Text(
                             'Log in',
                             style: TextStyle(
-                              color: Color(
-                                  0xFF2952FF),
+                              color: Color(0xFF2952FF),
                               fontSize: 13,
-                              fontWeight:
-                                  FontWeight.w700,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
