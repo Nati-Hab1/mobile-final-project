@@ -1,0 +1,202 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:menesha/core/widgets/common/investor_header.dart';
+
+class InvestorProfile extends StatefulWidget {
+  const InvestorProfile({super.key});
+
+  @override
+  State<InvestorProfile> createState() => _InvestorProfileState();
+}
+
+class _InvestorProfileState extends State<InvestorProfile> {
+  bool _obscurePassword = true;
+
+  void _showSavedDialog() {
+    showDialog(
+      context: context,
+      barrierColor: const Color.fromARGB(255, 232, 230, 230).withOpacity(0.3),
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Container(color: Colors.transparent),
+            ),
+            Center(
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  side: const BorderSide(color: Color(0xFF0022BA), width: 2),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.check_circle, color: Color(0xFF20C997), size: 60),
+                      const SizedBox(height: 16),
+                      const Text(
+                        "Saved",
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        width: 120,
+                        child: ElevatedButton(
+                          onPressed: () => Navigator.pop(context),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF3F48CC),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                          child: const Text("Close", style: TextStyle(color: Colors.white)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset('assets/images/background.png', fit: BoxFit.cover),
+          ),
+          SafeArea(
+            child: Column(
+              children: [
+                const InvestorHeader(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: TextButton.icon(
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(Icons.arrow_back_ios, size: 16, color: Colors.white),
+                            label: const Text("Back", style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                        const Text(
+                          "Settings",
+                          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          "Manage your profile and preferences",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        const SizedBox(height: 20),
+                        
+                        // Tab indicator
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.grey.shade300, width: 4),
+                          ),
+                          child: const Text(
+                            "Personal Profile",
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        
+                        const SizedBox(height: 25),
+
+                        // Form Card
+                        Container(
+                          padding: const EdgeInsets.all(24),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Personal Information",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 25),
+                              _buildInputField("FullName"),
+                              _buildInputField("Email"),
+                              _buildInputField("Phone"),
+                              _buildInputField(
+                                "Password",
+                                isPassword: true,
+                                obscureText: _obscurePassword,
+                                onSuffixTap: () => setState(() => _obscurePassword = !_obscurePassword),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        
+                        // Save Button
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: _showSavedDialog,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF0022BA),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            ),
+                            child: const Text(
+                              "Save Changes",
+                              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInputField(String label, {bool isPassword = false, bool obscureText = false, VoidCallback? onSuffixTap}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          const SizedBox(height: 8),
+          TextField(
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
+              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade300)),
+              suffixIcon: isPassword 
+                ? GestureDetector(
+                    onTap: onSuffixTap,
+                    child: Icon(obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: Colors.grey),
+                  ) 
+                : null,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
