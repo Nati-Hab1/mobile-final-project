@@ -17,9 +17,10 @@ import 'package:menesha/features/investor/screens/investor_notes.dart';
 import 'package:menesha/features/investor/screens/investor_profile.dart';
 import 'package:menesha/features/investor/screens/investor_delete.dart';
 import 'package:menesha/features/investor/screens/investor_intros.dart';
+import 'package:menesha/features/profile/screens/profile_setting.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/investor_delete',
+  initialLocation: '/investor_dashboard',
   routes: [
     GoRoute(
       path: '/',
@@ -68,44 +69,49 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const ContactUs(),
     ),
     GoRoute(
+      path: '/profile_settings',
+      name: 'profileSettings',
+      builder: (context, state) => const ProfileSetting(),
+    ),
+    GoRoute(
       path: '/investor_dashboard',
       name: 'investorDashboard',
-      builder: (context, state) => const InvestorDashboard(),
+      builder: (context, state) =>
+          const InvestorDashboard(),
     ),
-
     GoRoute(
-      path: '/investor_sider', 
-      name: 'investor_sider', 
-      builder: (context, state) => const InvestorSider()),
-
-    GoRoute( 
-      path: '/investor_startups',
-      name: 'investorStartups', 
-      builder: (context, state) => const InvestorStartups()),
+        path: '/investor_sider',
+        name: 'investor_sider',
+        builder: (context, state) => const InvestorSider()),
     GoRoute(
-      path: '/investor_bookmarks',
-      name: 'investorBookmarks',
-      builder: (context, state) => const InvestorBookmarks()),
-
+        path: '/investor_startups',
+        name: 'investorStartups',
+        builder: (context, state) =>
+            const InvestorStartups()),
     GoRoute(
-      path: '/investor_notes',
-      name: 'investorNotes',
-      builder: (context, state) => const InvestorNotes()),
-
+        path: '/bookmarks',
+        name: 'bookmarks',
+        builder: (context, state) =>
+            const InvestorBookmarks()),
     GoRoute(
-      path: '/investor_profile',
-      name: 'investorProfile',
-      builder: (context, state) => const InvestorProfile()),
-
+        path: '/investor_notes',
+        name: 'investorNotes',
+        builder: (context, state) => const InvestorNotes()),
     GoRoute(
-      path: '/investor_delete',
-      name: 'investorDelete',
-      builder: (context, state) => const InvestorDelete()),
-
+        path: '/investor_profile',
+        name: 'investorProfile',
+        builder: (context, state) =>
+            const InvestorProfile()),
     GoRoute(
-      path: '/investor_intros',
-      name: 'investorIntros',
-      builder: (context, state) => const InvestorIntrosPage()),
+        path: '/investor_delete',
+        name: 'investorDelete',
+        builder: (context, state) =>
+            const InvestorDelete()),
+    GoRoute(
+        path: '/investor_intros',
+        name: 'investorIntros',
+        builder: (context, state) =>
+            const InvestorIntrosPage()),
   ],
   errorBuilder: (context, state) => Scaffold(
     backgroundColor: const Color(0xFF2E3A6E),

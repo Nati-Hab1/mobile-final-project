@@ -4,8 +4,7 @@ import 'package:menesha/core/widgets/common/primary_button.dart';
 
 /// Role Selection screen shown after successful login/register.
 /// Lets the user pick Investor or Startup. — route: /role-selection
-class RoleSelectionScreen
-    extends StatelessWidget {
+class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
 
   @override
@@ -59,8 +58,7 @@ class _RoleCard extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: Color(0xFF4A5FA8)
-                  .withOpacity(0.12),
+              color: Color(0xFF4A5FA8).withOpacity(0.12),
               borderRadius: BorderRadius.circular(
                 30,
               ),
@@ -101,7 +99,7 @@ class _RoleCard extends StatelessWidget {
             label: 'Investor',
             isOutlined: true,
             onPressed: () {
-              context.go('/home');
+              context.goNamed('investorDashboard');
             },
           ),
           const SizedBox(height: 14),
@@ -110,7 +108,7 @@ class _RoleCard extends StatelessWidget {
           PrimaryButton(
             label: 'Startup',
             onPressed: () {
-              context.go('/home');
+              context.goNamed('home');
             },
           ),
         ],

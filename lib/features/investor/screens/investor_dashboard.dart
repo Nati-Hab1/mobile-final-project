@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/investor_header.dart';
 
-
 class InvestorDashboard extends StatelessWidget {
   const InvestorDashboard({super.key});
 
@@ -28,20 +27,23 @@ class InvestorDashboard extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    const Color(0xFF5A6A9A).withOpacity(0.85),
-                    const Color(0xFF5A6A9A).withOpacity(0.95),
+                    const Color(0xFF5A6A9A)
+                        .withOpacity(0.85),
+                    const Color(0xFF5A6A9A)
+                        .withOpacity(0.95),
                   ],
                 ),
               ),
             ),
           ),
           // Main Content
-          SafeArea(
+          const SafeArea(
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
                   _HeroSection(),
                   SizedBox(height: 24),
                   _StatsSection(),
@@ -164,7 +166,8 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      padding: const EdgeInsets.symmetric(
+          horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
@@ -232,13 +235,13 @@ class _ActionsSection extends StatelessWidget {
           _ActionTile(
             icon: Icons.bookmark_outline,
             label: 'View Bookmarks',
-            onTap: () => context.go('/bookmarks'),
+            onTap: () => context.pushNamed('bookmarks'),
           ),
           const SizedBox(height: 12),
           _ActionTile(
             icon: Icons.add_circle_outline,
-            label: 'Add Startup',
-            onTap: () => context.go('/add-startup'),
+            label: 'Get In Touch',
+            onTap: () => context.pushNamed('contactUs'),
           ),
         ],
       ),
@@ -263,7 +266,8 @@ class _ActionTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(
+            horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.15),
           borderRadius: BorderRadius.circular(14),
@@ -286,7 +290,8 @@ class _ActionTile extends StatelessWidget {
                 ),
               ),
             ),
-            const Icon(Icons.arrow_forward, color: Colors.white70, size: 18),
+            const Icon(Icons.arrow_forward,
+                color: Colors.white70, size: 18),
           ],
         ),
       ),
@@ -300,8 +305,14 @@ class _LatestInterestsSection extends StatelessWidget {
   const _LatestInterestsSection();
 
   static const _items = [
-    _InterestItem(name: 'Kebede Chala', timeAgo: '1 day ago', status: 'Accepted'),
-    _InterestItem(name: 'Almaz Tesfaye', timeAgo: '2 days ago', status: 'Declined'),
+    _InterestItem(
+        name: 'Kebede Chala',
+        timeAgo: '1 day ago',
+        status: 'Accepted'),
+    _InterestItem(
+        name: 'Almaz Tesfaye',
+        timeAgo: '2 days ago',
+        status: 'Declined'),
   ];
 
   @override
@@ -349,13 +360,15 @@ class _InterestCard extends StatelessWidget {
 
   const _InterestCard({super.key, required this.item});
 
-  Color get _statusColor => switch (item.status.toLowerCase()) {
+  Color get _statusColor =>
+      switch (item.status.toLowerCase()) {
         'accepted' => const Color(0xFF34C759),
         'declined' => const Color(0xFFFF3B30),
         _ => const Color(0xFF8A92A8),
       };
 
-  Color get _statusBgColor => switch (item.status.toLowerCase()) {
+  Color get _statusBgColor =>
+      switch (item.status.toLowerCase()) {
         'accepted' => const Color(0xFFE8F8ED),
         'declined' => const Color(0xFFFFEEED),
         _ => const Color(0xFFF0F1F3),
@@ -398,7 +411,8 @@ class _InterestCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            padding: const EdgeInsets.symmetric(
+                horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
               color: _statusBgColor,
               borderRadius: BorderRadius.circular(20),

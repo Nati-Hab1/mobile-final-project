@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/startup_appbar.dart';
 
 class ProfileSetting extends StatelessWidget {
@@ -6,7 +7,9 @@ class ProfileSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SettingsPage());
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SettingsPage());
   }
 }
 
@@ -18,10 +21,14 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController =
+      TextEditingController();
+  final TextEditingController emailController =
+      TextEditingController();
+  final TextEditingController phoneController =
+      TextEditingController();
+  final TextEditingController passwordController =
+      TextEditingController();
 
   void showSavedDialog() {
     showDialog(
@@ -32,35 +39,39 @@ class _SettingsPageState extends State<SettingsPage> {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: Colors.blue.shade900, width: 3),
+            side: BorderSide(
+                color: Colors.blue.shade900, width: 3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: Colors.green,
                   radius: 25,
-                  child: Icon(Icons.check, color: Colors.white),
+                  child: Icon(Icons.check,
+                      color: Colors.white),
                 ),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 16),
+                const Text(
                   "Saved",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue.shade900,
                     foregroundColor: Colors.white,
-                    minimumSize: Size(120, 40),
+                    minimumSize: const Size(120, 40),
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.goNamed("investorDashboard");
                   },
-                  child: Text("Close"),
+                  child: const Text("Close"),
                 ),
               ],
             ),
@@ -73,14 +84,14 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: StartupAppbar(),
-      backgroundColor: Color(0xFF4A5D8F),
+      appBar: const StartupAppbar(),
+      backgroundColor: const Color(0xFF4A5D8F),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-            Text(
+            const Text(
               "Settings",
               style: TextStyle(
                 fontSize: 22,
@@ -89,45 +100,51 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
 
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
 
-            Text(
+            const Text(
               "Manage your profile and preferences",
-              style: TextStyle(color: Colors.white70, fontSize: 13),
+              style: TextStyle(
+                  color: Colors.white70, fontSize: 13),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             /// Profile Button
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
-                shape: StadiumBorder(),
+                shape: const StadiumBorder(),
               ),
               onPressed: () {},
-              child: Text("Personal Profile"),
+              child: const Text("Personal Profile"),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             /// Form Card
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              padding: EdgeInsets.all(15),
+              margin: const EdgeInsets.symmetric(
+                  horizontal: 20),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Personal Information",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                   ),
-                  SizedBox(height: 15),
-                  buildTextField("Full Name", nameController),
+                  const SizedBox(height: 15),
+                  buildTextField(
+                      "Full Name", nameController),
                   buildTextField("Email", emailController),
                   buildTextField("Phone", phoneController),
                   buildTextField(
@@ -139,14 +156,16 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             /// Save Button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 20),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
+                  minimumSize:
+                      const Size(double.infinity, 50),
                   backgroundColor: Colors.blue.shade900,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
@@ -156,11 +175,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 onPressed: () {
                   showSavedDialog();
                 },
-                child: Text("Save Changes"),
+                child: const Text("Save Changes"),
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -178,7 +197,7 @@ class _SettingsPageState extends State<SettingsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           TextField(
             controller: controller,
             obscureText: isPassword,
@@ -186,7 +205,9 @@ class _SettingsPageState extends State<SettingsPage> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              suffixIcon: isPassword ? Icon(Icons.visibility_off) : null,
+              suffixIcon: isPassword
+                  ? const Icon(Icons.visibility_off)
+                  : null,
             ),
           ),
         ],
