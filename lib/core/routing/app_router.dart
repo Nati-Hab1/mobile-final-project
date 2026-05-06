@@ -17,12 +17,15 @@ import 'package:menesha/features/investor/screens/investor_notes.dart';
 import 'package:menesha/features/profile/screens/profile_settings.dart';
 import 'package:menesha/features/investor/screens/investor_delete.dart';
 import 'package:menesha/features/investor/screens/investor_intros.dart';
+import 'package:menesha/features/startup/screens/add_startup.dart';
 import 'package:menesha/features/startup/screens/create_intro.dart';
 import 'package:menesha/features/startup/screens/my_investors.dart';
 import 'package:menesha/features/startup/screens/my_startup.dart';
+import 'package:menesha/features/startup/screens/startup_dashboard.dart';
+import 'package:menesha/features/startup/screens/startup_sidebar.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/investor_startups/:role',
+  initialLocation: '/startup_sider',
   routes: [
     GoRoute(
       path: '/',
@@ -133,6 +136,30 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final role = state.pathParameters['role']!;
         return InvestorIntrosPage(role: role);
+      },
+    ),
+    GoRoute(
+      path: '/startup_dashboard',
+      name: 'startupDashboard',
+      builder: (context, state) {
+        // final role = state.pathParameters['role']!;
+        return const StartupDashboard();
+      },
+    ),
+    GoRoute(
+      path: '/add_startup',
+      name: 'addStartup',
+      builder: (context, state) {
+        // final role = state.pathParameters['role']!;
+        return const AddStartup();
+      },
+    ),
+    GoRoute(
+      path: '/startup_sider',
+      name: 'startupSider',
+      builder: (context, state) {
+        // final role = state.pathParameters['role']!;
+        return const StartupSidebar();
       },
     ),
     GoRoute(
