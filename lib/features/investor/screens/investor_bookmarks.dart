@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/investor_header.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class InvestorBookmarks extends StatelessWidget {
-  const InvestorBookmarks({super.key});
+  const InvestorBookmarks({super.key, required this.role});
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,9 @@ class InvestorBookmarks extends StatelessWidget {
           SafeArea(
             child: Column(
               children: [
-                const InvestorHeader(),
+                Header(
+                  role: role,
+                ),
 
                 // Back Button & Title Section
                 Padding(
@@ -33,8 +36,12 @@ class InvestorBookmarks extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: TextButton.icon(
-                          onPressed: () => context
-                              .goNamed("investorDashboard"),
+                          onPressed: () => context.goNamed(
+                            "investorDashboard",
+                            pathParameters: {
+                              'role': 'investor'
+                            },
+                          ),
                           icon: const Icon(
                               Icons.arrow_back_ios,
                               size: 16,
@@ -149,7 +156,12 @@ class StartupCard extends StatelessWidget {
                   const SizedBox(width: 10),
                   TextButton.icon(
                     onPressed: () {
-                      context.pushNamed("investorNotes");
+                      context.pushNamed(
+                        "investorNotes",
+                        pathParameters: {
+                          'role': 'investor'
+                        },
+                      );
                     },
                     icon: const Icon(Icons.edit,
                         color: Colors.black),

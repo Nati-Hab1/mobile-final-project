@@ -1,17 +1,18 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/investor_header.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
-class InvestorProfile extends StatefulWidget {
-  const InvestorProfile({super.key});
+class ProfileSettings extends StatefulWidget {
+  const ProfileSettings({super.key, required this.role});
+  final String role;
 
   @override
-  State<InvestorProfile> createState() =>
+  State<ProfileSettings> createState() =>
       _InvestorProfileState();
 }
 
-class _InvestorProfileState extends State<InvestorProfile> {
+class _InvestorProfileState extends State<ProfileSettings> {
   bool _obscurePassword = true;
 
   void _showSavedDialog() {
@@ -56,7 +57,10 @@ class _InvestorProfileState extends State<InvestorProfile> {
                         child: ElevatedButton(
                           onPressed: () => {
                             context.goNamed(
-                                "investorDashboard")
+                                "investorDashboard",
+                                pathParameters: {
+                                  'role': 'investor'
+                                })
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
@@ -95,7 +99,9 @@ class _InvestorProfileState extends State<InvestorProfile> {
           SafeArea(
             child: Column(
               children: [
-                const InvestorHeader(),
+                Header(
+                  role: widget.role,
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(
@@ -105,8 +111,7 @@ class _InvestorProfileState extends State<InvestorProfile> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: TextButton.icon(
-                            onPressed: () =>
-                                Navigator.pop(context),
+                            onPressed: () => context.pop(),
                             icon: const Icon(
                                 Icons.arrow_back_ios,
                                 size: 16,

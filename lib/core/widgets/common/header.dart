@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class InvestorHeader extends StatelessWidget
+class Header extends StatelessWidget
     implements PreferredSizeWidget {
-  const InvestorHeader({
+  final String role;
+
+  const Header({
     super.key,
+    required this.role,
     this.additionalActions,
   });
 
@@ -39,8 +42,9 @@ class InvestorHeader extends StatelessWidget
 
                 // 3. Profile Image Action
                 GestureDetector(
-                  onTap: () =>
-                      context.pushNamed('investorProfile'),
+                  onTap: () => context.pushNamed(
+                      'profileSettings',
+                      pathParameters: {'role': 'investor'}),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(
                         21), // Circular clipping
@@ -57,8 +61,13 @@ class InvestorHeader extends StatelessWidget
 
                 // 4. Menu Action
                 GestureDetector(
-                  onTap: () =>
-                      context.go('/investor_sider'),
+                  onTap: () {
+                    if (role == 'startup') {
+                      context.pushNamed('startupSider');
+                    } else {
+                      context.pushNamed('investorSider');
+                    }
+                  },
                   child: const Icon(
                     Icons.menu,
                     color: Color.fromARGB(255, 48, 57, 89),

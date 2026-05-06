@@ -70,20 +70,36 @@ class AppFooter extends StatelessWidget {
                   const SizedBox(height: 4),
                   _FooterLink(
                       label: 'Home',
-                      onTap: () =>
-                          context.goNamed('guest')),
+                      onTap: () => context.goNamed(
+                            'guest',
+                            pathParameters: {
+                              'role': 'user'
+                            },
+                          )),
                   _FooterLink(
                       label: 'About Us',
-                      onTap: () =>
-                          context.pushNamed('aboutUs')),
+                      onTap: () => context.pushNamed(
+                            'aboutUs',
+                            pathParameters: {
+                              'role': 'user'
+                            },
+                          )),
                   _FooterLink(
                       label: 'Contact Us',
-                      onTap: () =>
-                          context.pushNamed('contactUs')),
+                      onTap: () => context.pushNamed(
+                            'contactUs',
+                            pathParameters: {
+                              'role': 'user'
+                            },
+                          )),
                   _FooterLink(
                       label: 'Terms of Service',
-                      onTap: () =>
-                          context.pushNamed('terms')),
+                      onTap: () => context.pushNamed(
+                            'terms',
+                            pathParameters: {
+                              'role': 'user'
+                            },
+                          )),
                 ],
               ),
             ],

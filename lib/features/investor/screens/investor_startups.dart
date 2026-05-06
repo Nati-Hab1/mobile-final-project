@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/investor_header.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 import 'dart:ui';
 
 class InvestorStartups extends StatelessWidget {
-  const InvestorStartups({super.key});
+  const InvestorStartups({super.key, required this.role});
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,9 @@ class InvestorStartups extends StatelessWidget {
           SafeArea(
             child: Column(
               children: [
-                const InvestorHeader(),
+                Header(
+                  role: role,
+                ),
 
                 // Back Button & Title Section
                 Padding(
@@ -36,7 +39,11 @@ class InvestorStartups extends StatelessWidget {
                         child: TextButton.icon(
                           onPressed: () => {
                             context.goNamed(
-                                "investorDashboard")
+                              "investorDashboard",
+                              pathParameters: {
+                                'role': 'investor'
+                              },
+                            )
                           },
                           icon: const Icon(
                               Icons.arrow_back_ios,
@@ -176,7 +183,7 @@ class _StartupCardState extends State<StartupCard> {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(context);
+                                context.pop();
                                 // add your YES logic here
                               },
                               style:
@@ -203,8 +210,9 @@ class _StartupCardState extends State<StartupCard> {
                           // 🔹 No Button
                           Expanded(
                             child: OutlinedButton(
-                              onPressed: () =>
-                                  Navigator.pop(context),
+                              onPressed: () {
+                                context.pop();
+                              },
                               style:
                                   OutlinedButton.styleFrom(
                                 side: const BorderSide(
@@ -286,7 +294,12 @@ class _StartupCardState extends State<StartupCard> {
                 children: [
                   TextButton.icon(
                     onPressed: () {
-                      context.goNamed("investorIntros");
+                      context.goNamed(
+                        "investorIntros",
+                        pathParameters: {
+                          'role': 'investor'
+                        },
+                      );
                     },
                     icon: const Icon(Icons.visibility,
                         color: Colors.black),

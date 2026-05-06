@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 import '../../../core/widgets/common/app_footer.dart';
 
 class AboutUs extends StatelessWidget {
-  const AboutUs({super.key});
+  final String role;
+
+  const AboutUs({super.key, required this.role});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("About Us")),
+      appBar: (role == 'investor' || role == 'startup')
+          ? Header(role: role)
+          : AppBar(
+              title: const Text("About Us"),
+            ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -25,6 +33,41 @@ class AboutUs extends StatelessWidget {
                 style: const TextStyle(color: Colors.white),
                 child: Column(
                   children: [
+                    (role == 'investor' ||
+                            role == 'startup')
+                        ? Align(
+                            alignment: Alignment.centerLeft,
+                            child: TextButton.icon(
+                              onPressed: () => {
+                                if (role == 'startup')
+                                  {
+                                    context.goNamed(
+                                      "startupDashboard",
+                                      pathParameters: {
+                                        'role': 'investor'
+                                      },
+                                    )
+                                  }
+                                else
+                                  {
+                                    context.goNamed(
+                                      "investorDashboard",
+                                      pathParameters: {
+                                        'role': 'investor'
+                                      },
+                                    )
+                                  }
+                              },
+                              icon: const Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 16,
+                                  color: Colors.white),
+                              label: const Text("Back",
+                                  style: TextStyle(
+                                      color: Colors.white)),
+                            ),
+                          )
+                        : const SizedBox(),
                     const SizedBox(height: 10),
                     const Text(
                       "About Us",

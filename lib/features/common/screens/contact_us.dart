@@ -1,48 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 import '../../../core/widgets/contact_us/accordion.dart';
 import '../../../core/widgets/contact_us/success_popup.dart';
 
 class ContactUs extends StatelessWidget {
-  const ContactUs({super.key});
+  const ContactUs({super.key, required this.role});
+  final String role;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Contact Us")),
-
-      //   AppBar(
-      //   title: Image.asset(
-      //     'assets/images/Menesha.jpg',
-      //     height: 40,
-      //   ),
-      //   backgroundColor: Colors.white,
-      //   toolbarHeight: 60,
-      //   actions: [
-      //     IconButton(
-      //       icon: CircleAvatar(
-      //         backgroundColor: Colors.blue.shade100,
-      //         radius: 15,
-      //         child: const Icon(
-      //           Icons.person,
-      //           color: Colors.blue,
-      //           size: 20,
-      //         ),
-      //       ),
-      //       onPressed: () {},
-      //     ),
-      //     const SizedBox(width: 2),
-      //     IconButton(
-      //       icon: const Icon(
-      //         Icons.menu,
-      //         color: Colors.black,
-      //         size: 30,
-      //       ),
-      //       onPressed: () {},
-      //     ),
-      //     const SizedBox(width: 5),
-      //   ],
-      // ),
+      appBar: (role == 'investor' || role == 'startup')
+          ? Header(role: role)
+          : AppBar(
+              title: const Text("Contact Us"),
+            ),
       body: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -59,6 +33,41 @@ class ContactUs extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                (role == 'investor' || role == 'startup')
+                    ? Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextButton.icon(
+                          onPressed: () => {
+                            if (role == 'startup')
+                              {
+                                context.goNamed(
+                                  "startupDashboard",
+                                  pathParameters: {
+                                    'role': 'investor'
+                                  },
+                                )
+                              }
+                            else
+                              {
+                                context.goNamed(
+                                  "investorDashboard",
+                                  pathParameters: {
+                                    'role': 'investor'
+                                  },
+                                )
+                              }
+                          },
+                          icon: const Icon(
+                              Icons.arrow_back_ios,
+                              size: 16,
+                              color: Colors.white),
+                          label: const Text("Back",
+                              style: TextStyle(
+                                  color: Colors.white)),
+                        ),
+                      )
+                    : const SizedBox(),
+
                 const SizedBox(height: 20),
 
                 const Center(

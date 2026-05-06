@@ -14,16 +14,15 @@ import 'package:menesha/core/widgets/common/investor_sider.dart';
 import 'package:menesha/features/investor/screens/investor_startups.dart';
 import 'package:menesha/features/investor/screens/investor_bookmarks.dart';
 import 'package:menesha/features/investor/screens/investor_notes.dart';
-import 'package:menesha/features/investor/screens/investor_profile.dart';
+import 'package:menesha/features/profile/screens/profile_settings.dart';
 import 'package:menesha/features/investor/screens/investor_delete.dart';
 import 'package:menesha/features/investor/screens/investor_intros.dart';
-import 'package:menesha/features/profile/screens/profile_setting.dart';
 import 'package:menesha/features/startup/screens/create_intro.dart';
 import 'package:menesha/features/startup/screens/my_investors.dart';
 import 'package:menesha/features/startup/screens/my_startup.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/my_investors',
+  initialLocation: '/investor_startups/:role',
   routes: [
     GoRoute(
       path: '/',
@@ -57,64 +56,85 @@ final GoRouter appRouter = GoRouter(
           const RoleSelectionScreen(),
     ),
     GoRoute(
-      path: '/about_us',
+      path: '/about_us/:role',
       name: 'aboutUs',
-      builder: (context, state) => const AboutUs(),
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return AboutUs(role: role);
+      },
     ),
     GoRoute(
-      path: '/terms',
+      path: '/terms/:role',
       name: 'terms',
-      builder: (context, state) => const Terms(),
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return Terms(role: role);
+      },
     ),
     GoRoute(
-      path: '/contact_us',
-      name: 'contactUs',
-      builder: (context, state) => const ContactUs(),
-    ),
+        path: '/contact_us/:role',
+        name: 'contactUs',
+        builder: (context, state) {
+          final role = state.pathParameters['role']!;
+          return ContactUs(role: role);
+        }),
     GoRoute(
-      path: '/profile_settings',
+      path: '/profile_settings/:role',
       name: 'profileSettings',
-      builder: (context, state) => const ProfileSetting(),
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return ProfileSettings(role: role);
+      },
     ),
     GoRoute(
-      path: '/investor_dashboard',
+      path: '/investor_dashboard/:role',
       name: 'investorDashboard',
-      builder: (context, state) =>
-          const InvestorDashboard(),
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return InvestorDashboard(role: role);
+      },
     ),
     GoRoute(
         path: '/investor_sider',
-        name: 'investor_sider',
+        name: 'investorSider',
         builder: (context, state) => const InvestorSider()),
     GoRoute(
-        path: '/investor_startups',
-        name: 'investorStartups',
-        builder: (context, state) =>
-            const InvestorStartups()),
+      path: '/investor_startups/:role',
+      name: 'investorStartups',
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return InvestorStartups(role: role);
+      },
+    ),
     GoRoute(
-        path: '/bookmarks',
-        name: 'bookmarks',
-        builder: (context, state) =>
-            const InvestorBookmarks()),
+      path: '/bookmarks/:role',
+      name: 'bookmarks',
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return InvestorBookmarks(role: role);
+      },
+    ),
     GoRoute(
-        path: '/investor_notes',
-        name: 'investorNotes',
-        builder: (context, state) => const InvestorNotes()),
-    GoRoute(
-        path: '/investor_profile',
-        name: 'investorProfile',
-        builder: (context, state) =>
-            const InvestorProfile()),
+      path: '/investor_notes/:role',
+      name: 'investorNotes',
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return InvestorNotes(role: role);
+      },
+    ),
     GoRoute(
         path: '/investor_delete',
         name: 'investorDelete',
         builder: (context, state) =>
             const InvestorDelete()),
     GoRoute(
-        path: '/investor_intros',
-        name: 'investorIntros',
-        builder: (context, state) =>
-            const InvestorIntrosPage()),
+      path: '/investor_intros/:role',
+      name: 'investorIntros',
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return InvestorIntrosPage(role: role);
+      },
+    ),
     GoRoute(
         path: '/my_startups',
         name: 'myStartups',

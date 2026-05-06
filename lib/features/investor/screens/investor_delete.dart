@@ -84,8 +84,8 @@ class _InvestorDeleteState extends State<InvestorDelete> {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop(
-                                    context); // Close first dialog
+                                context
+                                    .pop(); // Close first dialog
                                 _showSuccessDialog(); // Show success
                               },
                               style:
