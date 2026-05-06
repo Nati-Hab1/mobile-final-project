@@ -65,8 +65,13 @@ class _InvestorSiderState extends State<InvestorSider> {
                               color: Colors.black,
                               size: 30),
                           onPressed: () => {
-                            context.goNamed(
-                                "investorDashboard")
+                            // context.goNamed(
+                            //   "investorDashboard",
+                            //   pathParameters: {
+                            //     'role': 'investor'
+                            //   },
+                            // )
+                            context.pop()
                           },
                         ),
                       ),

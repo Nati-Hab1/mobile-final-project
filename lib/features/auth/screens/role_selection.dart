@@ -99,7 +99,8 @@ class _RoleCard extends StatelessWidget {
             label: 'Investor',
             isOutlined: true,
             onPressed: () {
-              context.goNamed('investorDashboard');
+              context.goNamed('investorDashboard',
+                  pathParameters: {'role': 'investor'});
             },
           ),
           const SizedBox(height: 14),

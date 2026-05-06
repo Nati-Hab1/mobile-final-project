@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/investor_header.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 import 'dart:ui';
 
 class InvestorNotes extends StatefulWidget {
-  const InvestorNotes({super.key});
+  const InvestorNotes({super.key, required this.role});
+  final String role;
 
   @override
   State<InvestorNotes> createState() =>
@@ -66,8 +67,12 @@ class _InvestorNotesState extends State<InvestorNotes> {
                       SizedBox(
                         width: 120,
                         child: ElevatedButton(
-                          onPressed: () =>
-                              context.goNamed("bookmarks"),
+                          onPressed: () => context.goNamed(
+                            "bookmarks",
+                            pathParameters: {
+                              'role': 'investor'
+                            },
+                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(0xFF3F48CC),
@@ -111,7 +116,9 @@ class _InvestorNotesState extends State<InvestorNotes> {
           SafeArea(
             child: Column(
               children: [
-                const InvestorHeader(),
+                Header(
+                  role: widget.role,
+                ),
 
                 // Back and Title
                 Padding(
@@ -122,8 +129,12 @@ class _InvestorNotesState extends State<InvestorNotes> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: TextButton.icon(
-                          onPressed: () =>
-                              context.goNamed("bookmarks"),
+                          onPressed: () => context.goNamed(
+                            "bookmarks",
+                            pathParameters: {
+                              'role': 'investor'
+                            },
+                          ),
                           icon: const Icon(
                               Icons.arrow_back_ios,
                               size: 16,

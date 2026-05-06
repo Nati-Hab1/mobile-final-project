@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class Terms extends StatelessWidget {
-  const Terms({super.key});
+  const Terms({super.key, required this.role});
+  final String role;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Terms of Service")),
+      appBar: (role == 'investor' || role == 'startup')
+          ? Header(role: role)
+          : AppBar(
+              title: const Text("Terms of Service"),
+            ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -19,6 +26,40 @@ class Terms extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
+              (role == 'investor' || role == 'startup')
+                  ? Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        onPressed: () => {
+                          if (role == 'startup')
+                            {
+                              context.goNamed(
+                                "startupDashboard",
+                                pathParameters: {
+                                  'role': 'investor'
+                                },
+                              )
+                            }
+                          else
+                            {
+                              context.goNamed(
+                                "investorDashboard",
+                                pathParameters: {
+                                  'role': 'investor'
+                                },
+                              )
+                            }
+                        },
+                        icon: const Icon(
+                            Icons.arrow_back_ios,
+                            size: 16,
+                            color: Colors.white),
+                        label: const Text("Back",
+                            style: TextStyle(
+                                color: Colors.white)),
+                      ),
+                    )
+                  : const SizedBox(),
               const SizedBox(height: 25),
               const Text(
                 "Terms of Service",

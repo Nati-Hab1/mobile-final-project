@@ -1,10 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/investor_header.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class InvestorIntrosPage extends StatefulWidget {
-  const InvestorIntrosPage({super.key});
+  const InvestorIntrosPage({super.key, required this.role});
+  final String role;
 
   @override
   State<InvestorIntrosPage> createState() =>
@@ -51,8 +52,12 @@ class _InvestorIntrosPageState
                       SizedBox(
                         width: 120,
                         child: ElevatedButton(
-                          onPressed: () => context
-                              .goNamed("investorStartups"),
+                          onPressed: () => context.goNamed(
+                            "investorStartups",
+                            pathParameters: {
+                              'role': 'investor'
+                            },
+                          ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(0xFF3F48CC),
@@ -91,7 +96,9 @@ class _InvestorIntrosPageState
           SafeArea(
             child: Column(
               children: [
-                const InvestorHeader(),
+                Header(
+                  role: widget.role,
+                ),
                 Expanded(
                   child: ListView(
                     padding: const EdgeInsets.symmetric(
@@ -100,8 +107,12 @@ class _InvestorIntrosPageState
                       Align(
                         alignment: Alignment.centerLeft,
                         child: TextButton.icon(
-                          onPressed: () => context
-                              .goNamed("investorStartups"),
+                          onPressed: () => context.goNamed(
+                            "investorStartups",
+                            pathParameters: {
+                              'role': 'investor'
+                            },
+                          ),
                           icon: const Icon(
                               Icons.arrow_back_ios,
                               size: 16,

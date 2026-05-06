@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/investor_header.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class InvestorDashboard extends StatelessWidget {
-  const InvestorDashboard({super.key});
+  const InvestorDashboard({super.key, required this.role});
+  final String role;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: const Color(0xFF5A6A9A),
-      appBar: const InvestorHeader(),
+      appBar: Header(
+        role: role,
+      ),
       body: Stack(
         children: [
           // Background Image - covers entire screen
@@ -219,13 +222,19 @@ class _ActionsSection extends StatelessWidget {
           _ActionTile(
             icon: Icons.bookmark_outline,
             label: 'View Bookmarks',
-            onTap: () => context.pushNamed('bookmarks'),
+            onTap: () => context.pushNamed(
+              'bookmarks',
+              pathParameters: {'role': 'investor'},
+            ),
           ),
           const SizedBox(height: 12),
           _ActionTile(
             icon: Icons.add_circle_outline,
             label: 'Get In Touch',
-            onTap: () => context.pushNamed('contactUs'),
+            onTap: () => context.pushNamed(
+              'contactUs',
+              pathParameters: {'role': 'investor'},
+            ),
           ),
         ],
       ),
