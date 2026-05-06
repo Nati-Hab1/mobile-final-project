@@ -11,66 +11,70 @@ class UserHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2E3A6E),
+      backgroundColor: Colors.white,
       appBar: GuestHeader(
         actions: [
-          GestureDetector(
-            onTap: () => context.go('/role-selection'),
-            child: Container(
+          ElevatedButton(
+            onPressed: () =>
+                context.go('/role-selection'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFF2952FF),
+              foregroundColor: Colors.white,
+              elevation: 0,
               padding: const EdgeInsets.symmetric(
-                  horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                color: const Color(0xFF2952FF),
-                borderRadius: BorderRadius.circular(16),
+                  horizontal: 16, vertical: 6),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(10),
               ),
-              child: const Text(
-                'Dashboard',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
+              textStyle: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
+            child: const Text('Dashboard'),
           ),
           const SizedBox(width: 8),
-          GestureDetector(
-            onTap: () => context.go('/guest'),
-            child: Container(
+          OutlinedButton(
+            onPressed: () => context.go('/guest'),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: Color(0xFF2E3A6E),
+              side: const BorderSide(
+                  color: Color(0xFF2E3A6E),
+                  width: 1.2),
               padding: const EdgeInsets.symmetric(
-                  horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: const Color(0xFF2952FF)),
-                borderRadius: BorderRadius.circular(16),
+                  horizontal: 16, vertical: 6),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(10),
               ),
-              child: const Text(
-                'Log out',
-                style: TextStyle(
-                  color: Color(0xFF2952FF),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
+              textStyle: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
               ),
             ),
+            child: const Text('Log out'),
           ),
+          const SizedBox(width: 4),
         ],
       ),
       body: SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height,
+            minHeight: MediaQuery.of(context)
+                .size
+                .height,
           ),
-          child: const IntrinsicHeight(
+          child: IntrinsicHeight(
             child: Column(
               crossAxisAlignment:
                   CrossAxisAlignment.stretch,
-              children: [
+              children: const [
                 _HeroBody(),
                 SizedBox(height: 24),
                 _FeatureSection(),
                 SizedBox(height: 24),
-                Spacer(), // pushes footer to bottom when content is short
+                Spacer(),
                 AppFooter(),
               ],
             ),
@@ -97,11 +101,13 @@ class _HeroBody extends StatelessWidget {
           ),
         ),
         Padding(
-          padding:
-              const EdgeInsets.fromLTRB(24, 40, 24, 52),
+          padding: const EdgeInsets.fromLTRB(
+              24, 40, 24, 52),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment:
+                MainAxisAlignment.center,
+            crossAxisAlignment:
+                CrossAxisAlignment.stretch,
             children: [
               Center(
                 child: ClipOval(
@@ -148,10 +154,11 @@ class _FeatureSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          horizontal: 20),
       child: Column(
-        children: [
+        children: const [
           FeatureCard(
             icon: Icons.people_outline,
             title: 'Investor Queue',
