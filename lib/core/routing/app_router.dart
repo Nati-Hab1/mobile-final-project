@@ -18,9 +18,12 @@ import 'package:menesha/features/investor/screens/investor_profile.dart';
 import 'package:menesha/features/investor/screens/investor_delete.dart';
 import 'package:menesha/features/investor/screens/investor_intros.dart';
 import 'package:menesha/features/profile/screens/profile_setting.dart';
+import 'package:menesha/features/startup/screens/create_intro.dart';
+import 'package:menesha/features/startup/screens/my_investors.dart';
+import 'package:menesha/features/startup/screens/my_startup.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/investor_dashboard',
+  initialLocation: '/my_investors',
   routes: [
     GoRoute(
       path: '/',
@@ -112,6 +115,18 @@ final GoRouter appRouter = GoRouter(
         name: 'investorIntros',
         builder: (context, state) =>
             const InvestorIntrosPage()),
+    GoRoute(
+        path: '/my_startups',
+        name: 'myStartups',
+        builder: (context, state) => const MyStartups()),
+    GoRoute(
+        path: '/create_intro',
+        name: 'createIntro',
+        builder: (context, state) => const CreateIntro()),
+    GoRoute(
+        path: '/my_investors',
+        name: 'myInvestors',
+        builder: (context, state) => MyInvestors()),
   ],
   errorBuilder: (context, state) => Scaffold(
     backgroundColor: const Color(0xFF2E3A6E),

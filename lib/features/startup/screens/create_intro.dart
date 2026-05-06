@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/startup_appbar.dart';
 
 class CreateIntro extends StatelessWidget {
   const CreateIntro({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: CreateIntroPage(),
-    );
-  }
-}
-
-class CreateIntroPage extends StatelessWidget {
-  const CreateIntroPage({super.key});
 
   void showSuccessDialog(BuildContext context) {
     showDialog(
@@ -25,23 +14,27 @@ class CreateIntroPage extends StatelessWidget {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: Colors.blue.shade900, width: 3),
+            side: BorderSide(
+                color: Colors.blue.shade900, width: 3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: Colors.green,
-                  child: Icon(Icons.check, color: Colors.white),
+                  child: Icon(Icons.check,
+                      color: Colors.white),
                 ),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 16),
+                const Text(
                   "Intro Sent",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue.shade900,
@@ -50,7 +43,7 @@ class CreateIntroPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Close"),
+                  child: const Text("Close"),
                 ),
               ],
             ),
@@ -63,9 +56,9 @@ class CreateIntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: StartupAppbar(),
+      appBar: const StartupAppbar(),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF5A6FA8), Color(0xFF3F5C8A)],
             begin: Alignment.topCenter,
@@ -76,9 +69,9 @@ class CreateIntroPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-                Text(
+                const Text(
                   "Create Intro Drafts",
                   style: TextStyle(
                     color: Colors.white,
@@ -87,15 +80,15 @@ class CreateIntroPage extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
 
-                Text(
+                const Text(
                   "Create and customize your investor introductions before sending.",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white70),
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Card 1
                 buildCard(
@@ -121,22 +114,27 @@ class CreateIntroPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade900,
+                            backgroundColor:
+                                Colors.blue.shade900,
                             foregroundColor: Colors.white,
                           ),
-                          onPressed: () => showSuccessDialog(context),
-                          child: Text("Send"),
+                          onPressed: () =>
+                              showSuccessDialog(context),
+                          child: const Text("Send"),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey.shade300,
+                            backgroundColor:
+                                Colors.grey.shade300,
                             foregroundColor: Colors.black,
                           ),
-                          onPressed: () {},
-                          child: Text("Back"),
+                          onPressed: () {
+                            context.goNamed("myStartups");
+                          },
+                          child: const Text("Back"),
                         ),
                       ),
                     ],
@@ -150,10 +148,12 @@ class CreateIntroPage extends StatelessWidget {
     );
   }
 
-  Widget buildCard({required String title, required String content}) {
+  Widget buildCard(
+      {required String title, required String content}) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(
+          horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(16),
@@ -161,22 +161,28 @@ class CreateIntroPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-          SizedBox(height: 10),
+          Text(title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold)),
+          const SizedBox(height: 10),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(content),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             children: [
-              OutlinedButton(onPressed: () {}, child: Text("Copy")),
-              SizedBox(width: 10),
-              OutlinedButton(onPressed: () {}, child: Text("Edit")),
+              OutlinedButton(
+                  onPressed: () {},
+                  child: const Text("Copy")),
+              const SizedBox(width: 10),
+              OutlinedButton(
+                  onPressed: () {},
+                  child: const Text("Edit")),
             ],
           ),
         ],

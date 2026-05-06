@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/startup_appbar.dart';
 
-class MyStartup extends StatelessWidget {
-  const MyStartup({super.key});
+class MyStartups extends StatefulWidget {
+  const MyStartups({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyStartupsPage(),
-    );
-  }
+  State<MyStartups> createState() => _MyStartupsState();
 }
 
-class MyStartupsPage extends StatefulWidget {
-  const MyStartupsPage({super.key});
-  @override
-  State<MyStartupsPage> createState() => _MyStartupsPageState();
-}
-
-class _MyStartupsPageState extends State<MyStartupsPage> {
+class _MyStartupsState extends State<MyStartups> {
   List<Map<String, dynamic>> startups = [
     {
       "name": "Startup 1",
@@ -37,30 +27,36 @@ class _MyStartupsPageState extends State<MyStartupsPage> {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: Colors.blue.shade900, width: 3),
+            side: BorderSide(
+                color: Colors.blue.shade900, width: 3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: Colors.red,
-                  child: Icon(Icons.error, color: Colors.white),
+                  child: Icon(Icons.error,
+                      color: Colors.white),
                 ),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 16),
+                const Text(
                   "Confirm delete: Are you sure?",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue.shade900,
+                        backgroundColor:
+                            Colors.blue.shade900,
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
@@ -69,13 +65,13 @@ class _MyStartupsPageState extends State<MyStartupsPage> {
                         });
                         Navigator.pop(context);
                       },
-                      child: Text("Yes"),
+                      child: const Text("Yes"),
                     ),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text("No"),
+                      child: const Text("No"),
                     ),
                   ],
                 ),
@@ -90,9 +86,9 @@ class _MyStartupsPageState extends State<MyStartupsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: StartupAppbar(),
+      appBar: const StartupAppbar(),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF5A6FA8), Color(0xFF3F5C8A)],
             begin: Alignment.topCenter,
@@ -102,9 +98,9 @@ class _MyStartupsPageState extends State<MyStartupsPage> {
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              Text(
+              const Text(
                 "My Startups",
                 style: TextStyle(
                   color: Colors.white,
@@ -113,14 +109,14 @@ class _MyStartupsPageState extends State<MyStartupsPage> {
                 ),
               ),
 
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
 
-              Text(
+              const Text(
                 "Manage your startup profiles",
                 style: TextStyle(color: Colors.white70),
               ),
 
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               // New Intro Button
               Align(
@@ -129,20 +125,24 @@ class _MyStartupsPageState extends State<MyStartupsPage> {
                   padding: const EdgeInsets.only(right: 16),
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(61, 61, 180, 1),
+                      backgroundColor: const Color.fromRGBO(
+                          61, 61, 180, 1),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius:
+                            BorderRadius.circular(12),
                       ),
                     ),
-                    onPressed: () {},
-                    icon: Icon(Icons.add),
-                    label: Text("New Intro"),
+                    onPressed: () {
+                      context.pushNamed("createIntro");
+                    },
+                    icon: const Icon(Icons.add),
+                    label: const Text("New Intro"),
                   ),
                 ),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // List
               Expanded(
@@ -152,57 +152,74 @@ class _MyStartupsPageState extends State<MyStartupsPage> {
                     final item = startups[index];
 
                     return Container(
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 10,
                       ),
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius:
+                            BorderRadius.circular(16),
                       ),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   item["name"],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                  style: const TextStyle(
+                                    fontWeight:
+                                        FontWeight.bold,
                                     fontSize: 18,
                                   ),
                                 ),
-                                SizedBox(height: 6),
+                                const SizedBox(height: 6),
                                 Text(item["desc"]),
-                                SizedBox(height: 16),
+                                const SizedBox(height: 16),
                                 Row(
                                   children: [
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment
+                                              .start,
                                       children: [
-                                        Text("Intros Sent"),
+                                        const Text(
+                                            "Intros Sent"),
                                         Text(
-                                          item["intros"].toString(),
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                          item["intros"]
+                                              .toString(),
+                                          style:
+                                              const TextStyle(
+                                            fontWeight:
+                                                FontWeight
+                                                    .bold,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    SizedBox(width: 40),
+                                    const SizedBox(
+                                        width: 40),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment
+                                              .start,
                                       children: [
-                                        Text("Investors"),
+                                        const Text(
+                                            "Investors"),
                                         Text(
-                                          item["investors"].toString(),
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                          item["investors"]
+                                              .toString(),
+                                          style:
+                                              const TextStyle(
+                                            fontWeight:
+                                                FontWeight
+                                                    .bold,
                                           ),
                                         ),
                                       ],
@@ -215,8 +232,10 @@ class _MyStartupsPageState extends State<MyStartupsPage> {
 
                           // Delete button
                           IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => showDeleteDialog(index),
+                            icon: const Icon(Icons.delete,
+                                color: Colors.red),
+                            onPressed: () =>
+                                showDeleteDialog(index),
                           ),
                         ],
                       ),

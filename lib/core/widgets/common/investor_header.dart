@@ -40,7 +40,7 @@ class InvestorHeader extends StatelessWidget
                 // 3. Profile Image Action
                 GestureDetector(
                   onTap: () =>
-                      context.pushNamed('profileSettings'),
+                      context.pushNamed('investorProfile'),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(
                         21), // Circular clipping

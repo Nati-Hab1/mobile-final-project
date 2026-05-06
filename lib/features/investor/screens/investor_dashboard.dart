@@ -8,7 +8,7 @@ class InvestorDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF5A6A9A),
+      // backgroundColor: const Color(0xFF5A6A9A),
       appBar: const InvestorHeader(),
       body: Stack(
         children: [
@@ -19,23 +19,7 @@ class InvestorDashboard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          // Gradient overlay for better text readability
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    const Color(0xFF5A6A9A)
-                        .withOpacity(0.85),
-                    const Color(0xFF5A6A9A)
-                        .withOpacity(0.95),
-                  ],
-                ),
-              ),
-            ),
-          ),
+
           // Main Content
           const SafeArea(
             child: SingleChildScrollView(

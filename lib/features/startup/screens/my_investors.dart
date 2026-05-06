@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:menesha/core/widgets/common/startup_appbar.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyInvestorsPage(),
-    );
-  }
-}
-
-class MyInvestorsPage extends StatelessWidget {
-  MyInvestorsPage({super.key});
+class MyInvestors extends StatelessWidget {
+  MyInvestors({super.key});
 
   final List<Map<String, String>> investors = [
     {
@@ -26,9 +15,9 @@ class MyInvestorsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: StartupAppbar(),
+      appBar: const StartupAppbar(),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF5A6FA8), Color(0xFF3F5C8A)],
             begin: Alignment.topCenter,
@@ -39,9 +28,9 @@ class MyInvestorsPage extends StatelessWidget {
           child: Column(
             children: [
               // Title
-              SizedBox(height: 9),
+              const SizedBox(height: 9),
 
-              Text(
+              const Text(
                 "My Investors",
                 style: TextStyle(
                   color: Colors.white,
@@ -50,25 +39,27 @@ class MyInvestorsPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
 
-              Text(
+              const Text(
                 "Manage your investor list",
                 style: TextStyle(color: Colors.white70),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Search Bar
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16),
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: TextField(
+                  child: const TextField(
                     decoration: InputDecoration(
                       icon: Icon(Icons.search),
                       hintText: "Search my investors...",
@@ -78,7 +69,7 @@ class MyInvestorsPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Investor List
               Expanded(
@@ -117,26 +108,30 @@ class InvestorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(
+          horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         children: [
-          Icon(Icons.person_outline, size: 50, color: Colors.grey),
-          SizedBox(width: 16),
+          const Icon(Icons.person_outline,
+              size: 50, color: Colors.grey),
+          const SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Name: $name",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text("Invested in: $startup"),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(email),
             ],
           ),
