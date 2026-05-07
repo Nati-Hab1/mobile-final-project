@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/startup_appbar.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class MyStartups extends StatefulWidget {
-  const MyStartups({super.key});
+  const MyStartups({super.key, required this.role});
+
+  final String role;
   @override
   State<MyStartups> createState() => _MyStartupsState();
 }
@@ -27,8 +29,7 @@ class _MyStartupsState extends State<MyStartups> {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(
-                color: Colors.blue.shade900, width: 3),
+            side: BorderSide(color: Colors.blue.shade900, width: 3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -37,26 +38,21 @@ class _MyStartupsState extends State<MyStartups> {
               children: [
                 const CircleAvatar(
                   backgroundColor: Colors.red,
-                  child: Icon(Icons.error,
-                      color: Colors.white),
+                  child: Icon(Icons.error, color: Colors.white),
                 ),
                 const SizedBox(height: 16),
                 const Text(
                   "Confirm delete: Are you sure?",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const SizedBox(height: 20),
                 Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.blue.shade900,
+                        backgroundColor: Colors.blue.shade900,
                         foregroundColor: Colors.white,
                       ),
                       onPressed: () {
@@ -86,7 +82,7 @@ class _MyStartupsState extends State<MyStartups> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StartupAppbar(),
+      appBar: Header(role: widget.role),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -125,12 +121,10 @@ class _MyStartupsState extends State<MyStartups> {
                   padding: const EdgeInsets.only(right: 16),
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(
-                          61, 61, 180, 1),
+                      backgroundColor: const Color.fromRGBO(61, 61, 180, 1),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     onPressed: () {
@@ -159,23 +153,19 @@ class _MyStartupsState extends State<MyStartups> {
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
-                        borderRadius:
-                            BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                       child: Row(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   item["name"],
                                   style: const TextStyle(
-                                    fontWeight:
-                                        FontWeight.bold,
+                                    fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),
                                 ),
@@ -186,40 +176,27 @@ class _MyStartupsState extends State<MyStartups> {
                                   children: [
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment
-                                              .start,
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
-                                            "Intros Sent"),
+                                        const Text("Intros Sent"),
                                         Text(
-                                          item["intros"]
-                                              .toString(),
-                                          style:
-                                              const TextStyle(
-                                            fontWeight:
-                                                FontWeight
-                                                    .bold,
+                                          item["intros"].toString(),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                        width: 40),
+                                    const SizedBox(width: 40),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment
-                                              .start,
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        const Text(
-                                            "Investors"),
+                                        const Text("Investors"),
                                         Text(
-                                          item["investors"]
-                                              .toString(),
-                                          style:
-                                              const TextStyle(
-                                            fontWeight:
-                                                FontWeight
-                                                    .bold,
+                                          item["investors"].toString(),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
@@ -232,10 +209,8 @@ class _MyStartupsState extends State<MyStartups> {
 
                           // Delete button
                           IconButton(
-                            icon: const Icon(Icons.delete,
-                                color: Colors.red),
-                            onPressed: () =>
-                                showDeleteDialog(index),
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () => showDeleteDialog(index),
                           ),
                         ],
                       ),
