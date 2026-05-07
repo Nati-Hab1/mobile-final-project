@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/startup_appbar.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class CreateIntro extends StatelessWidget {
-  const CreateIntro({super.key});
+  const CreateIntro({super.key, required this.role});
+  final String role;
 
   void showSuccessDialog(BuildContext context) {
     showDialog(
@@ -14,8 +15,7 @@ class CreateIntro extends StatelessWidget {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(
-                color: Colors.blue.shade900, width: 3),
+            side: BorderSide(color: Colors.blue.shade900, width: 3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -24,15 +24,12 @@ class CreateIntro extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   backgroundColor: Colors.green,
-                  child: Icon(Icons.check,
-                      color: Colors.white),
+                  child: Icon(Icons.check, color: Colors.white),
                 ),
                 const SizedBox(height: 16),
                 const Text(
                   "Intro Sent",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
@@ -56,7 +53,9 @@ class CreateIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StartupAppbar(),
+      appBar: Header(
+        role: role,
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -114,12 +113,10 @@ class CreateIntro extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Colors.blue.shade900,
+                            backgroundColor: Colors.blue.shade900,
                             foregroundColor: Colors.white,
                           ),
-                          onPressed: () =>
-                              showSuccessDialog(context),
+                          onPressed: () => showSuccessDialog(context),
                           child: const Text("Send"),
                         ),
                       ),
@@ -127,8 +124,7 @@ class CreateIntro extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Colors.grey.shade300,
+                            backgroundColor: Colors.grey.shade300,
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
@@ -148,11 +144,9 @@ class CreateIntro extends StatelessWidget {
     );
   }
 
-  Widget buildCard(
-      {required String title, required String content}) {
+  Widget buildCard({required String title, required String content}) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-          horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -161,9 +155,7 @@ class CreateIntro extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold)),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(10),
@@ -176,13 +168,9 @@ class CreateIntro extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: [
-              OutlinedButton(
-                  onPressed: () {},
-                  child: const Text("Copy")),
+              OutlinedButton(onPressed: () {}, child: const Text("Copy")),
               const SizedBox(width: 10),
-              OutlinedButton(
-                  onPressed: () {},
-                  child: const Text("Edit")),
+              OutlinedButton(onPressed: () {}, child: const Text("Edit")),
             ],
           ),
         ],
