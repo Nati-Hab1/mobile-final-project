@@ -100,7 +100,9 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
         path: '/investor_sider',
         name: 'investorSider',
-        builder: (context, state) => const InvestorSider()),
+        builder: (context, state) => const InvestorSider(
+           currentRoute: '/investor_dashboard/investor',
+           role: 'investor')),
     GoRoute(
       path: '/investor_startups/:role',
       name: 'investorStartups',
@@ -142,7 +144,6 @@ final GoRouter appRouter = GoRouter(
       path: '/startup_dashboard',
       name: 'startupDashboard',
       builder: (context, state) {
-        // final role = state.pathParameters['role']!;
         return const StartupDashboard();
       },
     ),
@@ -150,7 +151,6 @@ final GoRouter appRouter = GoRouter(
       path: '/add_startup',
       name: 'addStartup',
       builder: (context, state) {
-        // final role = state.pathParameters['role']!;
         return const AddStartup();
       },
     ),
@@ -158,7 +158,6 @@ final GoRouter appRouter = GoRouter(
       path: '/startup_sider',
       name: 'startupSider',
       builder: (context, state) {
-        // final role = state.pathParameters['role']!;
         return const StartupSidebar();
       },
     ),
