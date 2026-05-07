@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:menesha/core/widgets/common/startup_appbar.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class MyInvestors extends StatelessWidget {
-  MyInvestors({super.key});
+  MyInvestors({super.key, required this.role});
+  final String role;
 
   final List<Map<String, String>> investors = [
     {
@@ -15,7 +16,9 @@ class MyInvestors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StartupAppbar(),
+      appBar: Header(
+        role: role,
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -50,11 +53,9 @@ class MyInvestors extends StatelessWidget {
 
               // Search Bar
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
@@ -108,8 +109,7 @@ class InvestorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-          horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -117,17 +117,15 @@ class InvestorCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.person_outline,
-              size: 50, color: Colors.grey),
+          const Icon(Icons.person_outline, size: 50, color: Colors.grey),
           const SizedBox(width: 16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Name: $name",
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(height: 4),
               Text("Invested in: $startup"),
