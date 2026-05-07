@@ -9,7 +9,6 @@ class InvestorDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xFF5A6A9A),
       appBar: Header(
         role: role,
       ),
@@ -22,14 +21,12 @@ class InvestorDashboard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-
           // Main Content
           const SafeArea(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _HeroSection(),
                   SizedBox(height: 24),
@@ -94,21 +91,21 @@ class _StatsSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GridView.count(
+        shrinkWrap: true, // Add this to prevent infinite height
+        physics: const NeverScrollableScrollPhysics(), // Add this to disable scrolling
         crossAxisCount: 2,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
-        childAspectRatio: 2.0,
-        children: const [
-          _StatCard(
+        childAspectRatio: 2.2,
+        children: [
+          const _StatCard(
             label: 'Total Intros',
             value: '12',
             icon: Icons.filter_list,
             iconColor: Color(0xFF4A6CF7),
             iconBgColor: Color(0xFFEAEDFC),
           ),
-          _StatCard(
+          const _StatCard(
             label: 'Follow-ups',
             value: '7',
             icon: Icons.access_time,
@@ -121,8 +118,12 @@ class _StatsSection extends StatelessWidget {
             icon: Icons.people_outline,
             iconColor: Color(0xFF34C759),
             iconBgColor: Color(0xFFE8F8ED),
+            onTap: () => context.pushNamed(
+              'investorStartups',
+              pathParameters: {'role': 'investor'},
+            ),
           ),
-          _StatCard(
+          const _StatCard(
             label: 'Completed',
             value: '21',
             icon: Icons.trending_up,
@@ -141,6 +142,7 @@ class _StatCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final Color iconBgColor;
+  final VoidCallback? onTap;
 
   const _StatCard({
     required this.label,
@@ -148,61 +150,65 @@ class _StatCard extends StatelessWidget {
     required this.icon,
     required this.iconColor,
     required this.iconBgColor,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.08),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Color(0xFF8A92A8),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                value,
-                style: const TextStyle(
-                  color: Color(0xFF1A2151),
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            width: 36,
-            height: 36,
-            decoration: BoxDecoration(
-              color: iconBgColor,
-              borderRadius: BorderRadius.circular(10),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+            horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
             ),
-            child: Icon(icon, color: iconColor, size: 18),
-          ),
-        ],
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: Color(0xFF8A92A8),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    color: Color(0xFF1A2151),
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: iconBgColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, color: iconColor, size: 18),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -262,7 +268,7 @@ class _ActionTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
             horizontal: 16, vertical: 16),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.15),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
             color: Colors.white.withOpacity(0.25),
@@ -271,20 +277,20 @@ class _ActionTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, color: Colors.white, size: 20),
+            Icon(icon, color: Colors.black, size: 20),
             const SizedBox(width: 12),
             Expanded(
               child: Text(
                 label,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
                 ),
               ),
             ),
             const Icon(Icons.arrow_forward,
-                color: Colors.white70, size: 18),
+                color: Colors.black, size: 18),
           ],
         ),
       ),
