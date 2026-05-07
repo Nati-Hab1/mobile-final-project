@@ -36,6 +36,7 @@ class _InvestorProfileState extends State<ProfileSettings> {
                       color: Color(0xFF0022BA), width: 2),
                 ),
                 child: Container(
+                  
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -141,8 +142,8 @@ class _InvestorProfileState extends State<ProfileSettings> {
                         Container(
                           padding:
                               const EdgeInsets.symmetric(
-                                  horizontal: 40,
-                                  vertical: 12),
+                                  horizontal: 45,
+                                  vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius:
@@ -164,7 +165,12 @@ class _InvestorProfileState extends State<ProfileSettings> {
 
                         // Form Card
                         Container(
-                          padding: const EdgeInsets.all(24),
+                          margin: const EdgeInsets.only(bottom: 30),
+                          padding: const EdgeInsets.only(
+                            bottom: 60,
+                            left: 24,
+                            right: 24,
+                            top: 24,),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius:
