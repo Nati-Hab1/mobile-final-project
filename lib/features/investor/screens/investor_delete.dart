@@ -193,164 +193,176 @@ class _InvestorDeleteState extends State<InvestorDelete> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Stack(
-        children: [
-          // Background
-          Positioned.fill(
-            child: Image.asset(
-                'assets/images/background.png',
-                fit: BoxFit.cover),
-          ),
-          SafeArea(
-            child: Column(
-              children: [
-                // Top Navigation
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton.icon(
-                      onPressed: () =>
-                          Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back_ios,
-                          color: Colors.white, size: 18),
-                      label: const Text("Back",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18)),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            // Background
+            Container(
+              height: screenHeight,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/images/background.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            SafeArea(
+              child: Column(
+                children: [
+                  // Top Navigation
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        onPressed: () =>
+                            Navigator.pop(context),
+                        icon: const Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                            size: 18),
+                        label: const Text("Back",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18)),
+                      ),
                     ),
                   ),
-                ),
 
-                // Warmly Logo Placeholder
-                const Text("WARMLY",
+                  // Warmly Logo Placeholder
+                  const Text("WARMLY",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2)),
+                  const SizedBox(height: 30),
+
+                  const Text(
+                    "Delete Account",
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  const SizedBox(height: 20),
+                  const Icon(Icons.person_outline,
+                      size: 80, color: Colors.white),
+                  const SizedBox(height: 30),
+
+                  // Reason Dropdown
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24),
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Tell Us The Reason For Closing Your Account ?",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 15),
+                        DropdownButtonFormField<String>(
+                          value: _selectedReason,
+                          decoration: InputDecoration(
+                            fillColor: Colors.white,
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(
+                                        12)),
+                          ),
+                          items: [
+                            "I Have A Privacy Concern",
+                            "Other"
+                          ].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value,
+                                  style: const TextStyle(
+                                      color: Colors.grey)),
+                            );
+                          }).toList(),
+                          onChanged: (val) => setState(
+                              () => _selectedReason = val),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+                  const Text(
+                    "Things To Check When Deleting Your Account:",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        letterSpacing: 2)),
-                const SizedBox(height: 30),
+                        fontSize: 16),
+                  ),
+                  const SizedBox(height: 15),
 
-                const Text(
-                  "Delete Account",
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                const SizedBox(height: 20),
-                const Icon(Icons.person_outline,
-                    size: 80, color: Colors.white),
-                const SizedBox(height: 30),
-
-                // Reason Dropdown
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24),
-                  child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "Tell Us The Reason For Closing Your Account ?",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500),
+                  // Info Box
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24),
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.circular(15),
                       ),
-                      const SizedBox(height: 15),
-                      DropdownButtonFormField<String>(
-                        value: _selectedReason,
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          border: OutlineInputBorder(
+                      child: Column(
+                        children: [
+                          _buildCheckItem(
+                              "You Can't Log In To Application With This Account After Deleting It."),
+                          _buildCheckItem(
+                              "You Can't Register A New Account Using The Email Address Linked To This Account."),
+                          _buildCheckItem(
+                              "Your Requests And Other Related Data Will Be Deleted Permanently"),
+                          _buildCheckItem(
+                              "Your Account Will Be Permanently Deleted In 14 Days."),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+                  // Final Delete Button
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _showConfirmationDialog,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color(0xFF3F51B5),
+                          padding:
+                              const EdgeInsets.symmetric(
+                                  vertical: 15),
+                          shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.circular(
                                       12)),
                         ),
-                        items: [
-                          "I Have A Privacy Concern",
-                          "Other"
-                        ].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,
-                                style: const TextStyle(
-                                    color: Colors.grey)),
-                          );
-                        }).toList(),
-                        onChanged: (val) => setState(
-                            () => _selectedReason = val),
+                        child: const Text("Delete",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18)),
                       ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 30),
-                const Text(
-                  "Things To Check When Deleting Your Account:",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                ),
-                const SizedBox(height: 15),
-
-                // Info Box
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24),
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(15),
-                    ),
-                    child: Column(
-                      children: [
-                        _buildCheckItem(
-                            "You Can't Log In To Application With This Account After Deleting It."),
-                        _buildCheckItem(
-                            "You Can't Register A New Account Using The Email Address Linked To This Account."),
-                        _buildCheckItem(
-                            "Your Requests And Other Related Data Will Be Deleted Permanently"),
-                        _buildCheckItem(
-                            "Your Account Will Be Permanently Deleted In 14 Days."),
-                      ],
                     ),
                   ),
-                ),
-
-                const Spacer(),
-
-                // Final Delete Button
-                Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _showConfirmationDialog,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color(0xFF3F51B5),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(12)),
-                      ),
-                      child: const Text("Delete",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18)),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

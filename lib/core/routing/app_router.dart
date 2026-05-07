@@ -25,7 +25,7 @@ import 'package:menesha/features/startup/screens/startup_dashboard.dart';
 import 'package:menesha/features/startup/screens/startup_sidebar.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/startup_sider',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',

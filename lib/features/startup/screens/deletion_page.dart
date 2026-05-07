@@ -16,10 +16,12 @@ class DeleteAccountPage extends StatefulWidget {
   const DeleteAccountPage({super.key});
 
   @override
-  State<DeleteAccountPage> createState() => _DeleteAccountPageState();
+  State<DeleteAccountPage> createState() =>
+      _DeleteAccountPageState();
 }
 
-class _DeleteAccountPageState extends State<DeleteAccountPage> {
+class _DeleteAccountPageState
+    extends State<DeleteAccountPage> {
   String? _selectedReason;
 
   final _reasons = [
@@ -39,9 +41,12 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
       builder: (_) => Dialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: Colors.blue.shade900, width: 3),
+          side: BorderSide(
+              color: Colors.blue.shade900, width: 3),
         ),
-        child: Padding(padding: const EdgeInsets.all(24), child: content),
+        child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: content),
       ),
     );
   }
@@ -55,20 +60,23 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
           Text(
             "Are You Sure You Want To\nDelete Your Account?",
             textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 18),
           ),
           SizedBox(height: 20),
           _badgeIcon(
             Icons.person_outline,
             Colors.grey,
-            Icon(Icons.close, color: Colors.white, size: 14),
+            Icon(Icons.close,
+                color: Colors.white, size: 14),
             Colors.red,
           ),
           SizedBox(height: 16),
           Text(
             "By Deleting Your Account You Will Lose Your Data Permanently.",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 13, color: Colors.black54),
+            style: TextStyle(
+                fontSize: 13, color: Colors.black54),
           ),
           SizedBox(height: 28),
           Row(
@@ -78,7 +86,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(color: Colors.black54),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius:
+                          BorderRadius.circular(8),
                     ),
                   ),
                   onPressed: () => Navigator.pop(context),
@@ -92,7 +101,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     backgroundColor: Colors.blue.shade900,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius:
+                          BorderRadius.circular(8),
                     ),
                   ),
                   onPressed: () {
@@ -118,20 +128,24 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
           _badgeIcon(
             null,
             Colors.grey.shade300,
-            Icon(Icons.check, color: Colors.white, size: 12),
+            Icon(Icons.check,
+                color: Colors.white, size: 12),
             Colors.grey.shade500,
-            mainIcon: Icon(Icons.check, color: Colors.white, size: 36),
+            mainIcon: Icon(Icons.check,
+                color: Colors.white, size: 36),
           ),
           SizedBox(height: 16),
           Text(
             "Successfully!",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20),
           ),
           SizedBox(height: 8),
           Text(
             "Your Account Has Been Successfully Deleted, We're Sorry To See You Go",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 13, color: Colors.black54),
+            style: TextStyle(
+                fontSize: 13, color: Colors.black54),
           ),
           SizedBox(height: 20),
           Row(
@@ -168,10 +182,13 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundColor: icon != null ? Colors.transparent : bgColor,
-            child: mainIcon ?? Icon(icon, color: bgColor, size: 60),
+            backgroundColor:
+                icon != null ? Colors.transparent : bgColor,
+            child: mainIcon ??
+                Icon(icon, color: bgColor, size: 60),
           ),
-          if (icon != null) Icon(icon, color: bgColor, size: 60),
+          if (icon != null)
+            Icon(icon, color: bgColor, size: 60),
           Positioned(
             right: 0,
             bottom: 2,
@@ -181,7 +198,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
               decoration: BoxDecoration(
                 color: badgeColor,
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
+                border: Border.all(
+                    color: Colors.white, width: 2),
               ),
               child: Center(child: badgeChild),
             ),
@@ -211,7 +229,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                 child: Column(
                   children: [
                     SizedBox(height: 20),
-                    Image.asset('assets/images/me.png', height: 100),
+                    Image.asset('assets/images/me.png',
+                        height: 100),
                   ],
                 ),
               ),
@@ -263,9 +282,11 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                                   child: Text(
                                     '!',
                                     style: TextStyle(
-                                      color: Color(0xFF3F5C8A),
+                                      color:
+                                          Color(0xFF3F5C8A),
                                       fontSize: 13,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight:
+                                          FontWeight.bold,
                                       height: 1,
                                     ),
                                   ),
@@ -279,7 +300,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       SizedBox(height: 12),
 
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -296,14 +318,18 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       SizedBox(height: 10),
 
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16),
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 14),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 14),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius:
+                                BorderRadius.circular(8),
                           ),
-                          child: DropdownButtonHideUnderline(
+                          child:
+                              DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
                               isExpanded: true,
                               value: _selectedReason,
@@ -326,8 +352,9 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                                     ),
                                   )
                                   .toList(),
-                              onChanged: (val) =>
-                                  setState(() => _selectedReason = val),
+                              onChanged: (val) => setState(
+                                  () => _selectedReason =
+                                      val),
                             ),
                           ),
                         ),
@@ -336,7 +363,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       SizedBox(height: 24),
 
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -367,13 +395,16 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue.shade900,
+                          backgroundColor:
+                              Colors.blue.shade900,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius:
+                                BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: () => showConfirmationDialog(context),
+                        onPressed: () =>
+                            showConfirmationDialog(context),
                         child: Text("Delete"),
                       ),
                     ),
@@ -407,21 +438,27 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             .expand(
               (text) => [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
                   children: [
                     Text(
                       '• ',
-                      style: TextStyle(color: Colors.black87, fontSize: 14),
+                      style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 14),
                     ),
                     Expanded(
                       child: Text(
                         text,
-                        style: TextStyle(color: Colors.black87, fontSize: 13),
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 13),
                       ),
                     ),
                   ],
                 ),
-                if (text != items.last) SizedBox(height: 12),
+                if (text != items.last)
+                  SizedBox(height: 12),
               ],
             )
             .toList(),
