@@ -36,6 +36,9 @@ class CreateIntro extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue.shade900,
                     foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
@@ -58,10 +61,9 @@ class CreateIntro extends StatelessWidget {
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF5A6FA8), Color(0xFF3F5C8A)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -115,6 +117,9 @@ class CreateIntro extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue.shade900,
                             foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
                           onPressed: () => showSuccessDialog(context),
                           child: const Text("Send"),
@@ -126,6 +131,9 @@ class CreateIntro extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.grey.shade300,
                             foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                           ),
                           onPressed: () {
                             context.goNamed("myStartups");
@@ -168,9 +176,25 @@ class CreateIntro extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: [
-              OutlinedButton(onPressed: () {}, child: const Text("Copy")),
+              OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(58, 26),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  child: const Text("Copy")),
               const SizedBox(width: 10),
-              OutlinedButton(onPressed: () {}, child: const Text("Edit")),
+              OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(58, 26),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                  child: const Text("Edit")),
             ],
           ),
         ],
