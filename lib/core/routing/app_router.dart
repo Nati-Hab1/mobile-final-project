@@ -55,8 +55,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/role-selection',
       name: 'role-selection',
-      builder: (context, state) =>
-          const RoleSelectionScreen(),
+      builder: (context, state) => const RoleSelectionScreen(),
     ),
     GoRoute(
       path: '/about_us/:role',
@@ -101,8 +100,7 @@ final GoRouter appRouter = GoRouter(
         path: '/investor_sider',
         name: 'investorSider',
         builder: (context, state) => const InvestorSider(
-           currentRoute: '/investor_dashboard/investor',
-           role: 'investor')),
+            currentRoute: '/investor_dashboard/investor', role: 'investor')),
     GoRoute(
       path: '/investor_startups/:role',
       name: 'investorStartups',
@@ -130,8 +128,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
         path: '/investor_delete',
         name: 'investorDelete',
-        builder: (context, state) =>
-            const InvestorDelete()),
+        builder: (context, state) => const InvestorDelete()),
     GoRoute(
       path: '/investor_intros/:role',
       name: 'investorIntros',
@@ -166,9 +163,13 @@ final GoRouter appRouter = GoRouter(
         name: 'myStartups',
         builder: (context, state) => const MyStartups()),
     GoRoute(
-        path: '/create_intro',
-        name: 'createIntro',
-        builder: (context, state) => const CreateIntro()),
+      path: '/create_intro',
+      name: 'createIntro',
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return CreateIntro(role: role);
+      },
+    ),
     GoRoute(
         path: '/my_investors',
         name: 'myInvestors',
