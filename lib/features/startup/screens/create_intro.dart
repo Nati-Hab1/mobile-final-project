@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/header.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class CreateIntro extends StatelessWidget {
   const CreateIntro({super.key, required this.role});
@@ -40,6 +41,10 @@ class CreateIntro extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue.shade900,
                     foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(10),
+                    ),
                   ),
                   onPressed: () {
                     context.pop();
@@ -60,10 +65,10 @@ class CreateIntro extends StatelessWidget {
       appBar: Header(role: role),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF5A6FA8), Color(0xFF3F5C8A)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+          image: DecorationImage(
+            image:
+                AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -118,6 +123,10 @@ class CreateIntro extends StatelessWidget {
                             backgroundColor:
                                 Colors.blue.shade900,
                             foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(10),
+                            ),
                           ),
                           onPressed: () =>
                               showSuccessDialog(context),
@@ -131,6 +140,10 @@ class CreateIntro extends StatelessWidget {
                             backgroundColor:
                                 Colors.grey.shade300,
                             foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(10),
+                            ),
                           ),
                           onPressed: () {
                             context.goNamed("myStartups",
@@ -182,10 +195,24 @@ class CreateIntro extends StatelessWidget {
             children: [
               OutlinedButton(
                   onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(58, 26),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(5),
+                    ),
+                  ),
                   child: const Text("Copy")),
               const SizedBox(width: 10),
               OutlinedButton(
                   onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(58, 26),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(5),
+                    ),
+                  ),
                   child: const Text("Edit")),
             ],
           ),
