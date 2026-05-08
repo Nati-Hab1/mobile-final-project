@@ -26,7 +26,8 @@ class InvestorDashboard extends StatelessWidget {
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   _HeroSection(),
                   SizedBox(height: 24),
@@ -91,12 +92,14 @@ class _StatsSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GridView.count(
-        shrinkWrap: true, // Add this to prevent infinite height
-        physics: const NeverScrollableScrollPhysics(), // Add this to disable scrolling
+        shrinkWrap:
+            true, // Add this to prevent infinite height
+        physics:
+            const NeverScrollableScrollPhysics(), // Add this to disable scrolling
         crossAxisCount: 2,
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
-        childAspectRatio: 2.2,
+        childAspectRatio: 2.0,
         children: [
           const _StatCard(
             label: 'Total Intros',

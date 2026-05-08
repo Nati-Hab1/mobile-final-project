@@ -155,7 +155,7 @@ class StartupSider extends StatelessWidget {
         },
         child: Container(
           padding: const EdgeInsets.symmetric(
-            horizontal: 16,
+            horizontal: 12,
             vertical: 12,
           ),
           decoration: BoxDecoration(
@@ -169,12 +169,14 @@ class StartupSider extends StatelessWidget {
                 size: 24,
               ),
               const SizedBox(width: 15),
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+              Expanded(
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ],
@@ -209,12 +211,12 @@ class StartupSider extends StatelessWidget {
           _buildSubTile(
             context,
             'Startup',
-            '/startup_dashboard',
+            '/startup_dashboard/startup',
           ),
           _buildSubTile(
             context,
             'Investor',
-            '/investor_dashboard/$role',
+            '/investor_dashboard/investor',
           ),
         ],
         const Padding(
@@ -258,7 +260,7 @@ class StartupSider extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () {
-        context.push('/investor_delete');
+        context.pushNamed('deleteAccount');
       },
       icon: const Icon(
         Icons.person,

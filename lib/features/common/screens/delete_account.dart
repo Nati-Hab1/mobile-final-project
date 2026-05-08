@@ -2,15 +2,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class InvestorDelete extends StatefulWidget {
-  const InvestorDelete({super.key});
+class DeleteAccount extends StatefulWidget {
+  const DeleteAccount({super.key});
 
   @override
-  State<InvestorDelete> createState() =>
-      _InvestorDeleteState();
+  State<DeleteAccount> createState() =>
+      _DeleteAccountState();
 }
 
-class _InvestorDeleteState extends State<InvestorDelete> {
+class _DeleteAccountState extends State<DeleteAccount> {
   String? _selectedReason = "I Have A Privacy Concern";
 
   void _showConfirmationDialog() {

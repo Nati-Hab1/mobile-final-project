@@ -15,7 +15,7 @@ import 'package:menesha/features/investor/screens/investor_startups.dart';
 import 'package:menesha/features/investor/screens/investor_bookmarks.dart';
 import 'package:menesha/features/investor/screens/investor_notes.dart';
 import 'package:menesha/features/profile/screens/profile_settings.dart';
-import 'package:menesha/features/investor/screens/investor_delete.dart';
+import 'package:menesha/features/common/screens/delete_account.dart';
 import 'package:menesha/features/investor/screens/investor_intros.dart';
 import 'package:menesha/features/startup/screens/add_startup.dart';
 import 'package:menesha/features/startup/screens/create_intro.dart';
@@ -25,7 +25,7 @@ import 'package:menesha/features/startup/screens/startup_dashboard.dart';
 import 'package:menesha/core/widgets/startup/startup_sider.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/startup_dashboard/startup',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
@@ -129,10 +129,9 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
-        path: '/investor_delete',
-        name: 'investorDelete',
-        builder: (context, state) =>
-            const InvestorDelete()),
+        path: '/delete_account',
+        name: 'deleteAccount',
+        builder: (context, state) => const DeleteAccount()),
     GoRoute(
       path: '/investor_intros/:role',
       name: 'investorIntros',

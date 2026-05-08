@@ -99,7 +99,7 @@ class _StatsSection extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 12,
         crossAxisSpacing: 12,
-        childAspectRatio: 2.2,
+        childAspectRatio: 2.0,
         children: [
           const _StatCard(
             label: 'Total Intros',
@@ -238,7 +238,7 @@ class _ActionsSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _ActionTile(
-            icon: Icons.edit,
+            icon: Icons.add_circle_outline,
             label: 'Get In Touch',
             onTap: () => context.pushNamed(
               'contactUs',
