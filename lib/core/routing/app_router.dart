@@ -98,11 +98,12 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
-        path: '/investor_sider',
+        path: '/investor_sider/:role',
         name: 'investorSider',
-        builder: (context, state) => const InvestorSider(
-           currentRoute: '/investor_dashboard/investor',
-           role: 'investor')),
+        builder: (context, state) {
+          final role = state.pathParameters['role']!;
+          return InvestorSider(role: role);
+        }),
     GoRoute(
       path: '/investor_startups/:role',
       name: 'investorStartups',

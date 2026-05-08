@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class InvestorSider extends StatelessWidget {
-  final String currentRoute;
+  final String role;
   final bool isRoleExpanded;
-  final String role; 
 
   const InvestorSider({
     super.key,
-    this.currentRoute = '/investor_dashboard',
+    required this.role,
     this.isRoleExpanded = true,
-    required this.role, // Make role required
   });
 
   @override
@@ -74,35 +72,35 @@ class InvestorSider extends StatelessWidget {
                       context,
                       Icons.home_outlined,
                       'Home',
-                      '/home', 
+                      '/home',
                     ),
 
                     _buildNavTile(
                       context,
                       Icons.grid_view_rounded,
                       'Dashboard',
-                      '/investor_dashboard/$role', 
+                      '/investor_dashboard/$role',
                     ),
 
                     _buildNavTile(
                       context,
                       Icons.info_outline,
                       'About Us',
-                      '/about_us/$role', 
+                      '/about_us/$role',
                     ),
 
                     _buildNavTile(
                       context,
                       Icons.phone_outlined,
                       'Contact Us',
-                      '/contact_us/$role', 
+                      '/contact_us/$role',
                     ),
 
                     _buildNavTile(
                       context,
                       Icons.description_outlined,
                       'Terms Of Service',
-                      '/terms/$role', 
+                      '/terms/$role',
                     ),
 
                     const Padding(
@@ -144,8 +142,6 @@ class InvestorSider extends StatelessWidget {
     String label,
     String route,
   ) {
-    final bool isActive = currentRoute == route;
-
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
@@ -161,31 +157,22 @@ class InvestorSider extends StatelessWidget {
             vertical: 12,
           ),
           decoration: BoxDecoration(
-            color: isActive
-                ? const Color(0xFF3D41AC)
-                : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
             children: [
               Icon(
                 icon,
-                color: isActive
-                    ? Colors.white
-                    : Colors.black87,
+                color: Colors.black87,
                 size: 24,
               ),
               const SizedBox(width: 15),
               Text(
                 label,
-                style: TextStyle(
-                  color: isActive
-                      ? Colors.white
-                      : Colors.black87,
+                style: const TextStyle(
+                  color: Colors.black87,
                   fontSize: 18,
-                  fontWeight: isActive
-                      ? FontWeight.bold
-                      : FontWeight.w500,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -221,13 +208,13 @@ class InvestorSider extends StatelessWidget {
           _buildSubTile(
             context,
             'Startup',
-            '/startup_dashboard', 
+            '/startup_dashboard',
           ),
 
           _buildSubTile(
             context,
             'Investor',
-            '/investor_dashboard/$role', 
+            '/investor_dashboard/$role',
           ),
         ],
 
@@ -247,8 +234,6 @@ class InvestorSider extends StatelessWidget {
     String label,
     String route,
   ) {
-    final bool isActive = currentRoute == route;
-
     return InkWell(
       onTap: () {
         context.go(route);
@@ -261,13 +246,9 @@ class InvestorSider extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TextStyle(
-            color: isActive
-                ? const Color(0xFF3D41AC)
-                : Colors.black54,
-            fontWeight: isActive
-                ? FontWeight.bold
-                : FontWeight.normal,
+          style: const TextStyle(
+            color: Colors.black54,
+            fontWeight: FontWeight.normal,
             fontSize: 16,
           ),
         ),
@@ -278,7 +259,7 @@ class InvestorSider extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () {
-        context.pushNamed('investorDelete');
+        context.push('/investor_delete');
       },
       icon: const Icon(
         Icons.person,
