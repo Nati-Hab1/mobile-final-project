@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:menesha/core/widgets/common/startup_appbar.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class MyInvestors extends StatelessWidget {
-  MyInvestors({super.key});
+  MyInvestors({super.key, required this.role});
+  final String role;
 
   final List<Map<String, String>> investors = [
     {
@@ -15,7 +16,7 @@ class MyInvestors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StartupAppbar(),
+      appBar: Header(role: role),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

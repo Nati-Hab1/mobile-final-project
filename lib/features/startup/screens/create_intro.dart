@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/startup_appbar.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class CreateIntro extends StatelessWidget {
-  const CreateIntro({super.key});
+  const CreateIntro({super.key, required this.role});
+  final String role;
 
   void showSuccessDialog(BuildContext context) {
     showDialog(
@@ -41,7 +42,7 @@ class CreateIntro extends StatelessWidget {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.pop();
                   },
                   child: const Text("Close"),
                 ),
@@ -56,7 +57,7 @@ class CreateIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StartupAppbar(),
+      appBar: Header(role: role),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -132,7 +133,10 @@ class CreateIntro extends StatelessWidget {
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () {
-                            context.goNamed("myStartups");
+                            context.goNamed("myStartups",
+                                pathParameters: {
+                                  "role": "startup"
+                                });
                           },
                           child: const Text("Back"),
                         ),

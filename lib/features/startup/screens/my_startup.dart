@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 import 'package:menesha/core/widgets/common/startup_appbar.dart';
 
 class MyStartups extends StatefulWidget {
-  const MyStartups({super.key});
+  const MyStartups({super.key, required this.role});
+  final String role;
   @override
   State<MyStartups> createState() => _MyStartupsState();
 }
@@ -63,13 +65,13 @@ class _MyStartupsState extends State<MyStartups> {
                         setState(() {
                           startups.removeAt(index);
                         });
-                        Navigator.pop(context);
+                        context.pop();
                       },
                       child: const Text("Yes"),
                     ),
                     OutlinedButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        context.pop();
                       },
                       child: const Text("No"),
                     ),
@@ -86,7 +88,7 @@ class _MyStartupsState extends State<MyStartups> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StartupAppbar(),
+      appBar: Header(role: widget.role),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -134,7 +136,10 @@ class _MyStartupsState extends State<MyStartups> {
                       ),
                     ),
                     onPressed: () {
-                      context.pushNamed("createIntro");
+                      context.pushNamed("createIntro",
+                          pathParameters: {
+                            "role": "startup"
+                          });
                     },
                     icon: const Icon(Icons.add),
                     label: const Text("New Intro"),

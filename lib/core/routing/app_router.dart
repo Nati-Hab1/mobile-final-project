@@ -22,10 +22,10 @@ import 'package:menesha/features/startup/screens/create_intro.dart';
 import 'package:menesha/features/startup/screens/my_investors.dart';
 import 'package:menesha/features/startup/screens/my_startup.dart';
 import 'package:menesha/features/startup/screens/startup_dashboard.dart';
-import 'package:menesha/features/startup/screens/startup_sidebar.dart';
+import 'package:menesha/core/widgets/startup/startup_sider.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/my_investors/:role',
   routes: [
     GoRoute(
       path: '/',
@@ -101,8 +101,8 @@ final GoRouter appRouter = GoRouter(
         path: '/investor_sider',
         name: 'investorSider',
         builder: (context, state) => const InvestorSider(
-           currentRoute: '/investor_dashboard/investor',
-           role: 'investor')),
+            currentRoute: '/investor_dashboard/investor',
+            role: 'investor')),
     GoRoute(
       path: '/investor_startups/:role',
       name: 'investorStartups',
@@ -141,38 +141,52 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/startup_dashboard',
+      path: '/startup_dashboard/:role',
       name: 'startupDashboard',
       builder: (context, state) {
-        return const StartupDashboard();
+        final role = state.pathParameters['role']!;
+        return StartupDashboard(role: role);
       },
     ),
     GoRoute(
-      path: '/add_startup',
+      path: '/add_startup/:role',
       name: 'addStartup',
       builder: (context, state) {
-        return const AddStartup();
+        final role = state.pathParameters['role']!;
+        return AddStartup(role: role);
       },
     ),
     GoRoute(
-      path: '/startup_sider',
+      path: '/startup_sider/:role',
       name: 'startupSider',
+      builder: (context, state) => const StartupSider(
+          currentRoute: '/startup_dashboard/startup',
+          role: 'startup'),
+    ),
+    GoRoute(
+      path: '/my_startups/:role',
+      name: 'myStartups',
       builder: (context, state) {
-        return const StartupSidebar();
+        final role = state.pathParameters['role']!;
+        return MyStartups(role: role);
       },
     ),
     GoRoute(
-        path: '/my_startups',
-        name: 'myStartups',
-        builder: (context, state) => const MyStartups()),
+      path: '/create_intro/:role',
+      name: 'createIntro',
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return CreateIntro(role: role);
+      },
+    ),
     GoRoute(
-        path: '/create_intro',
-        name: 'createIntro',
-        builder: (context, state) => const CreateIntro()),
-    GoRoute(
-        path: '/my_investors',
-        name: 'myInvestors',
-        builder: (context, state) => MyInvestors()),
+      path: '/my_investors/:role',
+      name: 'myInvestors',
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return MyInvestors(role: role);
+      },
+    ),
   ],
   errorBuilder: (context, state) => Scaffold(
     backgroundColor: const Color(0xFF2E3A6E),
