@@ -44,7 +44,7 @@ class AboutUs extends StatelessWidget {
                                     context.goNamed(
                                       "startupDashboard",
                                       pathParameters: {
-                                        'role': 'investor'
+                                        'role': role
                                       },
                                     )
                                   }
@@ -53,7 +53,7 @@ class AboutUs extends StatelessWidget {
                                     context.goNamed(
                                       "investorDashboard",
                                       pathParameters: {
-                                        'role': 'investor'
+                                        'role': role
                                       },
                                     )
                                   }

@@ -122,8 +122,8 @@ class _StatsSection extends StatelessWidget {
             iconColor: Color(0xFF34C759),
             iconBgColor: Color(0xFFE8F8ED),
             onTap: () => context.pushNamed(
-              'investorStartups',
-              pathParameters: {'role': 'investor'},
+              'myInvestors',
+              pathParameters: {'role': 'startup'},
             ),
           ),
           const _StatCard(

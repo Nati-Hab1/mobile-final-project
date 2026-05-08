@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/header.dart';
 
 class MyInvestors extends StatelessWidget {
@@ -30,7 +31,6 @@ class MyInvestors extends StatelessWidget {
             children: [
               // Title
               const SizedBox(height: 9),
-
               const Text(
                 "My Investors",
                 style: TextStyle(

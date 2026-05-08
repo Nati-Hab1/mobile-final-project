@@ -109,7 +109,8 @@ class _RoleCard extends StatelessWidget {
           PrimaryButton(
             label: 'Startup',
             onPressed: () {
-              context.goNamed('home');
+              context.goNamed('startupDashboard',
+                  pathParameters: {'role': 'startup'});
             },
           ),
         ],

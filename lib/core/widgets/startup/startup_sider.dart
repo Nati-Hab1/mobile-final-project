@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class StartupSider extends StatelessWidget {
-  final String currentRoute;
-  final bool isRoleExpanded;
   final String role;
+  final bool isRoleExpanded;
 
   const StartupSider({
     super.key,
-    this.currentRoute = '/starup_dashboard',
+    required this.role,
     this.isRoleExpanded = true,
-    required this.role, // Make role required
   });
 
   @override
@@ -82,7 +80,7 @@ class StartupSider extends StatelessWidget {
                       context,
                       Icons.grid_view_rounded,
                       'Dashboard',
-                      '/investor_dashboard/$role',
+                      '/startup_dashboard/$role',
                     ),
 
                     _buildNavTile(
@@ -146,8 +144,6 @@ class StartupSider extends StatelessWidget {
     String label,
     String route,
   ) {
-    final bool isActive = currentRoute == route;
-
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
@@ -163,31 +159,22 @@ class StartupSider extends StatelessWidget {
             vertical: 12,
           ),
           decoration: BoxDecoration(
-            color: isActive
-                ? const Color(0xFF3D41AC)
-                : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
             children: [
               Icon(
                 icon,
-                color: isActive
-                    ? Colors.white
-                    : Colors.black87,
+                color: Colors.black87,
                 size: 24,
               ),
               const SizedBox(width: 15),
               Text(
                 label,
-                style: TextStyle(
-                  color: isActive
-                      ? Colors.white
-                      : Colors.black87,
+                style: const TextStyle(
+                  color: Colors.black87,
                   fontSize: 18,
-                  fontWeight: isActive
-                      ? FontWeight.bold
-                      : FontWeight.w500,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -246,8 +233,6 @@ class StartupSider extends StatelessWidget {
     String label,
     String route,
   ) {
-    final bool isActive = currentRoute == route;
-
     return InkWell(
       onTap: () {
         context.go(route);
@@ -260,13 +245,9 @@ class StartupSider extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TextStyle(
-            color: isActive
-                ? const Color(0xFF3D41AC)
-                : Colors.black54,
-            fontWeight: isActive
-                ? FontWeight.bold
-                : FontWeight.normal,
+          style: const TextStyle(
+            color: Colors.black54,
+            fontWeight: FontWeight.normal,
             fontSize: 16,
           ),
         ),
@@ -277,7 +258,7 @@ class StartupSider extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () {
-        context.pushNamed('investorDelete');
+        context.push('/investor_delete');
       },
       icon: const Icon(
         Icons.person,

@@ -36,7 +36,6 @@ class _InvestorProfileState extends State<ProfileSettings> {
                       color: Color(0xFF0022BA), width: 2),
                 ),
                 child: Container(
-                  
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -56,13 +55,7 @@ class _InvestorProfileState extends State<ProfileSettings> {
                       SizedBox(
                         width: 120,
                         child: ElevatedButton(
-                          onPressed: () => {
-                            context.goNamed(
-                                "investorDashboard",
-                                pathParameters: {
-                                  'role': 'investor'
-                                })
-                          },
+                          onPressed: () => {context.pop()},
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(0xFF3F48CC),
@@ -165,12 +158,14 @@ class _InvestorProfileState extends State<ProfileSettings> {
 
                         // Form Card
                         Container(
-                          margin: const EdgeInsets.only(bottom: 30),
+                          margin: const EdgeInsets.only(
+                              bottom: 30),
                           padding: const EdgeInsets.only(
                             bottom: 60,
                             left: 24,
                             right: 24,
-                            top: 24,),
+                            top: 24,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius:

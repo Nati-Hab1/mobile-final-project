@@ -63,9 +63,15 @@ class Header extends StatelessWidget
                 GestureDetector(
                   onTap: () {
                     if (role == 'startup') {
-                      context.pushNamed('startupSider');
+                      context.pushNamed('startupSider',
+                          pathParameters: {
+                            "role": "startup"
+                          });
                     } else {
-                      context.pushNamed('investorSider');
+                      context.pushNamed('investorSider',
+                          pathParameters: {
+                            "role": "investor"
+                          });
                     }
                   },
                   child: const Icon(

@@ -31,7 +31,8 @@ class InvestorSider extends StatelessWidget {
                 ),
               ),
               child: Container(
-                color: const Color(0xFF5A6A9A).withOpacity(0.2),
+                color: const Color(0xFF5A6A9A)
+                    .withOpacity(0.2),
               ),
             ),
           ),
@@ -104,7 +105,8 @@ class InvestorSider extends StatelessWidget {
                     ),
 
                     const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10),
                       child: Divider(
                         color: Colors.black12,
                         height: 30,
@@ -203,21 +205,18 @@ class InvestorSider extends StatelessWidget {
                 : Icons.expand_more,
           ),
         ),
-
         if (isRoleExpanded) ...[
           _buildSubTile(
             context,
             'Startup',
-            '/startup_dashboard',
+            '/startup_dashboard/$role',
           ),
-
           _buildSubTile(
             context,
             'Investor',
             '/investor_dashboard/$role',
           ),
         ],
-
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Divider(
@@ -259,7 +258,7 @@ class InvestorSider extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () {
-        context.push('/investor_delete');
+        context.pushNamed('/InvestorDelete');
       },
       icon: const Icon(
         Icons.person,

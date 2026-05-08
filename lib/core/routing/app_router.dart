@@ -25,7 +25,7 @@ import 'package:menesha/features/startup/screens/startup_dashboard.dart';
 import 'package:menesha/core/widgets/startup/startup_sider.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/my_investors/:role',
+  initialLocation: '/startup_dashboard/startup',
   routes: [
     GoRoute(
       path: '/',
@@ -160,9 +160,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/startup_sider/:role',
       name: 'startupSider',
-      builder: (context, state) => const StartupSider(
-          currentRoute: '/startup_dashboard/startup',
-          role: 'startup'),
+      builder: (context, state) {
+        final role = state.pathParameters['role']!;
+        return StartupSider(role: role);
+      },
     ),
     GoRoute(
       path: '/my_startups/:role',
