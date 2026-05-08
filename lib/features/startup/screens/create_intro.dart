@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:menesha/core/widgets/common/startup_appbar.dart';
+import 'package:menesha/core/widgets/common/header.dart';
 
 class CreateIntro extends StatelessWidget {
-  const CreateIntro({super.key});
+  const CreateIntro({super.key, required this.role});
+  final String role;
 
   void showSuccessDialog(BuildContext context) {
     showDialog(
@@ -39,9 +40,13 @@ class CreateIntro extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue.shade900,
                     foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(10),
+                    ),
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.pop();
                   },
                   child: const Text("Close"),
                 ),
@@ -56,13 +61,13 @@ class CreateIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StartupAppbar(),
+      appBar: Header(role: role),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF5A6FA8), Color(0xFF3F5C8A)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+          image: DecorationImage(
+            image:
+                AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -117,6 +122,10 @@ class CreateIntro extends StatelessWidget {
                             backgroundColor:
                                 Colors.blue.shade900,
                             foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(10),
+                            ),
                           ),
                           onPressed: () =>
                               showSuccessDialog(context),
@@ -130,9 +139,16 @@ class CreateIntro extends StatelessWidget {
                             backgroundColor:
                                 Colors.grey.shade300,
                             foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(10),
+                            ),
                           ),
                           onPressed: () {
-                            context.goNamed("myStartups");
+                            context.goNamed("myStartups",
+                                pathParameters: {
+                                  "role": "startup"
+                                });
                           },
                           child: const Text("Back"),
                         ),
@@ -178,10 +194,24 @@ class CreateIntro extends StatelessWidget {
             children: [
               OutlinedButton(
                   onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(58, 26),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(5),
+                    ),
+                  ),
                   child: const Text("Copy")),
               const SizedBox(width: 10),
               OutlinedButton(
                   onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(58, 26),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(5),
+                    ),
+                  ),
                   child: const Text("Edit")),
             ],
           ),
