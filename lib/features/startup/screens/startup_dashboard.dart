@@ -239,9 +239,9 @@ class _ActionsSection extends StatelessWidget {
           const SizedBox(height: 12),
           _ActionTile(
             icon: Icons.add_circle_outline,
-            label: 'Get In Touch',
+            label: 'Add Startup',
             onTap: () => context.pushNamed(
-              'contactUs',
+              'addStartup',
               pathParameters: {'role': 'startup'},
             ),
           ),
