@@ -28,6 +28,21 @@ class MyInvestors extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton.icon(
+                  onPressed: () => {
+                    context.goNamed(
+                      "startupDashboard",
+                      pathParameters: {'role': 'startupDashboard'},
+                    )
+                  },
+                  icon: const Icon(Icons.arrow_back_ios,
+                      size: 16, color: Colors.white),
+                  label:
+                      const Text("Back", style: TextStyle(color: Colors.white)),
+                ),
+              ),
               // Title
               const SizedBox(height: 9),
               const Text(
