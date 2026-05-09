@@ -11,7 +11,7 @@ class UserHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       appBar: GuestHeader(
         actions: [
           ElevatedButton(
@@ -58,28 +58,40 @@ class UserHome extends StatelessWidget {
           const SizedBox(width: 4),
         ],
       ),
-      body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context)
-                .size
-                .height,
-          ),
-          child: IntrinsicHeight(
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.stretch,
-              children: const [
-                _HeroBody(),
-                SizedBox(height: 24),
-                _FeatureSection(),
-                SizedBox(height: 24),
-                Spacer(),
-                AppFooter(),
-              ],
+      body: Stack(
+        children: [
+          // Background image behind everything
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/background.png',
+              fit: BoxFit.cover,
             ),
           ),
-        ),
+          // Scrollable content on top
+          SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context)
+                    .size
+                    .height,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.stretch,
+                  children: const [
+                    _HeroBody(),
+                    SizedBox(height: 24),
+                    _FeatureSection(),
+                    SizedBox(height: 24),
+                    Spacer(),
+                    AppFooter(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -92,57 +104,47 @@ class _HeroBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Image.asset(
-            'assets/images/background.png',
-            fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+          24, 40, 24, 52),
+      child: Column(
+        mainAxisAlignment:
+            MainAxisAlignment.center,
+        crossAxisAlignment:
+            CrossAxisAlignment.stretch,
+        children: [
+          Center(
+            child: ClipOval(
+              child: Image.asset(
+                'assets/images/Menesha.jpg',
+                width: 52,
+                height: 52,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(
-              24, 40, 24, 52),
-          child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
-            crossAxisAlignment:
-                CrossAxisAlignment.stretch,
-            children: [
-              Center(
-                child: ClipOval(
-                  child: Image.asset(
-                    'assets/images/Menesha.jpg',
-                    width: 52,
-                    height: 52,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Warm Introduction Assistant',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Streamline your investor outreach.\nGenerate tailored introductions.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xFFCDD5F3),
-                  fontSize: 13,
-                  height: 1.5,
-                ),
-              ),
-            ],
+          const SizedBox(height: 20),
+          const Text(
+            'Warm Introduction Assistant',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+            textAlign: TextAlign.center,
           ),
-        ),
-      ],
+          const SizedBox(height: 10),
+          const Text(
+            'Streamline your investor outreach.\nGenerate tailored introductions.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Color(0xFFCDD5F3),
+              fontSize: 13,
+              height: 1.5,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

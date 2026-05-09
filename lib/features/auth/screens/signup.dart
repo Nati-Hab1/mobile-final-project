@@ -4,34 +4,8 @@ import 'package:menesha/core/widgets/auth/auth_text_field.dart';
 import 'package:menesha/core/widgets/common/primary_button.dart';
 
 /// Register / Sign Up screen — route: /register
-class SignupScreen extends StatefulWidget {
+class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
-
-  @override
-  State<SignupScreen> createState() => _SignupScreenState();
-}
-
-class _SignupScreenState extends State<SignupScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _fullNameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    _fullNameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  void _handleRegister() {
-    if (_formKey.currentState?.validate() ?? false) {
-      context.goNamed('home');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +23,13 @@ class _SignupScreenState extends State<SignupScreen> {
                 horizontal: 28,
                 vertical: 28,
               ),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.center,
-                  children: [
-                    // Logo
-                    ClipOval(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.center,
+                children: [
+                  // Logo
+                  Center(
+                    child: ClipOval(
                       child: Image.asset(
                         'assets/images/Menesha.jpg',
                         width: 56,
@@ -64,146 +37,126 @@ class _SignupScreenState extends State<SignupScreen> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    const SizedBox(height: 28),
+                  ),
+                  const SizedBox(height: 28),
 
-                    // Title
-                    const Text(
-                      'Create Account',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.w800,
+                  // Title
+                  const Text(
+                    'Create Account',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Warm Introduction Assistant',
+                    style: TextStyle(
+                      color: Color(0xFFCDD5F3),
+                      fontSize: 13,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Full Name
+                  const AuthTextField(
+                    label: 'Full Name',
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Email
+                  const AuthTextField(
+                    label: 'Email',
+                    keyboardType: TextInputType
+                        .emailAddress,
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Phone Number
+                  const AuthTextField(
+                    label: 'Phone Number',
+                    keyboardType:
+                        TextInputType.phone,
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Password
+                  const AuthTextField(
+                    label: 'Create Password',
+                    isPassword: true,
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Register button
+                  PrimaryButton(
+                    label: 'Register',
+                    onPressed: () => context
+                        .go('/role-selection'),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Divider
+                  Row(
+                    children: const [
+                      Expanded(
+                        child: Divider(
+                            color: Color(
+                                0xFF5A6A9A)),
                       ),
-                    ),
-                    const SizedBox(height: 6),
-                    const Text(
-                      'warm Introduction Assistant',
-                      style: TextStyle(
-                        color: Color(0xFFCDD5F3),
-                        fontSize: 13,
-                      ),
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Full Name
-                    AuthTextField(
-                      label: 'FullName',
-                      controller: _fullNameController,
-                      validator: (v) =>
-                          (v == null || v.trim().isEmpty)
-                              ? 'Full name is required'
-                              : null,
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Email
-                    AuthTextField(
-                      label: 'Email',
-                      controller: _emailController,
-                      keyboardType:
-                          TextInputType.emailAddress,
-                      validator: (v) {
-                        if (v == null || v.trim().isEmpty)
-                          return 'Email is required';
-                        if (!v.contains('@'))
-                          return 'Enter a valid email';
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Phone Number
-                    AuthTextField(
-                      label: 'Phone Number',
-                      controller: _phoneController,
-                      keyboardType: TextInputType.phone,
-                      validator: (v) =>
-                          (v == null || v.trim().isEmpty)
-                              ? 'Phone number is required'
-                              : null,
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Password
-                    AuthTextField(
-                      label: 'Create Password',
-                      controller: _passwordController,
-                      isPassword: true,
-                      validator: (v) {
-                        if (v == null || v.isEmpty)
-                          return 'Password is required';
-                        if (v.length < 6)
-                          return 'Password must be at least 6 characters';
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 32),
-
-                    // Register button
-                    PrimaryButton(
-                      label: 'Register',
-                      onPressed: _handleRegister,
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Divider
-                    Row(
-                      children: const [
-                        Expanded(
-                          child: Divider(
-                            color: Color(0xFF5A6A9A),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12,
-                          ),
-                          child: Text(
-                            'or sign up with email',
-                            style: TextStyle(
-                              color: Color(0xFF8B9BC8),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: Color(0xFF5A6A9A),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Login link
-                    Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Already have an account? ',
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(
+                                horizontal: 12),
+                        child: Text(
+                          'or sign up with email',
                           style: TextStyle(
-                            color: Color(0xFFCDD5F3),
+                            color:
+                                Color(0xFF8B9BC8),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                            color: Color(
+                                0xFF5A6A9A)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Login link
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Already have an account? ',
+                        style: TextStyle(
+                          color:
+                              Color(0xFFCDD5F3),
+                          fontSize: 13,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () =>
+                            context.go('/login'),
+                        child: const Text(
+                          'Log in',
+                          style: TextStyle(
+                            color:
+                                Color(0xFF2952FF),
                             fontSize: 13,
+                            fontWeight:
+                                FontWeight.w700,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () =>
-                              context.goNamed('login'),
-                          child: const Text(
-                            'Log in',
-                            style: TextStyle(
-                              color: Color(0xFF2952FF),
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
             ),
           ),
