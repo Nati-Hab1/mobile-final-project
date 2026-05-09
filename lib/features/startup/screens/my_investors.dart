@@ -20,10 +20,9 @@ class MyInvestors extends StatelessWidget {
       appBar: Header(role: role),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF5A6FA8), Color(0xFF3F5C8A)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -51,11 +50,9 @@ class MyInvestors extends StatelessWidget {
 
               // Search Bar
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
@@ -70,7 +67,7 @@ class MyInvestors extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
 
               // Investor List
               Expanded(
@@ -109,26 +106,23 @@ class InvestorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-          horizontal: 16, vertical: 10),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
         children: [
-          const Icon(Icons.person_outline,
-              size: 50, color: Colors.grey),
-          const SizedBox(width: 16),
+          const Icon(Icons.person_outline, size: 90, color: Colors.grey),
+          const SizedBox(width: 30),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Name: $name",
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(height: 4),
               Text("Invested in: $startup"),
