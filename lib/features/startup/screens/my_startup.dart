@@ -114,6 +114,21 @@ class MyStartups extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton.icon(
+                  onPressed: () => {
+                    context.goNamed(
+                      "createIntro",
+                      pathParameters: {'role': 'createIntro'},
+                    )
+                  },
+                  icon: const Icon(Icons.arrow_back_ios,
+                      size: 16, color: Colors.white),
+                  label:
+                      const Text("Back", style: TextStyle(color: Colors.white)),
+                ),
+              ),
               const SizedBox(height: 20),
 
               const Text(
