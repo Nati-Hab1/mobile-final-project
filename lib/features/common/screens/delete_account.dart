@@ -2,18 +2,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class DeleteAccount extends StatefulWidget {
+class DeleteAccount extends StatelessWidget {
   const DeleteAccount({super.key});
 
-  @override
-  State<DeleteAccount> createState() =>
-      _DeleteAccountState();
-}
-
-class _DeleteAccountState extends State<DeleteAccount> {
-  String? _selectedReason = "I Have A Privacy Concern";
-
-  void _showConfirmationDialog() {
+  void _showConfirmationDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierColor: Colors.black.withOpacity(0.3),
@@ -86,7 +78,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
                               onPressed: () {
                                 context
                                     .pop(); // Close first dialog
-                                _showSuccessDialog(); // Show success
+                                _showSuccessDialog(context); // Show success
                               },
                               style:
                                   ElevatedButton.styleFrom(
@@ -120,7 +112,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
     );
   }
 
-  void _showSuccessDialog() {
+  void _showSuccessDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierColor: Colors.black.withOpacity(0.3),
@@ -237,8 +229,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
                   ),
                 ),
 
-                // Warmly Logo Placeholder
-                const Text("WARMLY",
+                const Text("MENESHA",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -273,7 +264,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
                       ),
                       const SizedBox(height: 15),
                       DropdownButtonFormField<String>(
-                        value: _selectedReason,
+                        value: "I Have A Privacy Concern",
                         decoration: InputDecoration(
                           fillColor: Colors.white,
                           filled: true,
@@ -282,19 +273,19 @@ class _DeleteAccountState extends State<DeleteAccount> {
                                   BorderRadius.circular(
                                       12)),
                         ),
-                        items: [
+                        items: const [
                           "I Have A Privacy Concern",
                           "Other"
                         ].map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value,
-                                style: const TextStyle(
+                                style: TextStyle(
                                     color: Colors.grey)),
                           );
                         }).toList(),
-                        onChanged: (val) => setState(
-                            () => _selectedReason = val),
+                        onChanged: (val) {
+                        },
                       ),
                     ],
                   ),
@@ -343,7 +334,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
                   child: SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _showConfirmationDialog,
+                      onPressed: () => _showConfirmationDialog(context),
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color(0xFF3F51B5),

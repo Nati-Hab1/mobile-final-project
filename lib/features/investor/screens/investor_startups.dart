@@ -28,7 +28,6 @@ class InvestorStartups extends StatelessWidget {
                   role: role,
                 ),
 
-                // Back Button & Title Section
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0),
@@ -92,16 +91,16 @@ class InvestorStartups extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                // Startup List
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16),
                     itemCount: 3, // Mock count
                     itemBuilder: (context, index) {
-                      return const StartupCard(
+                      return StartupCard(
                           name: "John Smith",
-                          format: "3-Bullet");
+                          format: "3-Bullet",
+                          isInitiallyStarred: index == 0);
                     },
                   ),
                 ),
@@ -114,24 +113,19 @@ class InvestorStartups extends StatelessWidget {
   }
 }
 
-class StartupCard extends StatefulWidget {
+class StartupCard extends StatelessWidget {
   final String name;
   final String format;
+  final bool isInitiallyStarred;
 
-  const StartupCard(
-      {super.key,
-      required this.name,
-      required this.format});
+  const StartupCard({
+    super.key, 
+    required this.name, 
+    required this.format,
+    this.isInitiallyStarred = false,
+  });
 
-  @override
-  State<StartupCard> createState() => _StartupCardState();
-}
-
-class _StartupCardState extends State<StartupCard> {
-  bool _isStarred = false;
-
-  // Added the custom blur dialog method here
-  void _showDeletedDialog() {
+  void _showDeletedDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierColor: const Color.fromARGB(255, 232, 230, 230)
@@ -139,14 +133,12 @@ class _StartupCardState extends State<StartupCard> {
       builder: (BuildContext context) {
         return Stack(
           children: [
-            // 🔹 Blur Background
             BackdropFilter(
               filter:
                   ImageFilter.blur(sigmaX: 5, sigmaY: 5),
               child: Container(color: Colors.transparent),
             ),
 
-            // 🔹 Dialog
             Center(
               child: Dialog(
                 shape: RoundedRectangleBorder(
@@ -167,7 +159,7 @@ class _StartupCardState extends State<StartupCard> {
                       ),
                       const SizedBox(height: 16),
                       const Text(
-                        "Confirm delete: Are you sure?", // Changed to Deleted to match the action
+                        "Confirm delete: Are you sure?",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -206,8 +198,6 @@ class _StartupCardState extends State<StartupCard> {
                           ),
 
                           const SizedBox(width: 12),
-
-                          // 🔹 No Button
                           Expanded(
                             child: OutlinedButton(
                               onPressed: () {
@@ -259,13 +249,13 @@ class _StartupCardState extends State<StartupCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Name:  ${widget.name}",
+            "Name:  $name",
             style: const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 18),
           ),
           const SizedBox(height: 10),
           Text(
-            "Preferred Format:   ${widget.format}",
+            "Preferred Format:   $format",
             style: const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 15),
           ),
@@ -274,21 +264,14 @@ class _StartupCardState extends State<StartupCard> {
             mainAxisAlignment:
                 MainAxisAlignment.spaceBetween,
             children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _isStarred = !_isStarred;
-                  });
-                },
-                child: Icon(
-                  _isStarred
-                      ? Icons.star
-                      : Icons.star_border,
-                  color: _isStarred
-                      ? Colors.yellow
-                      : Colors.grey[600],
-                  size: 32,
-                ),
+              Icon(
+                isInitiallyStarred
+                    ? Icons.star
+                    : Icons.star_border,
+                color: isInitiallyStarred
+                    ? Colors.yellow
+                    : Colors.grey[600],
+                size: 32,
               ),
               Row(
                 children: [
@@ -310,7 +293,7 @@ class _StartupCardState extends State<StartupCard> {
                   const SizedBox(width: 10),
                   TextButton.icon(
                     onPressed:
-                        _showDeletedDialog, // 🔹 Call the dialog here
+                        () => _showDeletedDialog(context),
                     icon: const Icon(Icons.delete,
                         color: Colors.red),
                     label: const Text("Delete",

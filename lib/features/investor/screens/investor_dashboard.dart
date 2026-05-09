@@ -14,7 +14,7 @@ class InvestorDashboard extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Background Image - covers entire screen
+          // Background Image
           Positioned.fill(
             child: Image.asset(
               'assets/images/background.png',
@@ -47,7 +47,6 @@ class InvestorDashboard extends StatelessWidget {
   }
 }
 
-// ── Hero — WavyBackground with title ─────────────────────────────────────────
 
 class _HeroSection extends StatelessWidget {
   const _HeroSection();
@@ -82,7 +81,6 @@ class _HeroSection extends StatelessWidget {
   }
 }
 
-// ── Stats Grid ────────────────────────────────────────────────────────────────
 
 class _StatsSection extends StatelessWidget {
   const _StatsSection();
@@ -217,7 +215,6 @@ class _StatCard extends StatelessWidget {
   }
 }
 
-// ── Action Tiles ──────────────────────────────────────────────────────────────
 
 class _ActionsSection extends StatelessWidget {
   const _ActionsSection();
@@ -301,7 +298,6 @@ class _ActionTile extends StatelessWidget {
   }
 }
 
-// ── Latest Interests ──────────────────────────────────────────────────────────
 
 class _LatestInterestsSection extends StatelessWidget {
   const _LatestInterestsSection();

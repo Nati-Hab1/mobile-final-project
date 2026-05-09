@@ -343,7 +343,7 @@ class ContactUs extends StatelessWidget {
                         children: [
                           Icon(Icons.email),
                           SizedBox(width: 10),
-                          Text("warmly@gmail.com"),
+                          Text("menesha@gmail.com"),
                         ],
                       ),
                       SizedBox(height: 45),

@@ -3,19 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/header.dart';
 
-class ProfileSettings extends StatefulWidget {
+class ProfileSettings extends StatelessWidget {
   const ProfileSettings({super.key, required this.role});
   final String role;
 
-  @override
-  State<ProfileSettings> createState() =>
-      _InvestorProfileState();
-}
-
-class _InvestorProfileState extends State<ProfileSettings> {
-  bool _obscurePassword = true;
-
-  void _showSavedDialog() {
+  void _showSavedDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierColor: const Color.fromARGB(255, 232, 230, 230)
@@ -94,7 +86,7 @@ class _InvestorProfileState extends State<ProfileSettings> {
             child: Column(
               children: [
                 Header(
-                  role: widget.role,
+                  role: role,
                 ),
                 Expanded(
                   child: SingleChildScrollView(
@@ -189,11 +181,6 @@ class _InvestorProfileState extends State<ProfileSettings> {
                               _buildInputField(
                                 "Password",
                                 isPassword: true,
-                                obscureText:
-                                    _obscurePassword,
-                                onSuffixTap: () => setState(
-                                    () => _obscurePassword =
-                                        !_obscurePassword),
                               ),
                             ],
                           ),
@@ -204,7 +191,7 @@ class _InvestorProfileState extends State<ProfileSettings> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: _showSavedDialog,
+                            onPressed: () => _showSavedDialog(context),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   const Color(0xFF0022BA),
@@ -239,9 +226,9 @@ class _InvestorProfileState extends State<ProfileSettings> {
   }
 
   Widget _buildInputField(String label,
-      {bool isPassword = false,
-      bool obscureText = false,
-      VoidCallback? onSuffixTap}) {
+      {bool isPassword = false}) {
+    final obscureTextNotifier = ValueNotifier<bool>(true);
+    
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
@@ -252,31 +239,38 @@ class _InvestorProfileState extends State<ProfileSettings> {
                   fontWeight: FontWeight.bold,
                   fontSize: 16)),
           const SizedBox(height: 8),
-          TextField(
-            obscureText: obscureText,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16, vertical: 12),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                      color: Colors.grey.shade300)),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(
-                      color: Colors.grey.shade300)),
-              suffixIcon: isPassword
-                  ? GestureDetector(
-                      onTap: onSuffixTap,
-                      child: Icon(
-                          obscureText
-                              ? Icons.visibility_outlined
-                              : Icons
-                                  .visibility_off_outlined,
-                          color: Colors.grey),
-                    )
-                  : null,
-            ),
+          ValueListenableBuilder<bool>(
+            valueListenable: obscureTextNotifier,
+            builder: (context, obscureText, child) {
+              return TextField(
+                obscureText: obscureText,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 12),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                          color: Colors.grey.shade300)),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(
+                          color: Colors.grey.shade300)),
+                  suffixIcon: isPassword
+                      ? GestureDetector(
+                          onTap: () {
+                            obscureTextNotifier.value = !obscureText;
+                          },
+                          child: Icon(
+                              obscureText
+                                  ? Icons.visibility_outlined
+                                  : Icons
+                                      .visibility_off_outlined,
+                              color: Colors.grey),
+                        )
+                      : null,
+                ),
+              );
+            },
           ),
         ],
       ),

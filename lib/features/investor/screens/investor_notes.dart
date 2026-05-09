@@ -3,23 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/header.dart';
 import 'dart:ui';
 
-class InvestorNotes extends StatefulWidget {
+class InvestorNotes extends StatelessWidget {
   const InvestorNotes({super.key, required this.role});
   final String role;
 
-  @override
-  State<InvestorNotes> createState() =>
-      _InvestorNotesState();
-}
-
-class _InvestorNotesState extends State<InvestorNotes> {
-  final TextEditingController _noteController =
-      TextEditingController(
-    text:
-        "I wanted to check this idea later as it caught my attention and i think its a good idea.\n\ndate: 12/01/2025",
-  );
-
-  void _showSavedDialog() {
+  void _showSavedDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierColor: const Color.fromARGB(255, 232, 230, 230)
@@ -101,6 +89,12 @@ class _InvestorNotesState extends State<InvestorNotes> {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _noteController =
+        TextEditingController(
+      text:
+          "I wanted to check this idea later as it caught my attention and i think its a good idea.\n\ndate: 12/01/2025",
+    );
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -117,7 +111,7 @@ class _InvestorNotesState extends State<InvestorNotes> {
             child: Column(
               children: [
                 Header(
-                  role: widget.role,
+                  role: role,
                 ),
 
                 // Back and Title
@@ -222,11 +216,11 @@ class _InvestorNotesState extends State<InvestorNotes> {
                         const SizedBox(height: 15),
                         Row(
                           children: [
-                            _buildMiniAction(
-                                Icons.copy_outlined,
-                                "Copy"),
+                            _buildMiniAction(context,
+                                Icons.copy_outlined, "Copy"),
                             const SizedBox(width: 10),
-                            _buildMiniAction(null, "Edit"),
+                            _buildMiniAction(
+                                context, null, "Edit"),
                           ],
                         ),
                       ],
@@ -244,7 +238,7 @@ class _InvestorNotesState extends State<InvestorNotes> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed:
-                              _showSavedDialog, // Triggers image_0350fb.png popup
+                              () => _showSavedDialog(context), // Triggers image_0350fb.png popup
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(0xFF0022BA),
@@ -294,7 +288,7 @@ class _InvestorNotesState extends State<InvestorNotes> {
     );
   }
 
-  Widget _buildMiniAction(IconData? icon, String label) {
+  Widget _buildMiniAction(BuildContext context, IconData? icon, String label) {
     return Container(
       padding: const EdgeInsets.symmetric(
           horizontal: 12, vertical: 6),

@@ -3,18 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/header.dart';
 
-class InvestorIntrosPage extends StatefulWidget {
+class InvestorIntrosPage extends StatelessWidget {
   const InvestorIntrosPage({super.key, required this.role});
   final String role;
 
-  @override
-  State<InvestorIntrosPage> createState() =>
-      _InvestorIntrosPageState();
-}
-
-class _InvestorIntrosPageState
-    extends State<InvestorIntrosPage> {
-  void _showAcceptedDialog() {
+  void _showAcceptedDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierColor: Colors.black.withOpacity(0.3),
@@ -97,7 +90,7 @@ class _InvestorIntrosPageState
             child: Column(
               children: [
                 Header(
-                  role: widget.role,
+                  role: role,
                 ),
                 Expanded(
                   child: ListView(
@@ -210,7 +203,7 @@ class _InvestorIntrosPageState
                                     width: double.infinity,
                                     child: ElevatedButton(
                                       onPressed:
-                                          _showAcceptedDialog,
+                                          () => _showAcceptedDialog(context),
                                       style: ElevatedButton
                                           .styleFrom(
                                         backgroundColor:
