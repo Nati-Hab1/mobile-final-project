@@ -68,16 +68,15 @@ class SignupScreen extends StatelessWidget {
                   // Email
                   const AuthTextField(
                     label: 'Email',
-                    keyboardType: TextInputType
-                        .emailAddress,
+                    keyboardType:
+                        TextInputType.emailAddress,
                   ),
                   const SizedBox(height: 16),
 
                   // Phone Number
                   const AuthTextField(
                     label: 'Phone Number',
-                    keyboardType:
-                        TextInputType.phone,
+                    keyboardType: TextInputType.phone,
                   ),
                   const SizedBox(height: 16),
 
@@ -91,36 +90,32 @@ class SignupScreen extends StatelessWidget {
                   // Register button
                   PrimaryButton(
                     label: 'Register',
-                    onPressed: () => context
-                        .go('/role-selection'),
+                    onPressed: () =>
+                        context.goNamed('home'),
                   ),
                   const SizedBox(height: 24),
 
                   // Divider
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Expanded(
                         child: Divider(
-                            color: Color(
-                                0xFF5A6A9A)),
+                            color: Color(0xFF5A6A9A)),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(
-                                horizontal: 12),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 12),
                         child: Text(
                           'or sign up with email',
                           style: TextStyle(
-                            color:
-                                Color(0xFF8B9BC8),
+                            color: Color(0xFF8B9BC8),
                             fontSize: 12,
                           ),
                         ),
                       ),
                       Expanded(
                         child: Divider(
-                            color: Color(
-                                0xFF5A6A9A)),
+                            color: Color(0xFF5A6A9A)),
                       ),
                     ],
                   ),
@@ -134,22 +129,19 @@ class SignupScreen extends StatelessWidget {
                       const Text(
                         'Already have an account? ',
                         style: TextStyle(
-                          color:
-                              Color(0xFFCDD5F3),
+                          color: Color(0xFFCDD5F3),
                           fontSize: 13,
                         ),
                       ),
                       GestureDetector(
                         onTap: () =>
-                            context.go('/login'),
+                            context.goNamed('login'),
                         child: const Text(
                           'Log in',
                           style: TextStyle(
-                            color:
-                                Color(0xFF2952FF),
+                            color: Color(0xFF2952FF),
                             fontSize: 13,
-                            fontWeight:
-                                FontWeight.w700,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
