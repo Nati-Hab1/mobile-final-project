@@ -21,7 +21,8 @@ class MyInvestors extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
+            image:
+                AssetImage("assets/images/background.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -34,13 +35,14 @@ class MyInvestors extends StatelessWidget {
                   onPressed: () => {
                     context.goNamed(
                       "startupDashboard",
-                      pathParameters: {'role': 'startupDashboard'},
+                      pathParameters: {'role': 'startup'},
                     )
                   },
                   icon: const Icon(Icons.arrow_back_ios,
                       size: 16, color: Colors.white),
-                  label:
-                      const Text("Back", style: TextStyle(color: Colors.white)),
+                  label: const Text("Back",
+                      style:
+                          TextStyle(color: Colors.white)),
                 ),
               ),
               // Title
@@ -65,9 +67,11 @@ class MyInvestors extends StatelessWidget {
 
               // Search Bar
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
@@ -121,7 +125,8 @@ class InvestorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(
+          horizontal: 16, vertical: 10),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -129,15 +134,17 @@ class InvestorCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.person_outline, size: 90, color: Colors.grey),
+          const Icon(Icons.person_outline,
+              size: 90, color: Colors.grey),
           const SizedBox(width: 30),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Name: $name",
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
               ),
               const SizedBox(height: 4),
               Text("Invested in: $startup"),

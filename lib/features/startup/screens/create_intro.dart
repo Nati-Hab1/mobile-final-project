@@ -15,7 +15,8 @@ class CreateIntro extends StatelessWidget {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
-            side: BorderSide(color: Colors.blue.shade900, width: 3),
+            side: BorderSide(
+                color: Colors.blue.shade900, width: 3),
           ),
           child: Padding(
             padding: const EdgeInsets.all(20),
@@ -24,12 +25,15 @@ class CreateIntro extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   backgroundColor: Colors.green,
-                  child: Icon(Icons.check, color: Colors.white),
+                  child: Icon(Icons.check,
+                      color: Colors.white),
                 ),
                 const SizedBox(height: 16),
                 const Text(
                   "Intro Sent",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
@@ -37,7 +41,8 @@ class CreateIntro extends StatelessWidget {
                     backgroundColor: Colors.blue.shade900,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius:
+                          BorderRadius.circular(10),
                     ),
                   ),
                   onPressed: () {
@@ -60,7 +65,8 @@ class CreateIntro extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
+            image:
+                AssetImage("assets/images/background.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -74,13 +80,14 @@ class CreateIntro extends StatelessWidget {
                     onPressed: () => {
                       context.goNamed(
                         "startupDashboard",
-                        pathParameters: {'role': 'startupDashboard'},
+                        pathParameters: {'role': 'startup'},
                       )
                     },
                     icon: const Icon(Icons.arrow_back_ios,
                         size: 16, color: Colors.white),
                     label: const Text("Back",
-                        style: TextStyle(color: Colors.white)),
+                        style:
+                            TextStyle(color: Colors.white)),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -128,13 +135,16 @@ class CreateIntro extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue.shade900,
+                            backgroundColor:
+                                Colors.blue.shade900,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius:
+                                  BorderRadius.circular(10),
                             ),
                           ),
-                          onPressed: () => showSuccessDialog(context),
+                          onPressed: () =>
+                              showSuccessDialog(context),
                           child: const Text("Send"),
                         ),
                       ),
@@ -142,15 +152,20 @@ class CreateIntro extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.grey.shade300,
+                            backgroundColor:
+                                Colors.grey.shade300,
                             foregroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius:
+                                  BorderRadius.circular(10),
                             ),
                           ),
                           onPressed: () {
-                            context.goNamed("myStartups",
-                                pathParameters: {"role": "startup"});
+                            context.goNamed(
+                                "startupDashboard",
+                                pathParameters: {
+                                  "role": "startup"
+                                });
                           },
                           child: const Text("Back"),
                         ),
@@ -166,9 +181,11 @@ class CreateIntro extends StatelessWidget {
     );
   }
 
-  Widget buildCard({required String title, required String content}) {
+  Widget buildCard(
+      {required String title, required String content}) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(
+          horizontal: 16, vertical: 10),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade200,
@@ -177,7 +194,9 @@ class CreateIntro extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(title,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(10),
@@ -195,7 +214,8 @@ class CreateIntro extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(58, 26),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius:
+                          BorderRadius.circular(5),
                     ),
                   ),
                   child: const Text("Copy")),
@@ -205,7 +225,8 @@ class CreateIntro extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(58, 26),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius:
+                          BorderRadius.circular(5),
                     ),
                   ),
                   child: const Text("Edit")),

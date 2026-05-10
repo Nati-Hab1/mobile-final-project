@@ -3,19 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/header.dart';
 
-class AddStartup extends StatefulWidget {
+class AddStartup extends StatelessWidget {
   const AddStartup({super.key, required this.role});
   final String role;
 
-  @override
-  State<AddStartup> createState() =>
-      _InvestorProfileState();
-}
-
-class _InvestorProfileState extends State<AddStartup> {
-  bool _obscurePassword = true;
-
-  void _showSavedDialog() {
+  void _showSavedDialog(BuildContext context) {
     showDialog(
       context: context,
       barrierColor: const Color.fromARGB(255, 232, 230, 230)
@@ -99,7 +91,7 @@ class _InvestorProfileState extends State<AddStartup> {
             child: Column(
               children: [
                 Header(
-                  role: widget.role,
+                  role: role,
                 ),
                 Expanded(
                   child: SingleChildScrollView(
@@ -188,7 +180,8 @@ class _InvestorProfileState extends State<AddStartup> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: _showSavedDialog,
+                            onPressed: () =>
+                                _showSavedDialog(context),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   const Color(0xFF0022BA),

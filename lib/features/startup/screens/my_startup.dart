@@ -61,15 +61,18 @@ class MyStartups extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue.shade900,
+                        backgroundColor:
+                            Colors.blue.shade900,
                         foregroundColor: Colors.white,
                         minimumSize: const Size(75, 35),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius:
+                              BorderRadius.circular(6),
                         ),
                       ),
                       onPressed: () {
@@ -85,7 +88,8 @@ class MyStartups extends StatelessWidget {
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(75, 35),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius:
+                              BorderRadius.circular(6),
                         ),
                       ),
                       child: const Text("No"),
@@ -107,7 +111,8 @@ class MyStartups extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
+            image:
+                AssetImage("assets/images/background.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -119,14 +124,15 @@ class MyStartups extends StatelessWidget {
                 child: TextButton.icon(
                   onPressed: () => {
                     context.goNamed(
-                      "createIntro",
-                      pathParameters: {'role': 'createIntro'},
+                      "startupDashboard",
+                      pathParameters: {'role': 'startup'},
                     )
                   },
                   icon: const Icon(Icons.arrow_back_ios,
                       size: 16, color: Colors.white),
-                  label:
-                      const Text("Back", style: TextStyle(color: Colors.white)),
+                  label: const Text("Back",
+                      style:
+                          TextStyle(color: Colors.white)),
                 ),
               ),
               const SizedBox(height: 20),
@@ -166,7 +172,8 @@ class MyStartups extends StatelessWidget {
                       ),
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius:
+                            BorderRadius.circular(10),
                       ),
                     ),
                     onPressed: () {
@@ -200,19 +207,23 @@ class MyStartups extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius:
+                            BorderRadius.circular(16),
                       ),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   item["name"],
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight:
+                                        FontWeight.bold,
                                     fontSize: 18,
                                   ),
                                 ),
@@ -227,15 +238,20 @@ class MyStartups extends StatelessWidget {
                                   children: [
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment
+                                              .start,
                                       children: [
                                         const Text(
                                           "Intros Sent",
                                         ),
                                         Text(
-                                          item["intros"].toString(),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                          item["intros"]
+                                              .toString(),
+                                          style:
+                                              const TextStyle(
+                                            fontWeight:
+                                                FontWeight
+                                                    .bold,
                                           ),
                                         ),
                                       ],
@@ -245,15 +261,20 @@ class MyStartups extends StatelessWidget {
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment
+                                              .start,
                                       children: [
                                         const Text(
                                           "Investors",
                                         ),
                                         Text(
-                                          item["investors"].toString(),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
+                                          item["investors"]
+                                              .toString(),
+                                          style:
+                                              const TextStyle(
+                                            fontWeight:
+                                                FontWeight
+                                                    .bold,
                                           ),
                                         ),
                                       ],
