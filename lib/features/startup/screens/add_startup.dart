@@ -47,12 +47,7 @@ class AddStartup extends StatelessWidget {
                       SizedBox(
                         width: 120,
                         child: ElevatedButton(
-                          onPressed: () => {
-                            context.goNamed("myStartups",
-                                pathParameters: {
-                                  'role': 'startup'
-                                })
-                          },
+                          onPressed: () => {context.pop()},
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color(0xFF3F48CC),

@@ -27,7 +27,6 @@ class InvestorStartups extends StatelessWidget {
                 Header(
                   role: role,
                 ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0),
@@ -88,9 +87,7 @@ class InvestorStartups extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 20),
-
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.symmetric(
@@ -119,8 +116,8 @@ class StartupCard extends StatelessWidget {
   final bool isInitiallyStarred;
 
   const StartupCard({
-    super.key, 
-    required this.name, 
+    super.key,
+    required this.name,
     required this.format,
     this.isInitiallyStarred = false,
   });
@@ -138,7 +135,6 @@ class StartupCard extends StatelessWidget {
                   ImageFilter.blur(sigmaX: 5, sigmaY: 5),
               child: Container(color: Colors.transparent),
             ),
-
             Center(
               child: Dialog(
                 shape: RoundedRectangleBorder(
@@ -277,7 +273,7 @@ class StartupCard extends StatelessWidget {
                 children: [
                   TextButton.icon(
                     onPressed: () {
-                      context.goNamed(
+                      context.pushNamed(
                         "investorIntros",
                         pathParameters: {
                           'role': 'investor'
@@ -292,8 +288,8 @@ class StartupCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   TextButton.icon(
-                    onPressed:
-                        () => _showDeletedDialog(context),
+                    onPressed: () =>
+                        _showDeletedDialog(context),
                     icon: const Icon(Icons.delete,
                         color: Colors.red),
                     label: const Text("Delete",

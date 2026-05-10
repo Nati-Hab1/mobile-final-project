@@ -16,7 +16,7 @@ class UserHome extends StatelessWidget {
         actions: [
           ElevatedButton(
             onPressed: () =>
-                context.go('/role-selection'),
+                context.pushNamed('roleSelection'),
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFF2952FF),
               foregroundColor: Colors.white,
@@ -24,8 +24,7 @@ class UserHome extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: 16, vertical: 6),
               shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10),
               ),
               textStyle: const TextStyle(
                 fontSize: 13,
@@ -40,13 +39,11 @@ class UserHome extends StatelessWidget {
             style: OutlinedButton.styleFrom(
               foregroundColor: Color(0xFF2E3A6E),
               side: const BorderSide(
-                  color: Color(0xFF2E3A6E),
-                  width: 1.2),
+                  color: Color(0xFF2E3A6E), width: 1.2),
               padding: const EdgeInsets.symmetric(
                   horizontal: 16, vertical: 6),
               shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10),
               ),
               textStyle: const TextStyle(
                 fontSize: 13,
@@ -71,9 +68,8 @@ class UserHome extends StatelessWidget {
           SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context)
-                    .size
-                    .height,
+                minHeight:
+                    MediaQuery.of(context).size.height,
               ),
               child: IntrinsicHeight(
                 child: Column(
@@ -105,13 +101,10 @@ class _HeroBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          24, 40, 24, 52),
+      padding: const EdgeInsets.fromLTRB(24, 40, 24, 52),
       child: Column(
-        mainAxisAlignment:
-            MainAxisAlignment.center,
-        crossAxisAlignment:
-            CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Center(
             child: ClipOval(
@@ -157,8 +150,7 @@ class _FeatureSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: const [
           FeatureCard(

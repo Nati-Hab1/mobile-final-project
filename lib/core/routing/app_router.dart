@@ -53,8 +53,8 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const UserHome(),
     ),
     GoRoute(
-      path: '/role-selection',
-      name: 'role-selection',
+      path: '/role_selection',
+      name: 'roleSelection',
       builder: (context, state) =>
           const RoleSelectionScreen(),
     ),

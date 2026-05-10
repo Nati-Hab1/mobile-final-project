@@ -151,7 +151,7 @@ class InvestorSider extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          context.go(route);
+          context.push(route);
         },
         child: Container(
           padding: const EdgeInsets.symmetric(

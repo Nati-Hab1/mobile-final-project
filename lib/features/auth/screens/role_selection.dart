@@ -99,7 +99,7 @@ class _RoleCard extends StatelessWidget {
             label: 'Investor',
             isOutlined: true,
             onPressed: () {
-              context.goNamed('investorDashboard',
+              context.pushNamed('investorDashboard',
                   pathParameters: {'role': 'investor'});
             },
           ),
@@ -109,7 +109,7 @@ class _RoleCard extends StatelessWidget {
           PrimaryButton(
             label: 'Startup',
             onPressed: () {
-              context.goNamed('startupDashboard',
+              context.pushNamed('startupDashboard',
                   pathParameters: {'role': 'startup'});
             },
           ),
