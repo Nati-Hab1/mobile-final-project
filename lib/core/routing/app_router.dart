@@ -53,140 +53,114 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const UserHome(),
     ),
     GoRoute(
-      path: '/role_selection',
+      path: '/role-selection',
       name: 'roleSelection',
-      builder: (context, state) =>
-          const RoleSelectionScreen(),
+      builder: (context, state) => const RoleSelectionScreen(),
     ),
+    // Common pages - no role parameter needed, use extra
     GoRoute(
-      path: '/about_us/:role',
+      path: '/about-us',
       name: 'aboutUs',
       builder: (context, state) {
-        final role = state.pathParameters['role']!;
+        final extra = state.extra as Map?;
+        final role = extra?['role'] ?? 'investor';
         return AboutUs(role: role);
       },
     ),
     GoRoute(
-      path: '/terms/:role',
+      path: '/terms',
       name: 'terms',
       builder: (context, state) {
-        final role = state.pathParameters['role']!;
+        final extra = state.extra as Map?;
+        final role = extra?['role'] ?? 'investor';
         return Terms(role: role);
       },
     ),
     GoRoute(
-        path: '/contact_us/:role',
-        name: 'contactUs',
-        builder: (context, state) {
-          final role = state.pathParameters['role']!;
-          return ContactUs(role: role);
-        }),
+      path: '/contact-us',
+      name: 'contactUs',
+      builder: (context, state) {
+        final extra = state.extra as Map?;
+        final role = extra?['role'] ?? 'investor';
+        return ContactUs(role: role);
+      },
+    ),
     GoRoute(
-      path: '/profile_settings/:role',
+      path: '/profile-settings',
       name: 'profileSettings',
       builder: (context, state) {
-        final role = state.pathParameters['role']!;
+        final extra = state.extra as Map?;
+        final role = extra?['role'] ?? 'investor';
         return ProfileSettings(role: role);
       },
     ),
+    // Investor routes
     GoRoute(
-      path: '/investor_dashboard/:role',
+      path: '/investor-dashboard',
       name: 'investorDashboard',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return InvestorDashboard(role: role);
-      },
+      builder: (context, state) => const InvestorDashboard(),
     ),
     GoRoute(
-        path: '/investor_sider/:role',
-        name: 'investorSider',
-        builder: (context, state) {
-          final role = state.pathParameters['role']!;
-          return InvestorSider(role: role);
-        }),
+      path: '/investor-sider',
+      name: 'investorSider',
+      builder: (context, state) => const InvestorSider(role: 'investor'),
+    ),
     GoRoute(
-      path: '/investor_startups/:role',
+      path: '/investor-startups',
       name: 'investorStartups',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return InvestorStartups(role: role);
-      },
+      builder: (context, state) => const InvestorStartups(),
     ),
     GoRoute(
-      path: '/bookmarks/:role',
+      path: '/bookmarks',
       name: 'bookmarks',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return InvestorBookmarks(role: role);
-      },
+      builder: (context, state) => const InvestorBookmarks(),
     ),
     GoRoute(
-      path: '/investor_notes/:role',
+      path: '/investor-notes',
       name: 'investorNotes',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return InvestorNotes(role: role);
-      },
+      builder: (context, state) => const InvestorNotes(role: 'investor'),
     ),
     GoRoute(
-        path: '/delete_account',
-        name: 'deleteAccount',
-        builder: (context, state) => const DeleteAccount()),
-    GoRoute(
-      path: '/investor_intros/:role',
+      path: '/investor-intros',
       name: 'investorIntros',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return InvestorIntrosPage(role: role);
-      },
+      builder: (context, state) => const InvestorIntrosPage(),
     ),
+    // Startup routes
     GoRoute(
-      path: '/startup_dashboard/:role',
+      path: '/startup-dashboard',
       name: 'startupDashboard',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return StartupDashboard(role: role);
-      },
+      builder: (context, state) => const StartupDashboard(),
     ),
     GoRoute(
-      path: '/add_startup/:role',
-      name: 'addStartup',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return AddStartup(role: role);
-      },
-    ),
-    GoRoute(
-      path: '/startup_sider/:role',
+      path: '/startup-sider',
       name: 'startupSider',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return StartupSider(role: role);
-      },
+      builder: (context, state) => const StartupSider(role: 'startup'),
     ),
     GoRoute(
-      path: '/my_startups/:role',
+      path: '/my-startups',
       name: 'myStartups',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return MyStartups(role: role);
-      },
+      builder: (context, state) => const MyStartups(),
     ),
     GoRoute(
-      path: '/create_intro/:role',
-      name: 'createIntro',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return CreateIntro(role: role);
-      },
-    ),
-    GoRoute(
-      path: '/my_investors/:role',
+      path: '/my-investors',
       name: 'myInvestors',
-      builder: (context, state) {
-        final role = state.pathParameters['role']!;
-        return MyInvestors(role: role);
-      },
+      builder: (context, state) => const MyInvestors(),
+    ),
+    GoRoute(
+      path: '/add-startup',
+      name: 'addStartup',
+      builder: (context, state) => const AddStartup(),
+    ),
+    GoRoute(
+      path: '/create-intro',
+      name: 'createIntro',
+      builder: (context, state) => const CreateIntro(),
+    ),
+    // Delete account
+    GoRoute(
+      path: '/delete-account',
+      name: 'deleteAccount',
+      builder: (context, state) => const DeleteAccount(),
     ),
   ],
   errorBuilder: (context, state) => Scaffold(
@@ -194,9 +168,7 @@ final GoRouter appRouter = GoRouter(
     body: Center(
       child: Text(
         'Page not found: ${state.uri}',
-        style: const TextStyle(
-          color: Colors.white,
-        ),
+        style: const TextStyle(color: Colors.white),
       ),
     ),
   ),
