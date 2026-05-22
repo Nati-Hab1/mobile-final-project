@@ -1,7 +1,6 @@
 const { pool } = require('../config/db');
 
 const Intro = {
-  // Create intro
   async create(introData) {
     const { startup_id, investor_id, intro_text } = introData;
 
