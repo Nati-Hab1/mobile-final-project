@@ -15,6 +15,9 @@ class StartupDashboard extends ConsumerStatefulWidget {
 }
 
 class _StartupDashboardState extends ConsumerState<StartupDashboard> {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   @override
   void initState() {
     super.initState();
@@ -23,55 +26,68 @@ class _StartupDashboardState extends ConsumerState<StartupDashboard> {
     });
   }
 
+  Future<void> _onRefresh() async {
+    // Refresh stats with force refresh
+    await ref.read(startupStatsProvider.notifier).loadStats(forceRefresh: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     final statsAsync = ref.watch(startupStatsProvider);
 
     return Scaffold(
       appBar: const Header(role: 'startup'),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/background.png',
-              fit: BoxFit.cover,
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _onRefresh,
+        color: const Color(0xFF2952FF),
+        backgroundColor: Colors.white,
+        strokeWidth: 2.0,
+        child: Stack(
+          children: [
+            // Full-screen background
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/background.png',
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
 
-          // Content
-          SafeArea(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
+            // Content
+            SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const _HeroSection(),
+                          const SizedBox(height: 24),
+                          statsAsync.when(
+                            loading: () => const _LoadingStatsSection(),
+                            error: (error, stack) =>
+                                _ErrorStatsSection(error: error),
+                            data: (stats) => _StatsSection(stats: stats),
+                          ),
+                          const SizedBox(height: 24),
+                          const _ActionsSection(),
+                          const SizedBox(height: 24),
+                          const _LatestInterestsSection(),
+                          const SizedBox(height: 32),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const _HeroSection(),
-                        const SizedBox(height: 24),
-                        statsAsync.when(
-                          loading: () => const _LoadingStatsSection(),
-                          error: (error, stack) =>
-                              _ErrorStatsSection(error: error),
-                          data: (stats) => _StatsSection(stats: stats),
-                        ),
-                        const SizedBox(height: 24),
-                        const _ActionsSection(),
-                        const SizedBox(height: 24),
-                        const _LatestInterestsSection(),
-                        const SizedBox(height: 32),
-                      ],
-                    ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -218,7 +234,9 @@ class _ErrorStatsSection extends ConsumerWidget {
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
-                ref.read(startupStatsProvider.notifier).loadStats();
+                ref
+                    .read(startupStatsProvider.notifier)
+                    .loadStats(forceRefresh: true);
               },
               child: const Text('Retry'),
             ),
@@ -467,44 +485,33 @@ class _LatestInterestsSectionState
 
     try {
       final token = await SecureStorage.getStartupToken();
-      print('Token: ${token?.substring(0, 20)}...'); // DEBUG
-
       if (token == null) {
-        print('No token found!'); // DEBUG
         setState(() => _isLoading = false);
         return;
       }
 
       final response = await DioClient.get('/startups/latest-interests');
 
-      print('STATUS CODE: ${response.statusCode}'); // DEBUG
-      print('FULL RESPONSE: ${response.data}'); // DEBUG
-
       if (response.data['success'] == true) {
         final interests = response.data['data']['interests'] as List;
-        print('INTERESTS COUNT: ${interests.length}'); // DEBUG
 
         setState(() {
           _latestInterests = interests
-              .map((interest) => {
+              .map((interest) => ({
                     'investor_name': interest['investor_name'] ?? 'Unknown',
                     'investor_email': interest['investor_email'] ?? '',
                     'startup_title': interest['startup_title'] ?? '',
                     'status': interest['status'] ?? 'pending',
                     'created_at': interest['created_at'],
                     'message': interest['message'] ?? '',
-                  })
+                  }))
               .toList();
           _isLoading = false;
         });
-
-        print('MAPPED INTERESTS: $_latestInterests'); // DEBUG
       } else {
-        print('API ERROR: ${response.data['message']}'); // DEBUG
         setState(() => _isLoading = false);
       }
     } catch (e) {
-      print('EXCEPTION: $e'); // DEBUG
       setState(() => _isLoading = false);
     }
   }
@@ -575,7 +582,6 @@ class _LatestInterestsSectionState
                   startupName: item['startup_title'],
                   timeAgo: _formatTimeAgo(item['created_at']),
                   status: item['status'],
-                  message: item['message'],
                 ),
               ),
             ),
@@ -591,14 +597,12 @@ class _InterestCard extends StatelessWidget {
   final String startupName;
   final String timeAgo;
   final String status;
-  final String message; // Kept for data but not displayed
 
   const _InterestCard({
     required this.name,
     required this.startupName,
     required this.timeAgo,
     required this.status,
-    required this.message,
   });
 
   Color get _statusColor => switch (status.toLowerCase()) {
@@ -632,44 +636,51 @@ class _InterestCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            name,
-            style: const TextStyle(
-              color: Color(0xFF1A2151),
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  name,
+                  style: const TextStyle(
+                    color: Color(0xFF1A2151),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  color: _statusBgColor,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  status,
+                  style: TextStyle(
+                    color: _statusColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
           ),
-
           const SizedBox(height: 4),
-
           Text(
-            timeAgo,
+            'Interested in: $startupName',
             style: const TextStyle(
               color: Color(0xFF8A92A8),
               fontSize: 12,
             ),
           ),
-
-          const SizedBox(height: 14),
-
-          // Status badge below
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 6,
-            ),
-            decoration: BoxDecoration(
-              color: _statusBgColor,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              status,
-              style: TextStyle(
-                color: _statusColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
+          const SizedBox(height: 4),
+          Text(
+            timeAgo,
+            style: const TextStyle(
+              color: Color(0xFF8A92A8),
+              fontSize: 12,
             ),
           ),
         ],
