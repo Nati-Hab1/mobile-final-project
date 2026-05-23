@@ -4,7 +4,6 @@ import 'package:menesha/core/widgets/home/feature_card.dart';
 import 'package:menesha/core/widgets/common/app_footer.dart';
 import 'package:menesha/core/widgets/common/app_header.dart';
 
-/// Guest / unauthenticated home screen — route: /guest
 class GuestDashboard extends StatelessWidget {
   const GuestDashboard({super.key});
 
@@ -21,13 +20,11 @@ class GuestDashboard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          // Scrollable content on top
           SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context)
-                    .size
-                    .height,
+                minHeight:
+                    MediaQuery.of(context).size.height,
               ),
               child: IntrinsicHeight(
                 child: Column(
@@ -51,21 +48,16 @@ class GuestDashboard extends StatelessWidget {
   }
 }
 
-// ── Hero ──────────────────────────────────────────────────────────────────────
-
 class _HeroBody extends StatelessWidget {
   const _HeroBody();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          24, 40, 24, 52),
+      padding: const EdgeInsets.fromLTRB(24, 40, 24, 52),
       child: Column(
-        mainAxisAlignment:
-            MainAxisAlignment.center,
-        crossAxisAlignment:
-            CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipOval(
             child: Image.asset(
@@ -96,26 +88,20 @@ class _HeroBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 28),
-
-          // Sign Up + Log In buttons
           Row(
-            mainAxisAlignment:
-                MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 width: 110,
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: () =>
-                      context.go('/register'),
+                  onPressed: () => context.go('/register'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Color(0xFF2952FF),
+                    backgroundColor: Color(0xFF2952FF),
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius:
-                          BorderRadius.circular(
-                              8),
+                          BorderRadius.circular(8),
                     ),
                   ),
                   child: const Text(
@@ -133,16 +119,13 @@ class _HeroBody extends StatelessWidget {
                 width: 110,
                 height: 40,
                 child: OutlinedButton(
-                  onPressed: () =>
-                      context.go('/login'),
+                  onPressed: () => context.go('/login'),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(
-                        color: Colors.white70,
-                        width: 1.5),
+                        color: Colors.white70, width: 1.5),
                     shape: RoundedRectangleBorder(
                       borderRadius:
-                          BorderRadius.circular(
-                              8),
+                          BorderRadius.circular(8),
                     ),
                   ),
                   child: const Text(
@@ -163,16 +146,13 @@ class _HeroBody extends StatelessWidget {
   }
 }
 
-// ── Feature cards ─────────────────────────────────────────────────────────────
-
 class _FeatureSection extends StatelessWidget {
   const _FeatureSection();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: const [
           FeatureCard(
