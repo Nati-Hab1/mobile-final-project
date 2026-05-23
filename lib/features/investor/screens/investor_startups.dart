@@ -70,7 +70,6 @@ class _InvestorStartupsState
             'Not authenticated. Please login again.');
       }
 
-      // Get only intros received by this investor (startups that sent intros)
       final introsResponse =
           await DioClient.get(ApiConstants.myIntros);
 
@@ -78,7 +77,6 @@ class _InvestorStartupsState
         final intros =
             introsResponse.data['data']['intros'] as List;
 
-        // Extract unique startups from intros
         final uniqueStartups =
             <int, Map<String, dynamic>>{};
 
@@ -141,7 +139,6 @@ class _InvestorStartupsState
     final startupId = startup['id'];
     final wasBookmarked = startup['is_bookmarked'];
 
-    // Optimistic update
     setState(() {
       _startups[index]['is_bookmarked'] = !wasBookmarked;
       final filteredIndex = _filteredStartups
@@ -163,13 +160,11 @@ class _InvestorStartupsState
         throw Exception('Not authenticated');
 
       if (!wasBookmarked) {
-        // Add bookmark
         await DioClient.post(
           ApiConstants.investorBookmarks,
           data: {'startup_id': startupId},
         );
       } else {
-        // Remove bookmark - need to get bookmark ID first
         final bookmarksResponse = await DioClient.get(
             ApiConstants.investorBookmarks);
         if (bookmarksResponse.data['success'] == true) {
@@ -186,7 +181,6 @@ class _InvestorStartupsState
         }
       }
     } catch (e) {
-      // Revert on error
       setState(() {
         _startups[index]['is_bookmarked'] = wasBookmarked;
         final filteredIndex = _filteredStartups
@@ -218,12 +212,10 @@ class _InvestorStartupsState
       if (token == null)
         throw Exception('Not authenticated');
 
-      // Find the intro ID for this startup
       final startup =
           _startups.firstWhere((s) => s['id'] == startupId);
       final introId = startup['intro_id'];
 
-      // Update intro status to 'declined'
       final response = await DioClient.patch(
         '/intros/$introId/status',
         data: {'status': 'declined'},
