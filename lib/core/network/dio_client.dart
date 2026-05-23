@@ -20,6 +20,12 @@ class DioClient {
       headers: {
         ApiConstants.contentType: ApiConstants.applicationJson,
       },
+      // Custom validateStatus to NOT throw on 400
+      validateStatus: (status) {
+        // Don't throw for 400 - treat as success (silent failure)
+        // Throw for all other error status codes (500, 401, 403, etc.)
+        return status != null && (status < 400 || status == 400);
+      },
     ));
 
     // Add interceptors
@@ -41,7 +47,10 @@ class DioClient {
         options: options,
       );
     } on DioException catch (e) {
-      AppLogger.error('GET request failed: $path', e);
+      // Only log non-400 errors
+      if (e.response?.statusCode != 400) {
+        AppLogger.error('GET request failed: $path', e);
+      }
       rethrow;
     }
   }
@@ -60,7 +69,10 @@ class DioClient {
         options: options,
       );
     } on DioException catch (e) {
-      AppLogger.error('POST request failed: $path', e);
+      // Only log non-400 errors
+      if (e.response?.statusCode != 400) {
+        AppLogger.error('POST request failed: $path', e);
+      }
       rethrow;
     }
   }
@@ -79,7 +91,10 @@ class DioClient {
         options: options,
       );
     } on DioException catch (e) {
-      AppLogger.error('PUT request failed: $path', e);
+      // Only log non-400 errors
+      if (e.response?.statusCode != 400) {
+        AppLogger.error('PUT request failed: $path', e);
+      }
       rethrow;
     }
   }
@@ -98,7 +113,10 @@ class DioClient {
         options: options,
       );
     } on DioException catch (e) {
-      AppLogger.error('PATCH request failed: $path', e);
+      // Only log non-400 errors
+      if (e.response?.statusCode != 400) {
+        AppLogger.error('PATCH request failed: $path', e);
+      }
       rethrow;
     }
   }
@@ -117,7 +135,10 @@ class DioClient {
         options: options,
       );
     } on DioException catch (e) {
-      AppLogger.error('DELETE request failed: $path', e);
+      // Only log non-400 errors
+      if (e.response?.statusCode != 400) {
+        AppLogger.error('DELETE request failed: $path', e);
+      }
       rethrow;
     }
   }
