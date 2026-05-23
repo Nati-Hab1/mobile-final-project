@@ -6,7 +6,9 @@ class GetAllStartupsUseCase {
 
   GetAllStartupsUseCase(this._repository);
 
-  Future<List<InvestorStartup>> execute() async {
-    return await _repository.getAllStartups();
+  Future<List<InvestorStartup>> execute(
+      {bool forceRefresh = false}) async {
+    return await _repository.getAllStartups(
+        forceRefresh: forceRefresh);
   }
 }
