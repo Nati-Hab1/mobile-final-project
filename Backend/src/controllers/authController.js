@@ -122,19 +122,26 @@ const AuthController = {
   },
   
   // Logout
-  async logout(req, res, next) {
-    try {
-      const result = await AuthService.logout();
-      
-      res.status(200).json({
-        success: true,
-        message: result.message,
-        data: null
-      });
-    } catch (error) {
-      next(error);
+async logout(req, res, next) {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    if (token) {
+      // Invalidate session in database
+      await pool.query(
+        'DELETE FROM user_sessions WHERE token = $1',
+        [token]
+      );
     }
-  },
+    
+    res.status(200).json({
+      success: true,
+      message: 'Logged out successfully'
+    });
+  } catch (error) {
+    next(error);
+  }
+},
 
   async getAllUsers(req, res, next) {
   try {
