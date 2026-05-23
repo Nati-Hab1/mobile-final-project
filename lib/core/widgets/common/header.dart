@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class Header extends StatelessWidget
-    implements PreferredSizeWidget {
+class Header extends StatelessWidget implements PreferredSizeWidget {
   final String role;
 
   const Header({
@@ -11,7 +10,6 @@ class Header extends StatelessWidget
     this.additionalActions,
   });
 
-  /// Allows you to add extra widgets before the profile/menu if needed.
   final List<Widget>? additionalActions;
 
   @override
@@ -26,28 +24,22 @@ class Header extends StatelessWidget
         child: SizedBox(
           height: 52,
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
                 const Image(
-                  image: AssetImage(
-                      'assets/images/Menesha.jpg'),
+                  image: AssetImage('assets/images/Menesha.jpg'),
                   width: 30,
                   height: 30,
                 ),
                 const Spacer(),
-                if (additionalActions != null)
-                  ...additionalActions!,
-
-                // 3. Profile Image Action
+                if (additionalActions != null) ...additionalActions!,
                 GestureDetector(
-                  onTap: () => context.pushNamed(
-                      'profileSettings',
-                      pathParameters: {'role': 'investor'}),
+                  onTap: () {
+                    context.pushNamed('profileSettings', extra: {'role': role});
+                  },
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        21), // Circular clipping
+                    borderRadius: BorderRadius.circular(21),
                     child: Image.asset(
                       'assets/images/profile.png',
                       width: 42,
@@ -56,22 +48,14 @@ class Header extends StatelessWidget
                     ),
                   ),
                 ),
-
                 const SizedBox(width: 5),
 
-                // 4. Menu Action
                 GestureDetector(
                   onTap: () {
                     if (role == 'startup') {
-                      context.pushNamed('startupSider',
-                          pathParameters: {
-                            "role": "startup"
-                          });
+                      context.pushNamed('startupSider');
                     } else {
-                      context.pushNamed('investorSider',
-                          pathParameters: {
-                            "role": "investor"
-                          });
+                      context.pushNamed('investorSider');
                     }
                   },
                   child: const Icon(
@@ -80,7 +64,6 @@ class Header extends StatelessWidget
                     size: 27,
                   ),
                 ),
-
                 const SizedBox(width: 3),
               ],
             ),
