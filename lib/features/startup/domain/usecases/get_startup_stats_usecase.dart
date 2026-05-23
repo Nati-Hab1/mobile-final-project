@@ -5,7 +5,7 @@ class GetStartupStatsUseCase {
 
   GetStartupStatsUseCase(this._repository);
 
-  Future<Map<String, dynamic>> execute() async {
-    return await _repository.getDashboardStats();
+  Future<Map<String, dynamic>> execute({bool forceRefresh = false}) async {
+    return await _repository.getDashboardStats(forceRefresh: forceRefresh);
   }
 }
