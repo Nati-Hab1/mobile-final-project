@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:menesha/features/auth/presentation/providers/auth_provider.dart';
+import 'package:menesha/core/utils/secure_storage.dart';
 
-class StartupSider extends StatelessWidget {
+class StartupSider extends ConsumerStatefulWidget {
   final String role;
   final bool isRoleExpanded;
 
@@ -12,7 +15,29 @@ class StartupSider extends StatelessWidget {
   });
 
   @override
+  ConsumerState<StartupSider> createState() => _StartupSiderState();
+}
+
+class _StartupSiderState extends ConsumerState<StartupSider> {
+  bool _isLoading = false;
+  late bool _isRoleExpanded;
+
+  @override
+  void initState() {
+    super.initState();
+    _isRoleExpanded = widget.isRoleExpanded;
+  }
+
+  String _currentPath(BuildContext context) {
+    final config = GoRouter.of(context).routerDelegate.currentConfiguration;
+    return config.matches.last.matchedLocation;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final currentRole = widget.role;
+    final activePath = _currentPath(context);
+
     return Drawer(
       width: MediaQuery.of(context).size.width,
       backgroundColor: Colors.transparent,
@@ -24,15 +49,12 @@ class StartupSider extends StatelessWidget {
             child: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    'assets/images/background.png',
-                  ),
+                  image: AssetImage('assets/images/background.png'),
                   fit: BoxFit.cover,
                 ),
               ),
               child: Container(
-                color: const Color(0xFF5A6A9A)
-                    .withOpacity(0.2),
+                color: const Color(0xFF5A6A9A).withOpacity(0.2),
               ),
             ),
           ),
@@ -49,80 +71,42 @@ class StartupSider extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 16,
-                          bottom: 16,
-                          right: 16,
-                          left: 16,
-                        ),
+                        padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16, left: 16),
                         child: IconButton(
-                          icon: const Icon(
-                            Icons.cancel_outlined,
-                            color: Colors.black,
-                            size: 30,
-                          ),
+                          icon: const Icon(Icons.cancel_outlined, color: Colors.black, size: 30),
                           onPressed: () => context.pop(),
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 10),
 
                     // Navigation List
-                    _buildNavTile(
-                      context,
-                      Icons.home_outlined,
-                      'Home',
-                      '/home',
-                    ),
-
-                    _buildNavTile(
-                      context,
-                      Icons.grid_view_rounded,
-                      'Dashboard',
-                      '/startup_dashboard/$role',
-                    ),
-
-                    _buildNavTile(
-                      context,
-                      Icons.info_outline,
-                      'About Us',
-                      '/about_us/$role',
-                    ),
-
-                    _buildNavTile(
-                      context,
-                      Icons.phone_outlined,
-                      'Contact Us',
-                      '/contact_us/$role',
-                    ),
-
-                    _buildNavTile(
-                      context,
-                      Icons.description_outlined,
-                      'Terms Of Service',
-                      '/terms/$role',
-                    ),
+                    _buildNavTile(context, activePath,
+                        Icons.home_outlined, 'Home', '/home'),
+                    _buildNavTile(context, activePath,
+                        Icons.grid_view_rounded, 'Dashboard', '/startup-dashboard'),
+                    _buildNavTile(context, activePath,
+                        Icons.info_outline, 'About Us', '/about-us',
+                        extra: {'role': currentRole}),
+                    _buildNavTile(context, activePath,
+                        Icons.phone_outlined, 'Contact Us', '/contact-us',
+                        extra: {'role': currentRole}),
+                    _buildNavTile(context, activePath,
+                        Icons.description_outlined, 'Terms Of Service', '/terms',
+                        extra: {'role': currentRole}),
 
                     const Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10),
-                      child: Divider(
-                        color: Colors.black12,
-                        height: 30,
-                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Divider(color: Colors.black12, height: 30),
                     ),
 
-                    _buildExpandableRoleSection(context),
+                    _buildExpandableRoleSection(context, currentRole),
 
                     const Spacer(),
 
                     // Delete Button
                     Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 30,
-                        right: 20,
-                      ),
+                      padding: const EdgeInsets.only(bottom: 30, right: 20),
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: _buildDeleteButton(context),
@@ -140,42 +124,45 @@ class StartupSider extends StatelessWidget {
 
   Widget _buildNavTile(
     BuildContext context,
+    String activePath,
     IconData icon,
     String label,
-    String route,
-  ) {
+    String route, {
+    Map<String, dynamic>? extra,
+  }) {
+    final isActive = activePath == route;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: InkWell(
+        borderRadius: BorderRadius.circular(12),
         onTap: () {
-          context.push(route);
+          context.pop();
+          if (extra != null) {
+            context.go(route, extra: extra);
+          } else {
+            context.go(route);
+          }
         },
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 12,
-            vertical: 12,
-          ),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           decoration: BoxDecoration(
+            color: isActive ? const Color(0xFF2952FF) : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
             children: [
-              Icon(
-                icon,
-                color: Colors.black87,
-                size: 24,
-              ),
+              Icon(icon,
+                  color: isActive ? Colors.white : Colors.black87, size: 24),
               const SizedBox(width: 15),
               Expanded(
                 child: Text(
                   label,
-                  style: const TextStyle(
-                    color: Colors.black87,
+                  style: TextStyle(
+                    color: isActive ? Colors.white : Colors.black87,
                     fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
                   ),
                 ),
               ),
@@ -186,45 +173,37 @@ class StartupSider extends StatelessWidget {
     );
   }
 
-  Widget _buildExpandableRoleSection(BuildContext context) {
+  Widget _buildExpandableRoleSection(BuildContext context, String currentRole) {
     return Column(
       children: [
-        ListTile(
-          leading: const Icon(
-            Icons.cached,
-            color: Colors.black87,
-          ),
-          title: const Text(
-            'Switch Role',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+        InkWell(
+          onTap: () => setState(() => _isRoleExpanded = !_isRoleExpanded),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              children: [
+                const Icon(Icons.cached, color: Colors.black87),
+                const SizedBox(width: 14),
+                const Expanded(
+                  child: Text(
+                    'Switch Role',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ),
+                Icon(
+                  _isRoleExpanded ? Icons.expand_less : Icons.expand_more,
+                ),
+              ],
             ),
           ),
-          trailing: Icon(
-            isRoleExpanded
-                ? Icons.expand_less
-                : Icons.expand_more,
-          ),
         ),
-        if (isRoleExpanded) ...[
-          _buildSubTile(
-            context,
-            'Startup',
-            '/startup_dashboard/startup',
-          ),
-          _buildSubTile(
-            context,
-            'Investor',
-            '/investor_dashboard/investor',
-          ),
+        if (_isRoleExpanded) ...[
+          _buildSubTile(context, 'Startup', '/startup-dashboard', 'startup', currentRole),
+          _buildSubTile(context, 'Investor', '/investor-dashboard', 'investor', currentRole),
         ],
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Divider(
-            color: Colors.black12,
-            height: 30,
-          ),
+          child: Divider(color: Colors.black12, height: 30),
         ),
       ],
     );
@@ -234,24 +213,69 @@ class StartupSider extends StatelessWidget {
     BuildContext context,
     String label,
     String route,
+    String targetRole,
+    String currentRole,
   ) {
+    final isActive = targetRole == currentRole;
+
     return InkWell(
-      onTap: () {
-        context.go(route);
+      onTap: () async {
+        if (isActive) {
+          context.pop();
+          return;
+        }
+        setState(() => _isLoading = true);
+        try {
+          final token = await ref.read(authProvider.notifier).getRoleToken(targetRole);
+          if (targetRole == 'startup') {
+            await SecureStorage.saveStartupToken(token);
+          } else {
+            await SecureStorage.saveInvestorToken(token);
+          }
+          if (mounted) context.go(route);
+        } catch (e) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Failed to switch to $targetRole role: $e'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        } finally {
+          if (mounted) setState(() => _isLoading = false);
+        }
       },
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(
-          vertical: 8,
-          horizontal: 70,
-        ),
-        child: Text(
-          label,
-          style: const TextStyle(
-            color: Colors.black54,
-            fontWeight: FontWeight.normal,
-            fontSize: 16,
-          ),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 70),
+        child: Row(
+          children: [
+            if (_isLoading && !isActive)
+              const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            else
+              Container(
+                width: 8,
+                height: 8,
+                decoration: BoxDecoration(
+                  color: isActive ? const Color(0xFF2952FF) : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            const SizedBox(width: 12),
+            Text(
+              label,
+              style: TextStyle(
+                color: isActive ? const Color(0xFF2952FF) : Colors.black54,
+                fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                fontSize: 16,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -259,30 +283,17 @@ class StartupSider extends StatelessWidget {
 
   Widget _buildDeleteButton(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {
-        context.pushNamed('deleteAccount');
-      },
-      icon: const Icon(
-        Icons.person,
-        color: Colors.white,
-      ),
+      onPressed: _isLoading ? null : () => context.pushNamed('deleteAccount'),
+      icon: const Icon(Icons.person, color: Colors.white),
       label: const Text(
         'Delete',
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFFFF3B3B),
         foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 25,
-          vertical: 15,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
   }
