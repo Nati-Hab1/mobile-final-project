@@ -7,7 +7,6 @@ class GetAllStartupsUseCase {
   GetAllStartupsUseCase(this._repository);
 
   Future<List<InvestorStartup>> execute() async {
-    // Changed from Startup to InvestorStartup
     return await _repository.getAllStartups();
   }
 }
