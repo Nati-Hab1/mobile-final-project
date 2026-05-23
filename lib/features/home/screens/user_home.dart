@@ -4,7 +4,6 @@ import 'package:menesha/core/widgets/home/feature_card.dart';
 import 'package:menesha/core/widgets/common/app_footer.dart';
 import 'package:menesha/core/widgets/common/app_header.dart';
 
-/// Authenticated user home — route: /home
 class UserHome extends StatelessWidget {
   const UserHome({super.key});
 
@@ -57,14 +56,12 @@ class UserHome extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Background image behind everything
           Positioned.fill(
             child: Image.asset(
               'assets/images/background.png',
               fit: BoxFit.cover,
             ),
           ),
-          // Scrollable content on top
           SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
@@ -92,8 +89,6 @@ class UserHome extends StatelessWidget {
     );
   }
 }
-
-// ── Hero ──────────────────────────────────────────────────────────────────────
 
 class _HeroBody extends StatelessWidget {
   const _HeroBody();
@@ -141,8 +136,6 @@ class _HeroBody extends StatelessWidget {
     );
   }
 }
-
-// ── Feature cards ─────────────────────────────────────────────────────────────
 
 class _FeatureSection extends StatelessWidget {
   const _FeatureSection();
