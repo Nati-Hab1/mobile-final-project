@@ -1,72 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/header.dart';
+import 'package:menesha/features/auth/presentation/providers/auth_provider.dart';
 
-class Terms extends StatelessWidget {
-  const Terms({super.key, required this.role});
+class Terms extends ConsumerWidget {
   final String role;
 
+  const Terms({super.key, required this.role});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authProvider);
+    final userRole = role == 'startup' || role == 'investor' 
+        ? role 
+        : (authState.roles.isNotEmpty ? authState.roles.first : 'guest');
+
     return Scaffold(
-      appBar: (role == 'investor' || role == 'startup')
-          ? Header(role: role)
+      appBar: (userRole == 'investor' || userRole == 'startup')
+          ? Header(role: userRole)
           : AppBar(
               title: const Text("Terms of Service"),
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => context.pop(),
+              ),
             ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              "assets/images/background.png",
-            ),
+            image: AssetImage("assets/images/background.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Center(
           child: Column(
             children: [
-              (role == 'investor' || role == 'startup')
-                  ? Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton.icon(
-                        onPressed: () => {
-                          if (role == 'startup')
-                            {
-                              context.goNamed(
-                                "startupDashboard",
-                                pathParameters: {
-                                  'role': 'investor'
-                                },
-                              )
-                            }
-                          else
-                            {
-                              context.goNamed(
-                                "investorDashboard",
-                                pathParameters: {
-                                  'role': 'investor'
-                                },
-                              )
-                            }
-                        },
-                        icon: const Icon(
-                            Icons.arrow_back_ios,
-                            size: 16,
-                            color: Colors.white),
-                        label: const Text("Back",
-                            style: TextStyle(
-                                color: Colors.white)),
-                      ),
-                    )
-                  : const SizedBox(),
+              if (userRole == 'investor' || userRole == 'startup')
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: () {
+                      if (userRole == 'startup') {
+                        context.goNamed('startupDashboard');
+                      } else if (userRole == 'investor') {
+                        context.goNamed('investorDashboard');
+                      } else {
+                        context.pop();
+                      }
+                    },
+                    icon: const Icon(Icons.arrow_back_ios, size: 16, color: Colors.white),
+                    label: const Text("Back", style: TextStyle(color: Colors.white)),
+                  ),
+                ),
               const SizedBox(height: 25),
               const Text(
                 "Terms of Service",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 25, color: Colors.white),
               ),
               const SizedBox(height: 15),
               Container(
@@ -80,10 +71,7 @@ class Terms extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 2,
-                  ),
+                  border: Border.all(color: Colors.black, width: 2),
                 ),
                 child: const Text(
                   "By accessing or using Menesha, you agree to use the platform in a lawful, respectful, and responsible manner, and to ensure that all information you provide such as contacts, introductions, and notes is accurate and obtained with proper consent. You are fully responsible for maintaining the security of your account and any actions taken under it. Menesha provides tools to help streamline introductions, follow-ups, and investor management, but we do not guarantee communication outcomes, delivery of reminders, or the accuracy of insights generated by the system. We may update, modify, or discontinue features at any time as we improve the service. Menesha is not liable for data loss, missed opportunities, or damages resulting from how the platform is used. Continued use of the service indicates your acceptance of any updates to these terms, and if you do not agree, you should stop using Menesha immediately.",
