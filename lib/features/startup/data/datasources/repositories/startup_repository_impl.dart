@@ -10,26 +10,43 @@ class StartupRepositoryImpl implements StartupRepository {
 
   StartupRepositoryImpl(this._datasource);
 
+  // Helper method to invalidate cache
+  Future<void> _invalidateCache(String cacheKey) async {
+    await LocalDatabase.delete(
+      'cached_startups',
+      where: 'id = ?',
+      whereArgs: [cacheKey],
+    );
+    AppLogger.debug('Cache invalidated for: $cacheKey');
+  }
+
   @override
-  Future<List<Startup>> getAllStartups() async {
-    // Cache key for this request
+  Future<List<Startup>> getAllStartups({bool forceRefresh = false}) async {
     const cacheKey = 'all_startups';
 
-    try {
-      // 1. Try to get from cache first
-      final cachedData = await LocalDatabase.query(
-        'cached_startups',
-        where: 'id = ? AND expires_at > ?',
-        whereArgs: [cacheKey, DateTime.now().toIso8601String()],
-      );
+    // Skip cache if force refresh
+    if (forceRefresh) {
+      AppLogger.debug('Force refresh - skipping cache for: $cacheKey');
+      await _invalidateCache(cacheKey);
+    }
 
-      if (cachedData.isNotEmpty) {
-        AppLogger.debug('Returning cached startups');
-        final startupsJson = json.decode(cachedData.first['data']) as List;
-        return startupsJson.map((json) => Startup.fromJson(json)).toList();
+    try {
+      // 1. Try to get from cache first (skip if force refresh)
+      if (!forceRefresh) {
+        final cachedData = await LocalDatabase.query(
+          'cached_startups',
+          where: 'id = ? AND expires_at > ?',
+          whereArgs: [cacheKey, DateTime.now().toIso8601String()],
+        );
+
+        if (cachedData.isNotEmpty) {
+          AppLogger.debug('Returning cached startups');
+          final startupsJson = json.decode(cachedData.first['data']) as List;
+          return startupsJson.map((json) => Startup.fromJson(json)).toList();
+        }
       }
 
-      // 2. Cache miss - fetch from API
+      // 2. Cache miss or force refresh - fetch from API
       AppLogger.debug('Cache miss - fetching startups from API');
       final startups = await _datasource.getAllStartups();
 
@@ -64,22 +81,33 @@ class StartupRepositoryImpl implements StartupRepository {
   }
 
   @override
-  Future<Map<String, dynamic>> getDashboardStats() async {
+  Future<Map<String, dynamic>> getDashboardStats(
+      {bool forceRefresh = false}) async {
     const cacheKey = 'dashboard_stats';
 
-    try {
-      // 1. Try cache
-      final cachedData = await LocalDatabase.query(
-        'cached_startups',
-        where: 'id = ? AND expires_at > ?',
-        whereArgs: [cacheKey, DateTime.now().toIso8601String()],
-      );
+    // Skip cache if force refresh
+    if (forceRefresh) {
+      AppLogger.debug('Force refresh - skipping cache for: $cacheKey');
+      await _invalidateCache(cacheKey);
+    }
 
-      if (cachedData.isNotEmpty) {
-        return json.decode(cachedData.first['data']);
+    try {
+      // 1. Try cache (skip if force refresh)
+      if (!forceRefresh) {
+        final cachedData = await LocalDatabase.query(
+          'cached_startups',
+          where: 'id = ? AND expires_at > ?',
+          whereArgs: [cacheKey, DateTime.now().toIso8601String()],
+        );
+
+        if (cachedData.isNotEmpty) {
+          AppLogger.debug('Returning cached dashboard stats');
+          return json.decode(cachedData.first['data']);
+        }
       }
 
       // 2. Fetch from API
+      AppLogger.debug('Fetching dashboard stats from API');
       final stats = await _datasource.getDashboardStats();
 
       // 3. Save to cache
@@ -93,6 +121,8 @@ class StartupRepositoryImpl implements StartupRepository {
 
       return stats;
     } catch (e) {
+      AppLogger.error('Error fetching dashboard stats', e);
+
       // Fallback to expired cache
       final expiredCache = await LocalDatabase.query(
         'cached_startups',
@@ -101,21 +131,12 @@ class StartupRepositoryImpl implements StartupRepository {
       );
 
       if (expiredCache.isNotEmpty) {
+        AppLogger.warning('Using expired cache due to API error');
         return json.decode(expiredCache.first['data']);
       }
 
       rethrow;
     }
-  }
-
-  // Invalidate cache when data changes
-  Future<void> _invalidateCache(String cacheKey) async {
-    await LocalDatabase.delete(
-      'cached_startups',
-      where: 'id = ?',
-      whereArgs: [cacheKey],
-    );
-    AppLogger.debug('Cache invalidated for: $cacheKey');
   }
 
   @override
@@ -147,5 +168,11 @@ class StartupRepositoryImpl implements StartupRepository {
     // Invalidate caches
     await _invalidateCache('all_startups');
     await _invalidateCache('dashboard_stats');
+  }
+
+  @override
+  Future<Startup> getStartupById(int id) async {
+    // Implement if needed
+    throw UnimplementedError();
   }
 }
