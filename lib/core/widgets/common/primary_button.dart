@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Primary full-width action button used across the app.
 class PrimaryButton extends StatelessWidget {
   final String label;
   final VoidCallback? onPressed;
@@ -8,6 +7,7 @@ class PrimaryButton extends StatelessWidget {
   final double? width;
   final Color? backgroundColor;
   final Color? textColor;
+  final bool isLoading; 
 
   const PrimaryButton({
     super.key,
@@ -17,16 +17,19 @@ class PrimaryButton extends StatelessWidget {
     this.width,
     this.backgroundColor,
     this.textColor,
+    this.isLoading = false, 
   });
 
   @override
   Widget build(BuildContext context) {
+    final effectiveOnPressed = isLoading ? null : onPressed;
+
     if (isOutlined) {
       return SizedBox(
         width: width ?? double.infinity,
         height: 50,
         child: OutlinedButton(
-          onPressed: onPressed,
+          onPressed: effectiveOnPressed,
           style: OutlinedButton.styleFrom(
             side: const BorderSide(
               color: Color(0xFF2952FF),
@@ -38,15 +41,24 @@ class PrimaryButton extends StatelessWidget {
               ),
             ),
           ),
-          child: Text(
-            label,
-            style: TextStyle(
-              color:
-                  textColor ?? Color(0xFF2952FF),
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+
+          child: isLoading
+              ? SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    color: textColor ?? const Color(0xFF2952FF),
+                  ),
+                )
+              : Text(
+                  label,
+                  style: TextStyle(
+                    color: textColor ?? const Color(0xFF2952FF),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
         ),
       );
     }
@@ -55,12 +67,10 @@ class PrimaryButton extends StatelessWidget {
       width: width ?? double.infinity,
       height: 50,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: effectiveOnPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ??
-              Color(0xFF1A3CC8),
-          foregroundColor:
-              textColor ?? Colors.white,
+          backgroundColor: backgroundColor ?? const Color(0xFF1A3CC8),
+          foregroundColor: textColor ?? Colors.white,
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
@@ -68,14 +78,23 @@ class PrimaryButton extends StatelessWidget {
             ),
           ),
         ),
-        child: Text(
-          label,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.3,
-          ),
-        ),
+        child: isLoading
+            ? SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  color: textColor ?? Colors.white,
+                ),
+              )
+            : Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.3,
+                ),
+              ),
       ),
     );
   }

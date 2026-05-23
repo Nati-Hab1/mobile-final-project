@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'package:menesha/features/investor/domain/entities/interest.dart';
-
 import '../../../../../core/database/local_database.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../domain/entities/bookmark.dart';
+import '../../domain/entities/interest.dart';
 import '../../domain/entities/intro.dart';
 import '../../domain/entities/investor_stats.dart';
 import '../../domain/entities/startup.dart';
@@ -14,28 +13,6 @@ class InvestorRepositoryImpl implements InvestorRepository {
   final InvestorRemoteDatasource _datasource;
 
   InvestorRepositoryImpl(this._datasource);
-
-  // Add these methods to InvestorRepositoryImpl class
-
-  @override
-  Future<List<InvestorInterest>> getInterests() async {
-    return await _getCachedListData(
-      'interests',
-      (json) => InvestorInterest.fromJson(json),
-      () => _datasource.getInterests(),
-    );
-  }
-
-  @override
-  Future<InvestorInterest> expressInterest(int startupId,
-      {String? message}) async {
-    final interest =
-        await _datasource.expressInterest(startupId, message: message);
-    await _invalidateCache('interests');
-    await _invalidateCache('dashboard_stats');
-    return interest;
-  }
-
   // Helper methods for cache
   Future<void> _invalidateCache(String cacheKey) async {
     await LocalDatabase.delete(
@@ -51,18 +28,25 @@ class InvestorRepositoryImpl implements InvestorRepository {
     T Function(Map<String, dynamic>) fromJson,
     Future<T> Function() fetchFromApi, {
     Duration cacheDuration = const Duration(minutes: 5),
+    bool forceRefresh = false,
   }) async {
     try {
-      final cachedData = await LocalDatabase.query(
-        'cached_investor',
-        where: 'id = ? AND expires_at > ?',
-        whereArgs: [cacheKey, DateTime.now().toIso8601String()],
-      );
+      // Skip cache if force refresh
+      if (!forceRefresh) {
+        final cachedData = await LocalDatabase.query(
+          'cached_investor',
+          where: 'id = ? AND expires_at > ?',
+          whereArgs: [cacheKey, DateTime.now().toIso8601String()],
+        );
 
-      if (cachedData.isNotEmpty) {
-        AppLogger.debug('Returning cached data for: $cacheKey');
-        final data = json.decode(cachedData.first['data']);
-        return fromJson(data);
+        if (cachedData.isNotEmpty) {
+          AppLogger.debug('Returning cached data for: $cacheKey');
+          final data = json.decode(cachedData.first['data']);
+          return fromJson(data);
+        }
+      } else {
+        AppLogger.debug('Force refresh - skipping cache for: $cacheKey');
+        await _invalidateCache(cacheKey);
       }
 
       AppLogger.debug('Cache miss - fetching from API: $cacheKey');
@@ -100,34 +84,38 @@ class InvestorRepositoryImpl implements InvestorRepository {
     T Function(Map<String, dynamic>) fromJson,
     Future<List<T>> Function() fetchFromApi, {
     Duration cacheDuration = const Duration(minutes: 5),
+    bool forceRefresh = false,
   }) async {
     try {
-      final cachedData = await LocalDatabase.query(
-        'cached_investor',
-        where: 'id = ? AND expires_at > ?',
-        whereArgs: [cacheKey, DateTime.now().toIso8601String()],
-      );
+      // Skip cache if force refresh
+      if (!forceRefresh) {
+        final cachedData = await LocalDatabase.query(
+          'cached_investor',
+          where: 'id = ? AND expires_at > ?',
+          whereArgs: [cacheKey, DateTime.now().toIso8601String()],
+        );
 
-      if (cachedData.isNotEmpty) {
-        AppLogger.debug('Returning cached list for: $cacheKey');
-        final list = json.decode(cachedData.first['data']) as List;
-        return list.map((item) => fromJson(item)).toList();
+        if (cachedData.isNotEmpty) {
+          AppLogger.debug('Returning cached list for: $cacheKey');
+          final list = json.decode(cachedData.first['data']) as List;
+          return list.map((item) => fromJson(item)).toList();
+        }
+      } else {
+        AppLogger.debug('Force refresh - skipping cache for: $cacheKey');
+        await _invalidateCache(cacheKey);
       }
 
       AppLogger.debug('Cache miss - fetching list from API: $cacheKey');
       final freshData = await fetchFromApi();
 
-      // Fix: Use null-safe toJson by checking each item
+      // Convert each item to JSON
       final jsonList = freshData.map((item) {
-        // Check if item has toJson method
         if (item is Map) {
           return item;
         }
-        // Try to call toJson if it exists
         try {
           return (item as dynamic).toJson();
         } catch (e) {
-          // If toJson doesn't exist, convert the item itself
           return item;
         }
       }).toList();
@@ -160,39 +148,55 @@ class InvestorRepositoryImpl implements InvestorRepository {
   }
 
   @override
-  Future<InvestorStats> getDashboardStats() async {
+  Future<InvestorStats> getDashboardStats({bool forceRefresh = false}) async {
     return await _getCachedData(
       'dashboard_stats',
       (json) => InvestorStats.fromJson(json),
       () => _datasource.getDashboardStats(),
       cacheDuration: const Duration(minutes: 2),
+      forceRefresh: forceRefresh,
     );
   }
 
   @override
-  Future<List<InvestorStartup>> getAllStartups() async {
+  Future<List<InvestorStartup>> getAllStartups(
+      {bool forceRefresh = false}) async {
     return await _getCachedListData(
       'all_startups',
       (json) => InvestorStartup.fromJson(json),
       () => _datasource.getAllStartups(),
+      forceRefresh: forceRefresh,
     );
   }
 
   @override
-  Future<List<Bookmark>> getBookmarks() async {
+  Future<List<Bookmark>> getBookmarks({bool forceRefresh = false}) async {
     return await _getCachedListData(
       'bookmarks',
       (json) => Bookmark.fromJson(json),
       () => _datasource.getBookmarks(),
+      forceRefresh: forceRefresh,
     );
   }
 
   @override
-  Future<List<InvestorIntro>> getIntros() async {
+  Future<List<InvestorInterest>> getInterests(
+      {bool forceRefresh = false}) async {
+    return await _getCachedListData(
+      'interests',
+      (json) => InvestorInterest.fromJson(json),
+      () => _datasource.getInterests(),
+      forceRefresh: forceRefresh,
+    );
+  }
+
+  @override
+  Future<List<InvestorIntro>> getIntros({bool forceRefresh = false}) async {
     return await _getCachedListData(
       'intros',
       (json) => InvestorIntro.fromJson(json),
       () => _datasource.getIntros(),
+      forceRefresh: forceRefresh,
     );
   }
 
@@ -216,6 +220,16 @@ class InvestorRepositoryImpl implements InvestorRepository {
     final bookmark = await _datasource.updateBookmarkNote(bookmarkId, note);
     await _invalidateCache('bookmarks');
     return bookmark;
+  }
+
+  @override
+  Future<InvestorInterest> expressInterest(int startupId,
+      {String? message}) async {
+    final interest =
+        await _datasource.expressInterest(startupId, message: message);
+    await _invalidateCache('interests');
+    await _invalidateCache('dashboard_stats');
+    return interest;
   }
 
   @override

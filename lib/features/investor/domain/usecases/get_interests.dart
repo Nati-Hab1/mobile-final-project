@@ -6,7 +6,9 @@ class GetInterestsUseCase {
 
   GetInterestsUseCase(this._repository);
 
-  Future<List<InvestorInterest>> execute() async {
-    return await _repository.getInterests();
+  Future<List<InvestorInterest>> execute(
+      {bool forceRefresh = false}) async {
+    return await _repository.getInterests(
+        forceRefresh: forceRefresh);
   }
 }

@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class SuccessPopup extends StatelessWidget {
-  const SuccessPopup({super.key});
+  final VoidCallback? onClose;  
+  final String? message;
+  final String? buttonText;
+
+  const SuccessPopup({
+    super.key,
+    this.onClose,
+    this.message,
+    this.buttonText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +30,6 @@ class SuccessPopup extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // green check icon
             Container(
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
@@ -34,39 +42,31 @@ class SuccessPopup extends StatelessWidget {
                 size: 40,
               ),
             ),
-
             const SizedBox(height: 15),
-
-            const Text(
-              "Your Message Sent\nSuccessfully.",
+            Text(
+              message ?? "Your Message Sent\nSuccessfully.",
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 0, 38, 175),
               ),
             ),
-
             const SizedBox(height: 20),
-
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(
-                  255,
-                  61,
-                  61,
-                  180,
-                ),
+                backgroundColor: const Color.fromARGB(255, 61, 61, 180),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
               onPressed: () {
                 Navigator.pop(context);
+                onClose?.call(); 
               },
-              child: const Text(
-                "Continue",
-                style: TextStyle(color: Colors.white),
+              child: Text(
+                buttonText ?? "Continue",
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           ],

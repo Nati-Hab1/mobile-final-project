@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Fixed top header for the Guest (unauthenticated) screens.
-/// WHITE background, logo + optional action widgets on the right.
 class GuestHeader extends StatelessWidget
     implements PreferredSizeWidget {
   const GuestHeader({
@@ -9,7 +7,6 @@ class GuestHeader extends StatelessWidget
     this.actions,
   });
 
-  /// Optional widgets shown on the right side of the header (e.g. buttons).
   final List<Widget>? actions;
 
   @override

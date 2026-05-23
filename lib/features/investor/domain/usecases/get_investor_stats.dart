@@ -6,7 +6,9 @@ class GetInvestorStatsUseCase {
 
   GetInvestorStatsUseCase(this._repository);
 
-  Future<InvestorStats> execute() async {
-    return await _repository.getDashboardStats();
+  Future<InvestorStats> execute(
+      {bool forceRefresh = false}) async {
+    return await _repository.getDashboardStats(
+        forceRefresh: forceRefresh);
   }
 }

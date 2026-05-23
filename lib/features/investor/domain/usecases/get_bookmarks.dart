@@ -6,7 +6,9 @@ class GetBookmarksUseCase {
 
   GetBookmarksUseCase(this._repository);
 
-  Future<List<Bookmark>> execute() async {
-    return await _repository.getBookmarks();
+  Future<List<Bookmark>> execute(
+      {bool forceRefresh = false}) async {
+    return await _repository.getBookmarks(
+        forceRefresh: forceRefresh);
   }
 }

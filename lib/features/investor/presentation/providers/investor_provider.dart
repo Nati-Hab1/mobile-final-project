@@ -14,6 +14,7 @@ import '../../domain/usecases/get_intros.dart';
 import '../../domain/usecases/get_investor_stats.dart';
 import '../../domain/usecases/update_bookmark_note.dart';
 import 'investor_state.dart';
+import '../../../../../core/database/local_database.dart';
 
 // Datasource provider
 final investorRemoteDatasourceProvider =
@@ -95,15 +96,24 @@ class InvestorNotifier extends StateNotifier<InvestorDashboardState> {
         _getIntrosUseCase = getIntrosUseCase,
         super(InvestorDashboardState.initial());
 
-  Future<void> loadDashboard() async {
+  Future<void> loadDashboard({bool forceRefresh = false}) async {
+    if (forceRefresh) {
+      await LocalDatabase.delete('cached_investor',
+          where: 'id LIKE ?', whereArgs: ['%']);
+    }
+
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final stats = await _getStatsUseCase.execute();
-      final startups = await _getAllStartupsUseCase.execute();
-      final bookmarks = await _getBookmarksUseCase.execute();
-      final interests = await _getInterestsUseCase.execute();
-      final intros = await _getIntrosUseCase.execute();
+      final stats = await _getStatsUseCase.execute(forceRefresh: forceRefresh);
+      final startups =
+          await _getAllStartupsUseCase.execute(forceRefresh: forceRefresh);
+      final bookmarks =
+          await _getBookmarksUseCase.execute(forceRefresh: forceRefresh);
+      final interests =
+          await _getInterestsUseCase.execute(forceRefresh: forceRefresh);
+      final intros =
+          await _getIntrosUseCase.execute(forceRefresh: forceRefresh);
 
       state = state.copyWith(
         isLoading: false,

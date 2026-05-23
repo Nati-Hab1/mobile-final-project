@@ -14,12 +14,22 @@ class InvestorDashboard extends ConsumerStatefulWidget {
 
 class _InvestorDashboardState
     extends ConsumerState<InvestorDashboard> {
+  final GlobalKey<RefreshIndicatorState>
+      _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
   @override
   void initState() {
     super.initState();
     Future.microtask(() {
       ref.read(investorProvider.notifier).loadDashboard();
     });
+  }
+
+  Future<void> _onRefresh() async {
+    await ref
+        .read(investorProvider.notifier)
+        .loadDashboard(forceRefresh: true);
   }
 
   String _formatTimeAgo(String? dateTimeStr) {
@@ -47,6 +57,7 @@ class _InvestorDashboardState
     final state = ref.watch(investorProvider);
     final stats = state.stats;
 
+    // Show loading state
     if (state.isLoading && stats == null) {
       return Scaffold(
         appBar: const Header(role: 'investor'),
@@ -54,20 +65,17 @@ class _InvestorDashboardState
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/images/background.png',
-                fit: BoxFit.cover,
-              ),
+                  'assets/images/background.png',
+                  fit: BoxFit.cover),
             ),
-            SizedBox.expand(
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
+            const Center(
+                child: CircularProgressIndicator()),
           ],
         ),
       );
     }
 
+    // Show error state
     if (state.error != null) {
       return Scaffold(
         appBar: const Header(role: 'investor'),
@@ -96,7 +104,8 @@ class _InvestorDashboardState
                     onPressed: () {
                       ref
                           .read(investorProvider.notifier)
-                          .loadDashboard();
+                          .loadDashboard(
+                              forceRefresh: true);
                     },
                     child: const Text('Retry'),
                   ),
@@ -108,66 +117,78 @@ class _InvestorDashboardState
       );
     }
 
+    // Prepare latest intros (take first 2 from state.intros)
     final latestIntros = state.intros.take(2).toList();
 
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
       appBar: const Header(role: 'investor'),
-      body: Stack(
-        children: [
-          // Background Image
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/background.png',
-              fit: BoxFit.cover,
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _onRefresh,
+        color: const Color(0xFF2952FF),
+        backgroundColor: Colors.white,
+        child: Stack(
+          children: [
+            // Background Image
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/background.png',
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
 
-          SafeArea(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: constraints.maxHeight,
+            // Main Content
+            SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    physics:
+                        const AlwaysScrollableScrollPhysics(),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                        children: [
+                          const _HeroSection(),
+                          const SizedBox(height: 24),
+                          _StatsSection(
+                            totalIntros:
+                                stats?.totalIntros ?? 0,
+                            followUps:
+                                stats?.followUps ?? 0,
+                            startupsCount:
+                                stats?.startupsCount ?? 0,
+                            completedIntros:
+                                stats?.completedIntros ?? 0,
+                          ),
+                          const SizedBox(height: 24),
+                          const _ActionsSection(),
+                          const SizedBox(height: 24),
+                          _LatestIntrosSection(
+                            intros: latestIntros,
+                            formatTimeAgo: _formatTimeAgo,
+                          ),
+                          const SizedBox(height: 32),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
-                      children: [
-                        const _HeroSection(),
-                        const SizedBox(height: 24),
-                        _StatsSection(
-                          totalIntros:
-                              stats?.totalIntros ?? 0,
-                          followUps: stats?.followUps ?? 0,
-                          startupsCount:
-                              stats?.startupsCount ?? 0,
-                          completedIntros:
-                              stats?.completedIntros ?? 0,
-                        ),
-                        const SizedBox(height: 24),
-                        const _ActionsSection(),
-                        const SizedBox(height: 24),
-                        _LatestIntrosSection(
-                          intros: latestIntros,
-                          formatTimeAgo: _formatTimeAgo,
-                        ),
-                        const SizedBox(height: 32),
-                      ],
-                    ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
+
+// ── Hero Section ──────────────────────────────────────────────────────────────
 
 class _HeroSection extends StatelessWidget {
   const _HeroSection();
@@ -201,6 +222,8 @@ class _HeroSection extends StatelessWidget {
     );
   }
 }
+
+// ── Stats Grid ────────────────────────────────────────────────────────────────
 
 class _StatsSection extends StatelessWidget {
   final int totalIntros;
@@ -341,6 +364,8 @@ class _StatCard extends StatelessWidget {
   }
 }
 
+// ── Action Tiles ──────────────────────────────────────────────────────────────
+
 class _ActionsSection extends StatelessWidget {
   const _ActionsSection();
 
@@ -416,6 +441,8 @@ class _ActionTile extends StatelessWidget {
     );
   }
 }
+
+// ── Latest Intros Section ─────────────────────────────────────────────────────
 
 class _LatestIntrosSection extends StatelessWidget {
   final List<dynamic> intros;
