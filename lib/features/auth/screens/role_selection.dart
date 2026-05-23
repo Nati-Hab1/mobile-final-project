@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/primary_button.dart';
+import 'package:menesha/features/auth/presentation/providers/auth_provider.dart';
+import 'package:menesha/core/utils/secure_storage.dart';
 
 /// Role Selection screen shown after successful login/register.
 /// Lets the user pick Investor or Startup. — route: /role-selection
-class RoleSelectionScreen extends StatelessWidget {
+class RoleSelectionScreen extends ConsumerStatefulWidget {
   const RoleSelectionScreen({super.key});
 
   @override
+  ConsumerState<RoleSelectionScreen> createState() => _RoleSelectionScreenState();
+}
+
+class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
+  bool _isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authProvider);
+    
+    // Update local loading state
+    _isLoading = authState.isLoading;
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -22,16 +37,94 @@ class RoleSelectionScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: 32,
               ),
-              child: _RoleCard(),
+              child: _RoleCard(
+                onInvestorPressed: _handleInvestor,
+                onStartupPressed: _handleStartup,
+                isLoading: _isLoading,
+              ),
             ),
           ),
         ],
       ),
     );
   }
+
+  Future<void> _handleInvestor() async {
+    setState(() => _isLoading = true);
+    
+    try {
+      // Add investor role
+      await ref.read(authProvider.notifier).addRole('investor');
+      
+      // Get role-specific token
+      final token = await ref.read(authProvider.notifier).getRoleToken('investor');
+      
+      // Save investor token
+      await SecureStorage.saveInvestorToken(token);
+      
+      if (mounted) {
+        context.goNamed('investorDashboard');
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to add investor role: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  Future<void> _handleStartup() async {
+    setState(() => _isLoading = true);
+    
+    try {
+      // Add startup role
+      await ref.read(authProvider.notifier).addRole('startup');
+      
+      // Get role-specific token
+      final token = await ref.read(authProvider.notifier).getRoleToken('startup');
+      
+      // Save startup token
+      await SecureStorage.saveStartupToken(token);
+      
+      if (mounted) {
+        context.goNamed('startupDashboard');
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to add startup role: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
 }
 
 class _RoleCard extends StatelessWidget {
+  final VoidCallback onInvestorPressed;
+  final VoidCallback onStartupPressed;
+  final bool isLoading;
+
+  const _RoleCard({
+    required this.onInvestorPressed,
+    required this.onStartupPressed,
+    this.isLoading = false,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,10 +151,8 @@ class _RoleCard extends StatelessWidget {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: Color(0xFF4A5FA8).withOpacity(0.12),
-              borderRadius: BorderRadius.circular(
-                30,
-              ),
+              color: const Color(0xFF4A5FA8).withOpacity(0.12),
+              borderRadius: BorderRadius.circular(30),
             ),
             child: const Icon(
               Icons.people_outline,
@@ -98,20 +189,16 @@ class _RoleCard extends StatelessWidget {
           PrimaryButton(
             label: 'Investor',
             isOutlined: true,
-            onPressed: () {
-              context.pushNamed('investorDashboard',
-                  pathParameters: {'role': 'investor'});
-            },
+            isLoading: isLoading,
+            onPressed: onInvestorPressed,
           ),
           const SizedBox(height: 14),
 
           // Startup button (filled)
           PrimaryButton(
             label: 'Startup',
-            onPressed: () {
-              context.pushNamed('startupDashboard',
-                  pathParameters: {'role': 'startup'});
-            },
+            isLoading: isLoading,
+            onPressed: onStartupPressed,
           ),
         ],
       ),

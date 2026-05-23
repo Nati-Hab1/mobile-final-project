@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:menesha/core/widgets/common/header.dart';
+import 'package:menesha/features/auth/presentation/providers/auth_provider.dart';
 import '../../../core/widgets/common/app_footer.dart';
 
-class AboutUs extends StatelessWidget {
+class AboutUs extends ConsumerWidget {
   final String role;
 
   const AboutUs({super.key, required this.role});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bool showHeader = role == 'investor' || role == 'startup';
+
     return Scaffold(
-      appBar: (role == 'investor' || role == 'startup')
+      appBar: showHeader
           ? Header(role: role)
           : AppBar(
               title: const Text("About Us"),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => context.pop(),
+              ),
             ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-              "assets/images/background.png",
-            ),
+            image: AssetImage("assets/images/background.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -33,41 +41,23 @@ class AboutUs extends StatelessWidget {
                 style: const TextStyle(color: Colors.white),
                 child: Column(
                   children: [
-                    (role == 'investor' ||
-                            role == 'startup')
-                        ? Align(
-                            alignment: Alignment.centerLeft,
-                            child: TextButton.icon(
-                              onPressed: () => {
-                                if (role == 'startup')
-                                  {
-                                    context.goNamed(
-                                      "startupDashboard",
-                                      pathParameters: {
-                                        'role': role
-                                      },
-                                    )
-                                  }
-                                else
-                                  {
-                                    context.goNamed(
-                                      "investorDashboard",
-                                      pathParameters: {
-                                        'role': role
-                                      },
-                                    )
-                                  }
-                              },
-                              icon: const Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 16,
-                                  color: Colors.white),
-                              label: const Text("Back",
-                                  style: TextStyle(
-                                      color: Colors.white)),
-                            ),
-                          )
-                        : const SizedBox(),
+                    if (showHeader)
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextButton.icon(
+                          onPressed: () {
+                            if (role == 'startup') {
+                              context.goNamed('startupDashboard');
+                            } else if (role == 'investor') {
+                              context.goNamed('investorDashboard');
+                            } else {
+                              context.pop();
+                            }
+                          },
+                          icon: const Icon(Icons.arrow_back_ios, size: 16, color: Colors.white),
+                          label: const Text("Back", style: TextStyle(color: Colors.white)),
+                        ),
+                      ),
                     const SizedBox(height: 10),
                     const Text(
                       "About Us",
@@ -75,10 +65,7 @@ class AboutUs extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     Container(
-                      margin: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                      ),
+                      margin: const EdgeInsets.only(left: 20, right: 20),
                       child: const Text(
                         "We are a platform built to make meaningful connections simple, secure, and effortless. Our focus is on creating a smooth experience that helps people interact, collaborate, and get things done without unnecessary complexity. Every feature we design aims to save time, reduce friction, and empower users with tools that feel reliable and intuitive.",
                         style: TextStyle(fontSize: 15),
@@ -92,10 +79,7 @@ class AboutUs extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     Container(
-                      margin: const EdgeInsets.only(
-                        left: 20.0,
-                        right: 20.0,
-                      ),
+                      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                       child: const Text(
                         "Our purpose is to bridge gaps—between people, ideas, and opportunities. We exist to make communication easier by providing a trusted space where users can connect confidently and achieve what matters to them. Everything we do centers on improving clarity, convenience, and accessibility in everyday interactions.",
                         style: TextStyle(fontSize: 15),
@@ -109,26 +93,20 @@ class AboutUs extends StatelessWidget {
                     ),
                     const SizedBox(height: 25),
                     Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.center,
-                          crossAxisAlignment:
-                              CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image.asset(
                               "assets/icons/lock.png",
                               width: 40,
                               height: 40,
                             ),
-                            // Icon(Icons.lock, color: Colors.blue),
                             const Text(
                               "Privacy",
-                              style: TextStyle(
-                                fontSize: 25,
-                              ),
+                              style: TextStyle(fontSize: 25),
                             ),
                             const SizedBox(
                               width: 170,
@@ -141,19 +119,17 @@ class AboutUs extends StatelessWidget {
                         ),
                         const SizedBox(width: 10),
                         Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.center,
-                          crossAxisAlignment:
-                              CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image.asset(
                               "assets/icons/handshake.png",
+                              width: 40,
+                              height: 40,
                             ),
                             const Text(
-                              "Reliablility",
-                              style: TextStyle(
-                                fontSize: 25,
-                              ),
+                              "Reliability",
+                              style: TextStyle(fontSize: 25),
                             ),
                             const SizedBox(
                               width: 170,
@@ -168,26 +144,20 @@ class AboutUs extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     Row(
-                      mainAxisAlignment:
-                          MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.center,
-                          crossAxisAlignment:
-                              CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image.asset(
                               "assets/icons/simplicity.png",
                               width: 40,
                               height: 40,
                             ),
-                            // Icon(Icons.lock, color: Colors.blue),
                             const Text(
-                              "implicity",
-                              style: TextStyle(
-                                fontSize: 25,
-                              ),
+                              "Simplicity",
+                              style: TextStyle(fontSize: 25),
                             ),
                             const SizedBox(
                               width: 170,
@@ -200,19 +170,17 @@ class AboutUs extends StatelessWidget {
                         ),
                         const SizedBox(width: 10),
                         Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.center,
-                          crossAxisAlignment:
-                              CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image.asset(
                               "assets/icons/integrity.png",
+                              width: 40,
+                              height: 40,
                             ),
                             const Text(
                               "Integrity",
-                              style: TextStyle(
-                                fontSize: 25,
-                              ),
+                              style: TextStyle(fontSize: 25),
                             ),
                             const SizedBox(
                               width: 170,
