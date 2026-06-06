@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:menesha/core/routing/app_router.dart';
 
 void main() {
-  runApp(const MeneshaApp());
+  runApp(
+    const ProviderScope(
+      child: MeneshaApp(), // ← Use 'child:' parameter
+    ),
+  );
 }
 
 class MeneshaApp extends StatelessWidget {
@@ -17,4 +22,4 @@ class MeneshaApp extends StatelessWidget {
       routerConfig: appRouter,
     );
   }
-} 
+}
